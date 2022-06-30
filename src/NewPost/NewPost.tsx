@@ -33,13 +33,11 @@ import { PeachContext } from '../PeachContext';
 
 interface ComposerProps {
 	onSubmit: (messages: (TextMessage | ImageMessage)[]) => void;
-	darkMode: boolean;
 	toggleComposer: () => void;
 }
 
 const ComposerForm: React.FC<ComposerProps> = ({
 	onSubmit,
-	darkMode,
 	toggleComposer,
 }) => {
 	const postRef = useRef<HTMLTextAreaElement>(null);
@@ -86,10 +84,9 @@ const ComposerForm: React.FC<ComposerProps> = ({
 	};
 
 	return (
-		<Modal darkMode={darkMode} onKeyDown={() => toggleComposer()}>
-			<Header darkMode={darkMode}>Create a new post</Header>
+		<Modal onKeyDown={() => toggleComposer()}>
+			<Header>Create a new post</Header>
 			<TextArea
-				darkMode={darkMode}
 				ref={postRef}
 				placeholder="What's going on?"
 				onChange={e => setPostText(e.target.value)}
@@ -160,7 +157,7 @@ const NewPost = () => {
 	const [showToasty, setShowToasty] = useState<boolean>(false);
 	const [postSuccess, setPostSuccess] = useState<boolean>(false);
 	const [posting, setPosting] = useState<boolean>(false);
-	const { jwt, darkMode } = useContext(PeachContext);
+	const { jwt } = useContext(PeachContext);
 
 	const submitPost = (messages: (TextMessage | ImageMessage)[]) => {
 		if (messages.length < 1) return;
@@ -200,7 +197,6 @@ const NewPost = () => {
 			{showComposer ? (
 				<>
 					<ComposerForm
-						darkMode={darkMode}
 						onSubmit={submitPost}
 						toggleComposer={() => setShowComposer(false)}
 					/>

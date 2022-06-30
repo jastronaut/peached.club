@@ -29,19 +29,19 @@ export const NewPostButton = styled.div`
 	}
 `;
 
-export const TextArea = styled(OldInput)<{ darkMode: boolean }>`
+export const TextArea = styled(OldInput)`
 	margin-right: 0;
 	padding: 0.5rem;
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
-	color: ${props => (props.darkMode ? 'white' : '#262628')};
+	background: ${props => props.theme.background.secondary};
+	color: ${props => props.theme.text.primary};
 	font-size: 1rem;
 	margin-bottom: 1rem;
 `;
 
-export const Header = styled.h2<{ darkMode: boolean }>`
+export const Header = styled.h2`
 	margin-bottom: 1rem;
 	margin-top: 0;
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+	color: ${props => props.theme.text.primary};
 `;
 
 export const HiddenInput = styled.input`
@@ -100,6 +100,7 @@ export const Image = styled.div`
 	margin-top: 0.25rem;
 	overflow: hidden;
 	border-radius: 0.25rem;
+	cursor: pointer;
 	:hover > ${DeleteImage} {
 		visibility: visible;
 		cursor: pointer;

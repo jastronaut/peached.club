@@ -18,7 +18,6 @@ interface PreviewProps {
 	name: string;
 	displayName: string;
 	message: PostContent | string;
-	darkMode: boolean;
 	children?: React.ReactNode;
 	unread?: boolean;
 	createdTime: number | null;
@@ -26,7 +25,7 @@ interface PreviewProps {
 
 const Preview: React.FC<PreviewProps> = props => {
 	return (
-		<FeedPostWrapper darkMode={props.darkMode} isUnread={false}>
+		<FeedPostWrapper isUnread={false}>
 			<PicFrame>
 				{props.avatarSrc ? (
 					<ProfilePic

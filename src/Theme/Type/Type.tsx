@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const Title = styled.h1<{ darkMode: boolean }>`
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+export const Title = styled.h1`
+	color: ${props => (props.theme.text.primary)};
 	margin-left: 1rem;
 `;
 
-export const SubTitle = styled.h2<{ darkMode: boolean }>`
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+export const SubTitle = styled.h2`
+	color: ${props => (props.theme.text.primary)};
 	margin: 0 0 0.5rem;
 `;
 

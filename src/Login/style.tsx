@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
+
 export const Moat = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -9,29 +10,29 @@ export const Moat = styled.div`
 	height: 100%;
 `;
 
-export const Heading = styled.h1<{ darkMode: boolean }>`
+export const Heading = styled.h1`
 	margin: 0 0 1rem;
 	text-align: center;
-	${props => (props.darkMode ? 'color: white;' : '')}
+	color: ${props => props.theme.text.primary};
 `;
 
-export const Castle = styled.div<{ darkMode: boolean }>`
-	${props => (props.darkMode ? 'background: black;' : '')};
+export const Castle = styled.div`
+	background: ${props => props.theme.background.primary};
 
 	@media screen and (max-width: 800px) {
 		width: 70%;
 	}
 `;
 
-export const AuthInput = styled.input<{ darkMode: boolean }>`
+export const AuthInput = styled.input`
 	padding: 0.5rem 0.25rem;
 	display: block;
 	margin-bottom: 0.5rem;
 	border-radius: 5px;
-	border: ${props => (props.darkMode ? 'none' : '1px solid #cacaca')};
+	border: 1px solid ${props => props.theme.background.secondary};
 	font-size: 1rem;
 	width: 100%;
-	${props => (props.darkMode ? 'background: #262628; color: white;' : '')}
+	/* ${props => props.darkMode ? 'background: #262628; color: white;' : ''} */
 `;
 
 export const DangerTxt = styled.p`

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const SettingsWrapper = styled.div<{ darkMode: boolean }>`
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+export const SettingsWrapper = styled.div`
+	background: ${props => props.theme.background.primary};
+	color: ${props => props.theme.text.primary};
 	padding: 2rem 2.5rem;
 	height: 100%;
 	word-wrap: break-word;

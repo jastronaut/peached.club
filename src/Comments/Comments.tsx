@@ -31,7 +31,7 @@ const Comments: React.FC<CommentsProps> = ({
 	postAuthorAvatarSrc,
 	postAuthorId,
 }) => {
-	const { darkMode, peachFeed } = useContext(PeachContext);
+	const { peachFeed } = useContext(PeachContext);
 	const [newCommentText, setNewCommentText] = useState('');
 
 	const getAvatar = (id: string) => {
@@ -49,7 +49,7 @@ const Comments: React.FC<CommentsProps> = ({
 	};
 
 	return (
-		<Modal darkMode={darkMode} onKeyDown={tryDismissComments}>
+		<Modal onKeyDown={tryDismissComments}>
 			<AllComments>
 				{comments.map(c => (
 					<Comment
@@ -57,7 +57,6 @@ const Comments: React.FC<CommentsProps> = ({
 							peachFeed.filter(user => user.id === c.author.id)
 								.length > 0
 						}
-						darkMode={darkMode}
 						isRequester={
 							requester !== null && c.author.id === requester.id
 						}
@@ -70,7 +69,6 @@ const Comments: React.FC<CommentsProps> = ({
 				))}
 			</AllComments>
 			<AddComment
-				darkMode={darkMode}
 				onSubmit={updateComments}
 				newCommentText={newCommentText}
 				setNewCommentText={setNewCommentText}

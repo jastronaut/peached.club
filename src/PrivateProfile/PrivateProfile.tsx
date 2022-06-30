@@ -16,7 +16,7 @@ interface PrivateProfileProps {
 	avatarSrc: string;
 }
 
-const PrivateProfileContainer = styled.div<{ darkMode: boolean }>`
+const PrivateProfileContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -30,7 +30,7 @@ const PrivateProfileContainer = styled.div<{ darkMode: boolean }>`
 	}
 
 	> p {
-		${props => (props.darkMode ? 'color: white;' : '')}
+		color: ${props => props.theme.text.primary};
 		margin-bottom: 0.25rem;
 	}
 `;
@@ -51,7 +51,7 @@ const PrivateProfile: React.FC<PrivateProfileProps> = ({
 	user,
 	avatarSrc,
 }) => {
-	const { darkMode, jwt } = useContext(PeachContext);
+	const { jwt } = useContext(PeachContext);
 	const [requestSending, setRequestSending] = useState<boolean>(false);
 	const [hasMadeRequest, setHasMadeRequest] = useState<boolean>(false);
 	const [requestSuccess, setRequestSuccess] = useState<boolean>(false);
@@ -69,15 +69,10 @@ const PrivateProfile: React.FC<PrivateProfileProps> = ({
 		);
 	};
 	return (
-		<Modal
-			onKeyDown={onDismissPrivateProfile}
-			darkMode={darkMode}
-			isMini
-			noSpaceBetween
-		>
-			<PrivateProfileContainer darkMode={darkMode}>
+		<Modal onKeyDown={onDismissPrivateProfile} isMini noSpaceBetween>
+			<PrivateProfileContainer>
 				<AvatarPreview src={avatarSrc} alt='a profile pic' />
-				<Title darkMode={darkMode}>{user.displayName}</Title>
+				<Title>{user.displayName}</Title>
 				<Handle>@{user.name}</Handle>
 				<Bio>{user.bio}</Bio>
 				<Button

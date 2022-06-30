@@ -8,14 +8,12 @@ import { User } from '../api/interfaces';
 
 interface AddCommentProps {
 	onSubmit: (txt: string) => void;
-	darkMode: boolean;
 	newCommentText?: string;
 	setNewCommentText: Function;
 }
 
 const AddComment: React.FC<AddCommentProps> = ({
 	onSubmit,
-	darkMode,
 	newCommentText = '',
 	setNewCommentText,
 }) => {
@@ -69,12 +67,11 @@ const AddComment: React.FC<AddCommentProps> = ({
 	};
 
 	return (
-		<AddCommentContainer darkMode={darkMode}>
+		<AddCommentContainer>
 			{isDropdownShowing ? (
 				<Dropdown>
 					{nameSuggestions.map(u => (
 						<DropdownUserItem
-							darkMode={darkMode}
 							key={u.id}
 							username={u.name}
 							displayName={u.displayName}
@@ -85,7 +82,6 @@ const AddComment: React.FC<AddCommentProps> = ({
 				</Dropdown>
 			) : null}
 			<Input
-				darkMode={darkMode}
 				value={newCommentText}
 				onChange={e => setNewCommentText(e.target.value)}
 				placeholder='Write a comment...'

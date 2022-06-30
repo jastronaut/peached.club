@@ -48,15 +48,14 @@ export const InfoContainer = styled.div`
 
 interface FeedPostWrapperProps {
 	isUnread: boolean;
-	darkMode: boolean;
 }
 
 export const FeedPostWrapper = styled.div<FeedPostWrapperProps>`
 	border: 1px solid
 		${props =>
-			props.isUnread ? '#25d87a' : props.darkMode ? '#262628' : 'white'};
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+			props.isUnread ? '#25d87a' : props.theme.background.primary};
+	background: ${props => props.theme.background.primary};
+	color: ${props => props.theme.text.primary};
 
 	display: flex;
 	padding: 2rem 2.5rem;
@@ -67,8 +66,8 @@ export const FeedPostWrapper = styled.div<FeedPostWrapperProps>`
 	border-radius: 0.5rem;
 
 	:hover {
-		background: ${props => (props.darkMode ? '#cacaca50' : '#cacaca90')};
-		border-color: ${props => (props.darkMode ? '#cacaca50' : '#cacaca90')};
+		background: ${props => props.theme.background.hover};
+		border-color: ${props => props.theme.background.hover};
 		cursor: pointer;
 	}
 

@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LinkMessage } from '../../api/interfaces';
 
-import LinkIcon from './LinkIcon.svg';
-import LinkIconDarkMode from './LinkIconDarkMode.svg';
+import LinkIcon from './LinkIcon'
 import { Image } from '../style';
 
 export const LinkText = styled.a`
@@ -42,10 +41,7 @@ const LinkPost = (props: Props) => {
 	return (
 		<div>
 			<LinkText href={props.url}>
-				<img
-					src={props.darkMode ? LinkIconDarkMode : LinkIcon}
-					alt='Link'
-				/>{' '}
+				<LinkIcon />{' '}
 				{props.title}
 				<LinkInfo>
 					<i>{props.description}</i>

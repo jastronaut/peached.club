@@ -2,10 +2,8 @@ import React from 'react';
 import { ImageUploadButton, MagicPostActionsContainer } from './style';
 
 import ImageIcon from './ImageIcon';
-import ClockIconDarkMode from './ClockIconDarkMode.svg';
-import ClockIcon from './ClockIcon.svg';
-import CalendarIcon from './CalendarIcon.svg';
-import CalendarIconDarkMode from './CalendarIconDarkMode.svg';
+import ClockIcon from './ClockIcon';
+import CalendarIcon from './CalendarIcon';
 
 export const getCurrentTime = (currentPostLen: number) => {
 	const d = new Date();
@@ -26,7 +24,6 @@ type MagicPostActionsProps = {
 };
 
 export const MagicPostActions = (props: MagicPostActionsProps) => {
-	const darkMode = true;
 	return (
 		<MagicPostActionsContainer>
 			<ImageUploadButton>
@@ -42,27 +39,23 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 				/>
 			</ImageUploadButton>
 			<ImageUploadButton>
-				<img
+				<ClockIcon
 					onClick={() =>
 						props.setPostText(
 							postText =>
 								postText + getCurrentTime(postText.length)
 						)
 					}
-					src={darkMode ? ClockIconDarkMode : ClockIcon}
-					alt='Add current time'
 				/>
 			</ImageUploadButton>
 			<ImageUploadButton>
-				<img
+				<CalendarIcon
 					onClick={() =>
 						props.setPostText(
 							postText =>
 								postText + getCurrentDate(postText.length)
 						)
 					}
-					src={darkMode ? CalendarIconDarkMode : CalendarIcon}
-					alt='Add current date'
 				/>
 			</ImageUploadButton>
 		</MagicPostActionsContainer>

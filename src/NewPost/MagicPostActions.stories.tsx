@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import { MagicPostActions } from './MagicPostActions';
 
 import { darkTheme } from '../Theme/theme';
@@ -7,9 +7,10 @@ import styled, { ThemeProvider } from 'styled-components';
 
 const ResultBox = styled.div`
 	border: 2px solid red;
+	padding: 1rem;
 `;
 
-const MPAComponent = () => {
+export const MPAComponent = () => {
 	const [postText, setPostText] = useState('');
 
 	return (
@@ -25,6 +26,5 @@ const MPAComponent = () => {
 };
 
 export default {
-	title: 'components/MagicPostActions',
 	component: MPAComponent,
 } as ComponentMeta<typeof MPAComponent>;

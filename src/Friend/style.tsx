@@ -32,9 +32,9 @@ export const DeletePost = styled(MiniMenu)`
 	justify-content: flex-end;
 `;
 
-export const PostWrapper = styled.div<{ darkMode?: boolean }>`
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+export const PostWrapper = styled.div`
+	background: ${props => props.theme.background.primary};
+	color: ${props => props.theme.text.primary};
 	word-wrap: break-word;
 	padding: 2rem 3rem 0;
 	:last-child {
@@ -54,7 +54,7 @@ export const PostWrapper = styled.div<{ darkMode?: boolean }>`
 	}
 `;
 
-export const EmptyStateWrapper = styled(PostWrapper)<{ darkMode?: boolean }>`
+export const EmptyStateWrapper = styled(PostWrapper)`
 	height: 20%;
 	text-align: center;
 `;
@@ -80,7 +80,7 @@ export const InteractionInfo = styled.p`
 	margin-left: 0.5rem;
 `;
 
-export const InteractionArea = styled.div<{ darkMode: boolean }>`
+export const InteractionArea = styled.div`
 	display: inline-flex;
 	align-items: center;
 	padding: 0.5rem 0.5rem;
@@ -91,7 +91,7 @@ export const InteractionArea = styled.div<{ darkMode: boolean }>`
 	}
 	:hover {
 		cursor: pointer;
-		background: ${props => (props.darkMode ? '#cacaca30' : '#cacaca')};
+		background: ${props => props.theme.background.hover};
 	}
 	height: 0.8rem;
 `;
@@ -109,10 +109,10 @@ export const PostTime = styled.div`
  * profile header stuff
  */
 
-export const ProfileHeaderContainer = styled.div<{ darkMode: boolean }>`
+export const ProfileHeaderContainer = styled.div`
 	display: flex;
 	margin-bottom: 1rem;
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+	color: ${props => props.theme.text.primary};
 
 	@media screen and (max-width: 700px) {
 		margin: 3rem 1rem 1rem;

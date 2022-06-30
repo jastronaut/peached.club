@@ -44,14 +44,13 @@ const DisableBodyScroll = createGlobalStyle`
 `;
 
 type ModalContainerProps = {
-	darkMode: boolean;
 	isMini: boolean;
 	alignTop: boolean;
 	noSpaceBetween?: boolean;
 };
 
 export const ModalContainer = styled.div<ModalContainerProps>`
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
+	background: ${props => (props.theme.background.primary)};
 	margin: 0;
 	padding: 1rem 2rem;
 	width: ${props => (props.isMini ? '30%' : '50%')};
@@ -76,7 +75,6 @@ export const ModalContainer = styled.div<ModalContainerProps>`
 interface ModalProps {
 	children: React.ReactNode;
 	onKeyDown: () => void;
-	darkMode: boolean;
 	isMini?: boolean;
 	alignTop?: boolean;
 	noSpaceBetween?: boolean;
@@ -85,7 +83,6 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({
 	children,
 	onKeyDown,
-	darkMode,
 	isMini = false,
 	alignTop = false,
 	noSpaceBetween = false,
@@ -122,7 +119,6 @@ const Modal: React.FC<ModalProps> = ({
 					noSpaceBetween={noSpaceBetween}
 					alignTop={alignTop}
 					isMini={isMini}
-					darkMode={darkMode}
 					onClick={e => e.stopPropagation()}
 				>
 					{children}

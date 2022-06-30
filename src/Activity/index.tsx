@@ -93,7 +93,7 @@ export const Activity = () => {
 		<>
 			<Navigation />
 			<Page>
-				<Title darkMode={darkMode}>Activity</Title>
+				<Title>Activity</Title>
 				{activityFeed ? (
 					activityFeed.map((item: ActivityItem) => (
 						<Preview
@@ -102,7 +102,6 @@ export const Activity = () => {
 							displayName={item.body.authorStream.displayName}
 							name={item.body.authorStream.name}
 							id={item.body.authorStream.id}
-							darkMode={darkMode}
 							message={getActivityPreviewMessage(item)}
 							createdTime={item.createdTime}
 						>

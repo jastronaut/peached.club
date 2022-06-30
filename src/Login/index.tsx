@@ -24,7 +24,6 @@ export const Login = () => {
 	const [pw, setPw] = useState<string>('');
 	const [err, setErr] = useState<loginErrors>(loginErrors.OK);
 	const peachContext = useContext(PeachContext);
-	const darkMode = peachContext.darkMode;
 
 	useEffect(() => {
 		const peachedToken = localStorage.getItem('peachedToken');
@@ -97,18 +96,16 @@ export const Login = () => {
 
 	return (
 		<Moat>
-			<Castle darkMode={darkMode}>
-				<Heading darkMode={darkMode}>Login</Heading>
+			<Castle>
+				<Heading>Login</Heading>
 				<form onSubmit={onSubmit}>
 					<AuthInput
-						darkMode={darkMode}
 						onChange={e => setEmail(e.target.value)}
 						key='email'
 						type='text'
 						placeholder='email'
 					/>
 					<AuthInput
-						darkMode={darkMode}
 						onChange={e => setPw(e.target.value)}
 						key='password'
 						type='password'

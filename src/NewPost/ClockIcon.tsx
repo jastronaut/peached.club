@@ -6,19 +6,18 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
-			width={24}
-			height={24}
+			width='24px'
+			height='24px'
 			fill='none'
 			stroke={theme.text.primary}
 			strokeWidth={2}
 			strokeLinecap='round'
 			strokeLinejoin='round'
-			className='feather feather-image'
+			className='feather feather-clock'
 			{...props}
 		>
-			<rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
-			<circle cx={8.5} cy={8.5} r={1.5} />
-			<path d='m21 15-5-5L5 21' />
+			<circle cx={12} cy={12} r={10} />
+			<path d='M12 6v6l4 2' />
 		</svg>
 	);
 };

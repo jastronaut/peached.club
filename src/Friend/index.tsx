@@ -8,6 +8,7 @@ import Comments from '../Comments';
 
 import { DeletePrompt } from '../Comments/style';
 import DeleteIcon from '../Comments/DeleteIcon.svg';
+import LikeIcon from './LikeIcon';
 
 import NewPost from '../NewPost';
 
@@ -31,18 +32,10 @@ import {
 	Image,
 	InteractionInfo,
 	InteractionArea,
-	Avatar,
-	ProfileHeaderContainer,
-	ProfileHeaderText,
-	ProfileHeaderHandle,
 	EmptyStateWrapper,
 	PostTime,
 } from './style';
-import Liked from './Liked.svg';
-import Unliked from './Unliked.svg';
-import UnlikedDarkMode from './UnlikedDarkMode.svg';
-import CommentIcon from './CommentIcon.svg';
-import CommentIconDarkMode from './CommentIconDarkMode.svg';
+import CommentIcon from './CommentIcon';
 import Clock from '../Theme/Icons/Clock';
 import { PeachContext } from '../PeachContext';
 
@@ -50,6 +43,7 @@ import LocationPost from './Posts/LocationPost';
 import LinkPost from './Posts/LinkPost';
 
 import Navigation from '../Navigation';
+import { ProfileHeader } from './ProfileHeader';
 
 const addNewlines = (txt: string) =>
 	txt.indexOf('\n') < 0
@@ -60,13 +54,6 @@ const addNewlines = (txt: string) =>
 					<br />
 				</span>
 		  ));
-
-const LikeButton = (props: { liked: boolean; darkMode: boolean }) => (
-	<img
-		src={props.liked ? Liked : props.darkMode ? UnlikedDarkMode : Unliked}
-		alt='Like'
-	/>
-);
 
 interface FriendFeedProps extends Post {
 	deletePost: (id: string) => void;
@@ -104,7 +91,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				return <Image key={msgKey} src={obj.src} alt={`GIF`} />;
 			case POST_TYPE.LINK:
 				// @ts-ignore
-				return <LinkPost {...obj} darkMode={darkMode} />;
+				return <LinkPost {...obj} />;
 
 			case POST_TYPE.LOCATION:
 				// @ts-ignore
@@ -186,7 +173,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 	};
 
 	return (
-		<PostWrapper darkMode={darkMode}>
+		<PostWrapper>
 			<>
 				{curUserData.id === props.author ? (
 					<>
@@ -199,7 +186,6 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 						</DeletePost>
 						{deletePromptShowing ? (
 							<DeletePrompt
-								darkMode={darkMode}
 								onDelete={() => props.deletePost(props.id)}
 								onCancel={() => setDeletePromptShowing(false)}
 							>
@@ -211,26 +197,16 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				<FriendPostContent>{msgs}</FriendPostContent>
 			</>
 			<PostInteraction>
-				<InteractionArea
-					onClick={e => onClickLike()}
-					darkMode={darkMode}
-				>
-					<LikeButton liked={liked} darkMode={darkMode} />{' '}
+				<InteractionArea onClick={e => onClickLike()}>
+					<LikeIcon isLiked={liked} />{' '}
 					<InteractionInfo>{likeCount}</InteractionInfo>
 				</InteractionArea>
-				<InteractionArea
-					onClick={e => onClickComments()}
-					darkMode={darkMode}
-				>
-					<img
-						src={darkMode ? CommentIconDarkMode : CommentIcon}
-						alt='Comment'
-					/>
+				<InteractionArea onClick={e => onClickComments()}>
+					<CommentIcon />
 					<InteractionInfo>{comments.length}</InteractionInfo>
 				</InteractionArea>
 				<PostTime>
 					<Clock
-						darkMode={darkMode}
 						titleId={`post-${props.id}-posted-time`}
 						title='Posted time'
 					/>
@@ -255,14 +231,14 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 	);
 };
 
-const EmptyState = ({ darkMode }: { darkMode: boolean }) => (
-	<EmptyStateWrapper darkMode={darkMode}>
+const EmptyState = () => (
+	<EmptyStateWrapper>
 		<FriendPostContent>No posts yet!</FriendPostContent>
 	</EmptyStateWrapper>
 );
 
 export const FriendFeed = () => {
-	const { jwt, curUser, peachFeed, darkMode, curUserData } =
+	const { jwt, curUser, peachFeed, curUserData } =
 		useContext(PeachContext);
 	const [posts, setPosts] = useState<Post[]>([]);
 
@@ -366,24 +342,8 @@ export const FriendFeed = () => {
 			<Page>
 				{viewingUser && curUserData ? (
 					<>
-						<ProfileHeaderContainer darkMode={darkMode}>
-							<Avatar>
-								<img
-									src={
-										viewingUser.avatarSrc ||
-										'/defaultavatar.jpg'
-									}
-									alt={`${viewingUser.name}'s avatar`}
-								/>
-							</Avatar>
-							<ProfileHeaderText>
-								<h2>{viewingUser.displayName}</h2>
-								<ProfileHeaderHandle>
-									@{viewingUser.name}
-								</ProfileHeaderHandle>
-								<p>{viewingUser.bio}</p>
-							</ProfileHeaderText>
-						</ProfileHeaderContainer>
+						<ProfileHeader
+						 viewingUser={viewingUser} />
 						{!postsLoaded ? (
 							<Loading />
 						) : posts.length > 0 ? (
@@ -402,7 +362,7 @@ export const FriendFeed = () => {
 								))}
 							</div>
 						) : (
-							<EmptyState darkMode={darkMode} />
+							<EmptyState />
 						)}
 						{curUser !== null && curUser.id === id ? (
 							<NewPost />

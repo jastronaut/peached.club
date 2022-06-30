@@ -17,14 +17,8 @@ import { Title } from '../Theme/Type';
 
 export const Feed = () => {
 	const [connections, setConnections] = useState<User[] | null>(null);
-	const {
-		darkMode,
-		jwt,
-		setPeachFeed,
-		curUser,
-		curUserData,
-		setCurUserData,
-	} = useContext(PeachContext);
+	const { jwt, setPeachFeed, curUser, curUserData, setCurUserData } =
+		useContext(PeachContext);
 
 	const navigate = useNavigate();
 
@@ -78,13 +72,12 @@ export const Feed = () => {
 		<>
 			<Navigation />
 			<Page>
-				<Title darkMode={darkMode}>All Feeds</Title>
+				<Title>All Feeds</Title>
 				{connections ? (
 					connections.map(user => (
 						<LinkStyled key={user.id} to={`/friend/${user.id}`}>
 							<Preview
 								key={user.id}
-								darkMode={darkMode}
 								avatarSrc={user.avatarSrc}
 								displayName={user.displayName}
 								name={user.name}

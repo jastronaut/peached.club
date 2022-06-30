@@ -51,16 +51,11 @@ interface DeletePromptProps {
 	onDelete: () => void;
 	onCancel: () => void;
 	children: React.ReactNode;
-	darkMode: boolean;
 }
 
 export const DeletePrompt = (props: DeletePromptProps) => (
 	<ModalBackdrop entering>
-		<DeletePromptContainer
-			alignTop={false}
-			isMini={true}
-			darkMode={props.darkMode}
-		>
+		<DeletePromptContainer alignTop={false} isMini={true}>
 			{props.children}
 			<DeleteOptions>
 				<Button onClick={() => props.onDelete()}>Delete</Button>
@@ -108,16 +103,16 @@ const CommentText = styled.div`
 	}
 `;
 
-export const AddCommentContainer = styled.div<{ darkMode: boolean }>`
+export const AddCommentContainer = styled.div`
 	padding-bottom: 0;
 	width: 100%;
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
+	background: ${props => props.theme.background.primary};
 	flex: 0 1 auto;
 `;
 
-export const Input = styled.textarea<{ darkMode: boolean }>`
-	background: ${props => (props.darkMode ? '#262628' : 'white')};
-	color: ${props => (props.darkMode ? 'white' : 'black')};
+export const Input = styled.textarea`
+	background: ${props => props.theme.background.primary};
+	color: ${props => props.theme.text.primary};
 	flex: 9;
 	resize: none;
 	border-radius: 0.5rem;
@@ -239,11 +234,11 @@ const HandleStyled = styled(Handle)`
 	}
 `;
 
-const AuthorName = styled(HandleStyled)<{ darkMode: boolean }>`
+const AuthorName = styled(HandleStyled)`
 	font-weight: bold;
 	margin-bottom: 0.25rem;
 	@media screen and (max-width: 700px) {
-		color: ${props => (props.darkMode ? 'white' : 'black')};
+		color: ${props => props.theme.text.primary};
 	}
 `;
 
@@ -251,7 +246,6 @@ interface CommentProps extends PostCommentProps {
 	avatarSrc: string;
 	isRequester: boolean;
 	deleteComment: (id: string) => void;
-	darkMode: boolean;
 	isFriend: boolean;
 	mutualFriends: MutualFriend[];
 }
@@ -279,9 +273,7 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 	);
 	const Name = (
 		<>
-			<AuthorName darkMode={props.darkMode}>
-				{props.author.displayName}
-			</AuthorName>
+			<AuthorName>{props.author.displayName}</AuthorName>
 			<HandleStyled>@{props.author.name}</HandleStyled>
 		</>
 	);
@@ -323,7 +315,6 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 					</MiniMenu>
 					{deletePromptShowing ? (
 						<DeletePrompt
-							darkMode={props.darkMode}
 							onDelete={() => props.deleteComment(props.id)}
 							onCancel={() => setDeletePromptShowing(false)}
 						>

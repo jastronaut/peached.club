@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import Navigation from '../Navigation';
 import { MiniLoader } from '../Loading';
 import { PeachContext } from '../PeachContext';
@@ -87,12 +88,10 @@ const Settings = () => {
 		<>
 			<Navigation />
 			<Page>
-				<Title darkMode={darkMode}>Settings</Title>
-				<SettingsWrapper darkMode={darkMode}>
+				<Title>Settings</Title>
+				<SettingsWrapper>
 					<SettingsSection>
-						<SubTitle darkMode={darkMode}>
-							Customize app appearance
-						</SubTitle>
+						<SubTitle>Customize app appearance</SubTitle>
 
 						<Button
 							onClick={() => toggleDarkMode()}
@@ -104,9 +103,7 @@ const Settings = () => {
 						</Button>
 					</SettingsSection>
 					<SettingsSection>
-						<SubTitle darkMode={darkMode}>
-							Change your identity
-						</SubTitle>
+						<SubTitle>Change your identity</SubTitle>
 						<Fieldset>
 							<Label htmlFor='displayName'>
 								Change display name
@@ -175,9 +172,7 @@ const Settings = () => {
 							</Link>
 						</LogoutButtonWrapper>
 						<SettingsSection>
-							<SubTitle darkMode={darkMode}>
-								Help or suggestions?
-							</SubTitle>
+							<SubTitle>Help or suggestions?</SubTitle>
 							<p>
 								Contact @jastronaute on{' '}
 								<LinkText

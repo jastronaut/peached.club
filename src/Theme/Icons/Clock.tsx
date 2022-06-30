@@ -1,16 +1,16 @@
 import React from 'react';
+import { useTheme } from 'styled-components';
 
 interface IconProps {
-	darkMode: boolean;
 	title: string;
 	titleId: string;
 }
 
 function Clock({
-	darkMode,
 	title,
 	titleId,
 }: React.SVGProps<SVGSVGElement> & IconProps) {
+	const theme = useTheme();
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
@@ -18,7 +18,7 @@ function Clock({
 			height={24}
 			viewBox='0 0 24 24'
 			fill='none'
-			stroke={darkMode ? '#ffffff' : '#000000'}
+			stroke={theme.text.primary}
 			strokeWidth={2}
 			strokeLinecap='round'
 			strokeLinejoin='round'

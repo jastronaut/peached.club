@@ -56,7 +56,7 @@ const Navigation: React.FC<NavigationProps> = ({
 				<>
 					{showLeftArrow ? (
 						<RouterLink to={`/friend/${prevUser}`}>
-							<FeedsNav darkMode={darkMode}>
+							<FeedsNav>
 								<img
 									src={
 										darkMode ? ArrowLeftDarkMode : ArrowLeft
@@ -68,7 +68,7 @@ const Navigation: React.FC<NavigationProps> = ({
 					) : null}
 					{showRightArrow ? (
 						<RouterLink to={`/friend/${nextUser}`}>
-							<FeedsNav darkMode={darkMode} right>
+							<FeedsNav right>
 								<img
 									src={
 										darkMode
@@ -83,7 +83,7 @@ const Navigation: React.FC<NavigationProps> = ({
 				</>
 			) : null}
 
-			<NavWrap darkMode={darkMode}>
+			<NavWrap>
 				<Nav>
 					<Link>
 						<RouterLink to='/feed'>
