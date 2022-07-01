@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { rem } from 'polished';
 
 const ButtonLink = styled.a<{ centered?: boolean }>`
 	text-decoration: none;
@@ -27,12 +28,10 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 		props.disabled ? '#cacaca' : props.color || '#fe4f72'};
 	border: 1px solid
 		${props => (props.disabled ? '#cacaca' : props.color || '#fe4f72')};
-	padding: 0.5rem 1rem;
-	padding: ${props => (props.isSmall ? '0.25rem 0.5rem' : '0.5rem 1rem')};
-	border-radius: 0.25rem;
+	padding: ${rem(10)};
+	border-radius: ${rem(6)};
 	text-align: center;
 	color: white;
-	font-size: ${props => (props.lg ? '1.1rem' : '1rem')};
 	:hover {
 		background: ${props =>
 			props.disabled

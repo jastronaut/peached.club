@@ -112,6 +112,7 @@ export const PostTime = styled.div`
 export const ProfileHeaderContainer = styled.div`
 	display: flex;
 	margin-bottom: 1rem;
+	background: ${props => props.theme.background.primary};
 	color: ${props => props.theme.text.primary};
 
 	@media screen and (max-width: 700px) {
@@ -133,8 +134,8 @@ export const Avatar = styled.div`
 
 export const ProfileHeaderHandle = styled.p`
 	margin-top: 0;
-	margin-bottom: 1rem;
-	color: #cacaca;
+	margin-bottom: 0.25rem;
+	color: ${props => props.theme.text.muted};
 `;
 
 export const ProfileHeaderText = styled.div`

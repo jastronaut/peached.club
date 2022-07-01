@@ -1,38 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
+import { rem } from 'polished';
 
-export const Moat = styled.div`
+export const Page = styled.div`
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+`;
+
+export const Heading = styled.h1`
+	font-weight: 900;
+	text-align: center;
+	letter-spacing: -${rem(0.75)};
+	color: ${props => props.theme.text.primary};
+`;
+
+export const Container = styled.div`
+	background: ${props => props.theme.background.primary};
 	display: flex;
 	flex-direction: column;
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
-`;
-
-export const Heading = styled.h1`
-	margin: 0 0 1rem;
-	text-align: center;
-	color: ${props => props.theme.text.primary};
-`;
-
-export const Castle = styled.div`
-	background: ${props => props.theme.background.primary};
-
-	@media screen and (max-width: 800px) {
+	width: 25%;
+	padding: ${rem(60)};
+	@media screen and (max-width: 900px) {
 		width: 70%;
+		padding: ${rem(40)};
 	}
 `;
 
 export const AuthInput = styled.input`
-	padding: 0.5rem 0.25rem;
+	padding: ${rem(5)} ${rem(3)};
 	display: block;
-	margin-bottom: 0.5rem;
-	border-radius: 5px;
-	border: 1px solid ${props => props.theme.background.secondary};
-	font-size: 1rem;
-	width: 100%;
-	/* ${props => props.darkMode ? 'background: #262628; color: white;' : ''} */
+	margin: 0 0;
+	font-size: ${rem(16)};
+	margin-bottom: ${rem(5)};
+	border-radius: ${rem(3)};
+	border: ${rem(1)} solid ${props => props.theme.background.hover};
+	width: 90%;
+	color: ${props => props.theme.text.primary};
+	background-color: ${props => props.theme.background.secondary};
+	outline-style: none;
 `;
 
 export const DangerTxt = styled.p`
@@ -60,12 +72,14 @@ const ButtonStyle = styled.button<{ color?: string; lg?: boolean }>`
 	text-align: center;
 	color: white;
 	font-size: ${props => (props.lg ? '1.1rem' : '1rem')};
+	cursor: pointer;
+	transition: 0.25s all ease;
+	margin-top: 0.5rem;
+
 	:hover {
 		background: #e197a4;
 		border-color: #e197a4;
 	}
-	transition: 0.25s all ease;
-	margin-top: 0.5rem;
 `;
 
 interface ButtonProps {

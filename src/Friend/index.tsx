@@ -55,7 +55,7 @@ const addNewlines = (txt: string) =>
 				</span>
 		  ));
 
-interface FriendFeedProps extends Post {
+export interface FriendFeedProps extends Post {
 	deletePost: (id: string) => void;
 	author: string;
 	otherFriends: MutualFriend[];

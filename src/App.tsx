@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
+import { PeachContext } from './PeachContext';
+import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
+import {
+	STORAGE_IS_DARK_MODE,
+	STORAGE_TOKEN_KEY,
+	STORAGE_USER_KEY,
+} from './constants';
+
 import { Login } from './Login';
 import { Logout } from './Login/Logout';
 import { Feed } from './Feed';
 import { FriendFeed } from './Friend';
 import { Activity } from './Activity';
-import Settings from './Settings';
-
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import { GlobalStyle } from './style';
-import { PeachContext } from './PeachContext';
-import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
-import { ThemeProvider } from 'styled-components';
+import { Settings } from './Settings';
 import { darkTheme, lightTheme } from './Theme/theme';
+import { GlobalStyle } from './style';
 
 function getUserFromStorage() {
-	const user = localStorage.getItem('user');
+	const user = localStorage.getItem(STORAGE_USER_KEY);
 	if (user) {
 		return JSON.parse(user);
 	} else {
@@ -23,8 +29,8 @@ function getUserFromStorage() {
 }
 
 const App: React.FC = () => {
-	const [newJwt, setNewJwt] = useState<string>(
-		localStorage.getItem('peachedToken') || ''
+	const [jwt, setJwt] = useState<string>(
+		localStorage.getItem(STORAGE_TOKEN_KEY) || ''
 	);
 
 	const [peachFeed, setPeachFeed] = useState<User[]>([]);
@@ -33,21 +39,9 @@ const App: React.FC = () => {
 	);
 	const [curFeedIndex, setCurFeedIndex] = useState<number>(0);
 	const [darkMode, setDarkMode] = useState<boolean>(
-		localStorage.getItem('peachedDarkMode') === 'true'
+		localStorage.getItem(STORAGE_IS_DARK_MODE) === 'true'
 	);
 	const [curUserData, setCurUserData] = useState<CurUser>(DummyCurUser);
-
-	const updateJwt = (newJwt: string) => {
-		setNewJwt(newJwt);
-	};
-
-	const updatePeachFeed = (newPeachFeed: User[]) => {
-		setPeachFeed(newPeachFeed);
-	};
-
-	const updateCurUser = (newUser: LoginStream) => {
-		setCurUser(newUser);
-	};
 
 	const updateCurFeedIndex = (newIndex: number) => {
 		if (!peachFeed) {
@@ -66,8 +60,7 @@ const App: React.FC = () => {
 
 	const toggleDarkMode = () => {
 		setDarkMode(darkMode => {
-			if (darkMode) localStorage.setItem('peachedDarkMode', 'false');
-			else localStorage.setItem('peachedDarkMode', 'true');
+			localStorage.setItem(STORAGE_IS_DARK_MODE, darkMode ? 'true' : 'false');
 			return !darkMode;
 		});
 	};
@@ -76,37 +69,41 @@ const App: React.FC = () => {
 		<BrowserRouter>
 			<PeachContext.Provider
 				value={{
-					jwt: newJwt,
-					setJwt: updateJwt,
-					peachFeed: peachFeed,
-					setPeachFeed: updatePeachFeed,
-					curUser: curUser,
-					setCurUser: updateCurUser,
-					curFeedIndex: curFeedIndex,
+					jwt,
+					setJwt,
+					peachFeed,
+					setPeachFeed,
+					curUser,
+					setCurUser,
+					curFeedIndex,
 					setCurFeedIndex: updateCurFeedIndex,
-					darkMode: darkMode,
-					toggleDarkMode: toggleDarkMode,
-					curUserData: curUserData,
-					setCurUserData: setCurUserData,
+					darkMode,
+					toggleDarkMode,
+					curUserData,
+					setCurUserData,
 				}}
 			>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<GlobalStyle darkMode={darkMode} />
-					<Routes>
-						<Route path='/' element={<Feed />} />
-						<Route path='/login' element={<Login />} />
-						<Route path='/feed' element={<Feed />} />
-						<Route path='/friend'>
-							<Route path=':id' element={<FriendFeed />} />
-						</Route>
-						<Route path='/activity' element={<Activity />} />
-						<Route path='/settings' element={<Settings />} />
-						<Route path='/logout' element={<Logout />} />
-					</Routes>
+					<PeachRoutes />
 				</ThemeProvider>
 			</PeachContext.Provider>
 		</BrowserRouter>
 	);
 };
+
+const PeachRoutes = () => (
+	<Routes>
+		<Route path='/' element={<Feed />} />
+		<Route path='/login' element={<Login />} />
+		<Route path='/feed' element={<Feed />} />
+		<Route path='/friend'>
+			<Route path=':id' element={<FriendFeed />} />
+		</Route>
+		<Route path='/activity' element={<Activity />} />
+		<Route path='/settings' element={<Settings />} />
+		<Route path='/logout' element={<Logout />} />
+	</Routes>
+);
 
 export default App;

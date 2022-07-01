@@ -94,7 +94,7 @@ export const UploadedImage = styled.img`
 	}
 `;
 
-export const Image = styled.div`
+export const ImageWrapper = styled.div`
 	flex-basis: 20%;
 	margin-right: 1rem;
 	margin-top: 0.25rem;

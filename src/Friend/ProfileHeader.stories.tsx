@@ -3,22 +3,32 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ProfileHeader } from './ProfileHeader';
 import { POST_TYPE } from '../api/interfaces';
+import { Page } from '../Theme/Layout';
 
-import { darkTheme } from '../Theme/theme';
+import { darkTheme, lightTheme } from '../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
 export default {
   title: 'Friend/ProfileHeader',
   component: ProfileHeader,
+	argTypes: {
+		variant: {
+			options: ['light', 'dark'],
+			control: { type: 'radio' },
+		},
+	},
 } as ComponentMeta<typeof ProfileHeader>;
 
-const Template: ComponentStory<typeof ProfileHeader> = (args) => (
+const Template: ComponentStory<typeof ProfileHeader> = ({variant, ...rest}) => { return(
 
-		<ThemeProvider theme={darkTheme}>
-<ProfileHeader {...args} /> </ThemeProvider>);
+		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+			<Page>
+<ProfileHeader {...rest} /></Page> </ThemeProvider>);
+}
 
 export const Primary = Template.bind({});
 Primary.args = {
+	variant: 'dark',
 	viewingUser: {
 	id: '1235',
 	name: 'futuresounds',

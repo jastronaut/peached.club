@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { rem } from 'polished';
 
 type ModalBackdropProps = {
 	entering: boolean;
@@ -50,14 +51,14 @@ type ModalContainerProps = {
 };
 
 export const ModalContainer = styled.div<ModalContainerProps>`
-	background: ${props => (props.theme.background.primary)};
+	background: ${props => props.theme.background.primary};
 	margin: 0;
 	padding: 1rem 2rem;
 	width: ${props => (props.isMini ? '30%' : '50%')};
 	height: ${props => (props.isMini ? '40%' : '60%')};
 	max-height: 80%;
 	overflow: scroll;
-	border-radius: 0.5rem;
+	border-radius: ${rem(6)};
 	@media screen and (max-width: 800px) {
 		width: ${props => (props.isMini ? '50%' : '70%')};
 	}
