@@ -132,4 +132,8 @@ export const ImageUploadButton = styled.div`
 export const MagicPostActionsContainer = styled.div`
 	overflow: hidden;
 	margin-bottom: 1rem;
+
+	svg {
+		stroke: ${props => props.theme.accent};
+	}
 `;

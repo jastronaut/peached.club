@@ -149,7 +149,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 		<SettingsSection>
 			<SubTitle>Change your identity</SubTitle>
 			<Fieldset>
-				<Label htmlFor='displayName'>Change display name</Label>
+				<Label htmlFor='displayName'>Display name</Label>
 				<Input
 					id='displayName'
 					type='text'
@@ -158,7 +158,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				{isLoaderShowing && newDisplayName ? <MiniLoader /> : null}
 				{showError && newDisplayName ? (
 					<ErrText>
-						Can't change display name at the moment.,.. please try again later!
+						Can't change display name at the moment... please try again later!
 					</ErrText>
 				) : null}
 				{!showError && newDisplayName && isLoaderShowing ? (
@@ -168,7 +168,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				) : null}
 			</Fieldset>
 			<Fieldset>
-				<Label htmlFor='userName'>Change user name</Label>
+				<Label htmlFor='userName'>Username</Label>
 				<Input
 					id='userName'
 					type='text'
@@ -189,12 +189,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				Submit
 			</Button>
 			<LogoutButtonWrapper>
-				<Button
-					isSmall
-					color='#ff4c4c'
-					colorHover='#ce2222'
-					onClick={() => props.logout()}
-				>
+				<Button isSmall onClick={() => props.logout()}>
 					Log out
 				</Button>
 			</LogoutButtonWrapper>

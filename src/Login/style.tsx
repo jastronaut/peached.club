@@ -25,8 +25,11 @@ export const Container = styled.div`
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	width: 25%;
+	width: 45%;
 	padding: ${rem(60)};
+	@media screen and (min-width: 1280px) {
+		width: 25%;
+	}
 	@media screen and (max-width: 900px) {
 		width: 70%;
 		padding: ${rem(40)};
@@ -41,7 +44,7 @@ export const AuthInput = styled.input`
 	margin-bottom: ${rem(5)};
 	border-radius: ${rem(3)};
 	border: ${rem(1)} solid ${props => props.theme.background.hover};
-	width: 90%;
+	width: 80%;
 	color: ${props => props.theme.text.primary};
 	background-color: ${props => props.theme.background.secondary};
 	outline-style: none;
@@ -65,8 +68,8 @@ const ButtonLink = styled.a`
 `;
 
 const ButtonStyle = styled.button<{ color?: string; lg?: boolean }>`
-	background: ${props => props.color || 'pink'};
-	border: 1px solid ${props => props.color || 'pink'};
+	background: ${props => props.color || props.theme.accent};
+	border: 1px solid ${props => props.theme.accent};
 	padding: 0.5rem 1rem;
 	border-radius: 0.25rem;
 	text-align: center;
@@ -75,10 +78,12 @@ const ButtonStyle = styled.button<{ color?: string; lg?: boolean }>`
 	cursor: pointer;
 	transition: 0.25s all ease;
 	margin-top: 0.5rem;
+	min-width: ${rem(50)};
 
 	:hover {
-		background: #e197a4;
-		border-color: #e197a4;
+		color: ${props => props.theme.accent};
+		background-color: ${props => props.theme.background.primary};
+		border-color: ${props => props.theme.accent};
 	}
 `;
 

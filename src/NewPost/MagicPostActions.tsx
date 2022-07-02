@@ -27,7 +27,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 	return (
 		<MagicPostActionsContainer>
 			<ImageUploadButton>
-				<ImageIcon />
+				<ImageIcon accented />
 				<input
 					type='file'
 					accept='image*'
@@ -42,8 +42,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 				<ClockIcon
 					onClick={() =>
 						props.setPostText(
-							postText =>
-								postText + getCurrentTime(postText.length)
+							postText => postText + getCurrentTime(postText.length)
 						)
 					}
 				/>
@@ -52,8 +51,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 				<CalendarIcon
 					onClick={() =>
 						props.setPostText(
-							postText =>
-								postText + getCurrentDate(postText.length)
+							postText => postText + getCurrentDate(postText.length)
 						)
 					}
 				/>

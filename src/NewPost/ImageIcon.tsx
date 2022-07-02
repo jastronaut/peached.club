@@ -1,7 +1,12 @@
 import React, { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
+interface IconProps extends SVGProps<SVGSVGElement> {
+	accented?: boolean;
+}
+
+const SvgComponent = (props: IconProps) => {
+	const { accented, ...args } = props;
 	const theme = useTheme();
 	return (
 		<svg
@@ -9,12 +14,12 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
 			width={24}
 			height={24}
 			fill='none'
-			stroke={theme.text.primary}
+			stroke={props.accented ? theme.accent : theme.text.primary}
 			strokeWidth={2}
 			strokeLinecap='round'
 			strokeLinejoin='round'
 			className='feather feather-image'
-			{...props}
+			{...args}
 		>
 			<rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
 			<circle cx={8.5} cy={8.5} r={1.5} />

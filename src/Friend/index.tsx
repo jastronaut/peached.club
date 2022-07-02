@@ -43,7 +43,7 @@ import LocationPost from './Posts/LocationPost';
 import LinkPost from './Posts/LinkPost';
 
 import Navigation from '../Navigation';
-import { ProfileHeader } from './ProfileHeader';
+import { ProfileHeader } from './ProfileHeader/ProfileHeader';
 
 const addNewlines = (txt: string) =>
 	txt.indexOf('\n') < 0
@@ -69,9 +69,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 	const [deletePromptShowing, setDeletePromptShowing] =
 		useState<boolean>(false);
 	const [likeCount, setLikeCount] = useState<number>(props.likeCount);
-	const { curUserData, darkMode, jwt } = useContext(PeachContext);
-
-	const { id } = useParams();
+	const { curUserData, jwt } = useContext(PeachContext);
 
 	let msgKey = 0;
 	const msgs = props.message.map(obj => {
@@ -206,13 +204,8 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 					<InteractionInfo>{comments.length}</InteractionInfo>
 				</InteractionArea>
 				<PostTime>
-					<Clock
-						titleId={`post-${props.id}-posted-time`}
-						title='Posted time'
-					/>
-					<InteractionInfo>
-						{getPostTime(props.createdTime)}
-					</InteractionInfo>
+					<Clock titleId={`post-${props.id}-posted-time`} title='Posted time' />
+					<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
 				</PostTime>
 			</PostInteraction>
 			{showComments ? (
@@ -222,7 +215,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 					onDismissComments={onClickComments}
 					comments={comments}
 					updateComments={updateComments}
-					requester={curUserData}
+					requesterId={curUserData.id}
 					deleteComment={deleteComment}
 					mutualFriends={props.otherFriends}
 				/>
@@ -238,8 +231,7 @@ const EmptyState = () => (
 );
 
 export const FriendFeed = () => {
-	const { jwt, curUser, peachFeed, curUserData } =
-		useContext(PeachContext);
+	const { jwt, curUser, peachFeed, curUserData } = useContext(PeachContext);
 	const [posts, setPosts] = useState<Post[]>([]);
 
 	const [viewingUser, setCurUserProfile] = useState<User | null>(null);
@@ -284,12 +276,7 @@ export const FriendFeed = () => {
 				// get this user's friends
 				const otherFriendsResponse: {
 					data: FriendsOfFriendsResponse;
-				} = await api(
-					ACTIONS.getFriendsOfFriends,
-					jwt,
-					{},
-					resp.data.name
-				);
+				} = await api(ACTIONS.getFriendsOfFriends, jwt, {}, resp.data.name);
 				if (
 					otherFriendsResponse.data &&
 					otherFriendsResponse.data.connections
@@ -342,8 +329,7 @@ export const FriendFeed = () => {
 			<Page>
 				{viewingUser && curUserData ? (
 					<>
-						<ProfileHeader
-						 viewingUser={viewingUser} />
+						<ProfileHeader viewingUser={viewingUser} />
 						{!postsLoaded ? (
 							<Loading />
 						) : posts.length > 0 ? (
@@ -355,18 +341,14 @@ export const FriendFeed = () => {
 										deletePost={deletePost}
 										author={viewingUser.id}
 										otherFriends={otherFriends}
-										postAuthorAvatarSrc={
-											viewingUser.avatarSrc
-										}
+										postAuthorAvatarSrc={viewingUser.avatarSrc}
 									/>
 								))}
 							</div>
 						) : (
 							<EmptyState />
 						)}
-						{curUser !== null && curUser.id === id ? (
-							<NewPost />
-						) : null}
+						{curUser !== null && curUser.id === id ? <NewPost /> : null}
 					</>
 				) : (
 					<Loading />

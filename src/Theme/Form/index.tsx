@@ -12,7 +12,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const Label = styled.label`
-	color: ${props => props.theme.text.muted};
+	color: ${props => props.theme.text.primary};
 	display: block;
 	margin-bottom: ${rem(5)};
 `;
@@ -20,7 +20,7 @@ export const Label = styled.label`
 export const Input = styled.input`
 	background: ${props => props.theme.background.secondary};
 	font-size: 1rem;
-	border: 1px solid #cacaca;
+	border: 1px solid ${props => props.theme.border.secondary};
 	border-radius: ${rem(6)};
 	padding: 0.25rem;
 	color: ${props => props.theme.text.primary};

@@ -13,7 +13,6 @@ const ButtonLink = styled.a<{ centered?: boolean }>`
 		color: white;
 	}
 `;
-
 interface ButtonStyleProps {
 	color?: string;
 	lg?: boolean;
@@ -25,33 +24,30 @@ interface ButtonStyleProps {
 
 const ButtonStyle = styled.button<ButtonStyleProps>`
 	background: ${props =>
-		props.disabled ? '#cacaca' : props.color || '#fe4f72'};
+		props.disabled ? '#cacaca' : props.color || props.theme.accent};
 	border: 1px solid
-		${props => (props.disabled ? '#cacaca' : props.color || '#fe4f72')};
+		${props => (props.disabled ? '#cacaca' : props.color || props.theme.accent)};
 	padding: ${rem(10)};
 	border-radius: ${rem(6)};
 	text-align: center;
 	color: white;
-	:hover {
-		background: ${props =>
-			props.disabled
-				? '#cacaca'
-				: props.colorHover
-				? props.colorHover
-				: '#ffa79b'};
-		border-color: ${props =>
-			props.disabled
-				? '#cacaca'
-				: props.colorHover
-				? props.colorHover
-				: '#ffa79b'};
-		cursor: ${props => (props.disabled ? 'default' : 'pointer')};
-	}
+
 	transition: 0.25s all ease;
 	display: flex;
 	justify-content: center;
 	align-content: center;
 	align-items: center;
+
+	:hover {
+		background: ${props => (props.disabled ? '#cacaca' : 'rgba(0,0,0,0)')};
+		border-color: ${props =>
+			props.disabled
+				? '#cacaca'
+				: props.colorHover
+				? props.colorHover
+				: props.theme.accent};
+		cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+	}
 
 	> img {
 		height: 1.1rem;
@@ -77,7 +73,6 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => (
 			color={props.color}
 			lg={props.lg}
 			disabled={props.disabled}
-			isSmall={props.isSmall}
 			colorHover={props.colorHover}
 		>
 			{props.children}

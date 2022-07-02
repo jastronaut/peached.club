@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { rem } from 'polished';
 
 export const SettingsWrapper = styled.div`
 	background: ${props => props.theme.background.primary};
@@ -26,6 +27,9 @@ export const SuccessText = styled.span`
 
 export const SettingsSection = styled.div`
 	margin-bottom: 2rem;
+	border: 1px solid ${props => props.theme.border.primary};
+	border-radius: ${rem(5)};
+	padding: ${rem(24)};
 `;
 
 export const LogoutButtonWrapper = styled.div`

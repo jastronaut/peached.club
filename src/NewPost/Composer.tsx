@@ -138,7 +138,6 @@ export const ComposerComponent = (
 
 	return (
 		<Modal onKeyDown={() => toggleComposer()}>
-			<Header>Create a new post</Header>
 			<TextArea
 				ref={postRef}
 				placeholder="What's going on?"
