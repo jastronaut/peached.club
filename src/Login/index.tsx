@@ -116,7 +116,7 @@ export const Login = () => {
 	);
 };
 
-type LoginComponentProps = {
+export type LoginComponentProps = {
 	setEmail: React.Dispatch<SetStateAction<string>>;
 	setPassword: React.Dispatch<SetStateAction<string>>;
 	onClickSubmit: () => void;

@@ -2,33 +2,35 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from 'styled-components';
 
-import { ProfileHeader } from './ProfileHeader';
+import { ProfileHeader, ProfileHeaderProps } from './ProfileHeader';
 
 import { darkTheme, lightTheme } from '../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
+const Story = (props: ProfileHeaderProps & { variant: string }) => {
+	const { variant, ...rest } = props;
+	return (
+		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+			<Page>
+				<ProfileHeader {...rest} />
+			</Page>
+		</ThemeProvider>
+	);
+};
+
 export default {
 	title: 'Friend/ProfileHeader',
-	component: ProfileHeader,
+	component: Story,
 	argTypes: {
 		variant: {
 			options: ['light', 'dark'],
 			control: { type: 'radio' },
 		},
 	},
-} as ComponentMeta<typeof ProfileHeader>;
+} as ComponentMeta<typeof Story>;
 
-const Template: ComponentStory<typeof ProfileHeader> = ({
-	variant,
-	...rest
-}) => {
-	return (
-		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			<Page>
-				<ProfileHeader {...rest} />
-			</Page>{' '}
-		</ThemeProvider>
-	);
+const Template: ComponentStory<typeof Story> = props => {
+	return <Story {...props} />;
 };
 
 const Page = styled.div`

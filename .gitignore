@@ -22,3 +22,5 @@ yarn-error.log*
 
 *.code-workspace
 docs/
+
+public/backgrounds

@@ -84,7 +84,7 @@ const CustomizationSection = (props: { toggleDarkMode: Function }) => (
 	</SettingsSection>
 );
 
-type PeachAccountSectionProps = {
+export type PeachAccountSectionProps = {
 	logout: () => void;
 };
 

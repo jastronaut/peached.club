@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 import { rem } from 'polished';
 
 const ButtonLink = styled.a<{ centered?: boolean }>`
@@ -19,12 +19,56 @@ interface ButtonStyleProps {
 	disabled?: boolean;
 	isSmall?: boolean;
 	colorHover?: string;
+	mode?: ButtonOptions;
 }
+
+type ButtonOptions = 'default' | 'bad' | 'success' | 'muted';
+
 // background: ${props => (props.disabled ? '#b0b0b0' : '#e6395b')};
+type BtnMappingType = {
+	[K in ButtonOptions]: {
+		background: (theme: DefaultTheme) => string;
+
+		text: (theme: DefaultTheme) => string;
+		hoverBackground: (theme: DefaultTheme) => string;
+		hoverText: (theme: DefaultTheme) => string;
+	};
+};
+const ButtonMapping: BtnMappingType = {
+	default: {
+		background: (theme: DefaultTheme) => theme.accent,
+		text: (theme: DefaultTheme) => '#fff',
+		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
+		hoverText: (theme: DefaultTheme) => theme.accent,
+	},
+	bad: {
+		background: (theme: DefaultTheme) => '#ae203c',
+		text: (theme: DefaultTheme) => '#fff',
+		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
+		hoverText: (theme: DefaultTheme) => '#ae203c',
+	},
+	success: {
+		background: (theme: DefaultTheme) => '#00a67e',
+		text: (theme: DefaultTheme) => '#fff',
+		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
+		hoverText: (theme: DefaultTheme) => '#00a67e',
+	},
+
+	muted: {
+		background: (theme: DefaultTheme) => theme.text.muted,
+		text: (theme: DefaultTheme) => '#fff',
+		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
+		hoverText: (theme: DefaultTheme) => theme.text.muted,
+	},
+};
 
 const ButtonStyle = styled.button<ButtonStyleProps>`
 	background: ${props =>
-		props.disabled ? '#cacaca' : props.color || props.theme.accent};
+		props.disabled
+			? '#cacaca'
+			: props.mode
+			? ButtonMapping[props.mode].background(props.theme)
+			: ButtonMapping.default.background(props.theme)};
 	border: 1px solid
 		${props => (props.disabled ? '#cacaca' : props.color || props.theme.accent)};
 	padding: ${rem(10)};
@@ -47,6 +91,13 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 				? props.colorHover
 				: props.theme.accent};
 		cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+
+		color: ${props =>
+			props.disabled
+				? '#cacaca'
+				: props.mode
+				? ButtonMapping[props.mode].hoverText(props.theme)
+				: ButtonMapping.default.hoverText(props.theme)};
 	}
 
 	> img {

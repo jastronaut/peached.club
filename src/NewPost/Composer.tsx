@@ -61,7 +61,7 @@ const Images = ({ images, setImages }: ImageProps) => {
 	);
 };
 
-type ComposerProps = {
+export type ComposerProps = {
 	onSubmit: (messages: (TextMessage | ImageMessage)[]) => void;
 	toggleComposer: () => void;
 };

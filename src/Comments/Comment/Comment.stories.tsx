@@ -1,24 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Comment } from './Comment';
+import { Comment, CommentProps } from './Comment';
 import { Page } from '../../Theme/Layout';
 
 import { darkTheme, lightTheme } from '../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
-export default {
-	title: 'Friend/Comment',
-	component: Comment,
-	argTypes: {
-		variant: {
-			options: ['light', 'dark'],
-			control: { type: 'radio' },
-		},
-	},
-} as ComponentMeta<typeof Comment>;
-
-const Template: ComponentStory<typeof Comment> = ({ variant, ...rest }) => {
+const CommentStory = (props: CommentProps & { variant: string }) => {
+	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
 			<Page>
@@ -26,6 +16,21 @@ const Template: ComponentStory<typeof Comment> = ({ variant, ...rest }) => {
 			</Page>
 		</ThemeProvider>
 	);
+};
+
+export default {
+	title: 'Friend/Comment',
+	component: CommentStory,
+	argTypes: {
+		variant: {
+			options: ['light', 'dark'],
+			control: { type: 'radio' },
+		},
+	},
+} as ComponentMeta<typeof CommentStory>;
+
+const Template: ComponentStory<typeof CommentStory> = props => {
+	return <CommentStory {...props} />;
 };
 
 export const Primary = Template.bind({});
@@ -47,7 +52,6 @@ Primary.args = {
 	},
 	isFriend: true,
 	mutualFriends: [],
-	peachFeedIds: ['1', '5'],
 	avatarSrc:
 		'https://upload.wikimedia.org/wikipedia/commons/1/14/Karl-Marx.jpg',
 	requesterId: '1',

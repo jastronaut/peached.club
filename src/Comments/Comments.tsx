@@ -21,19 +21,19 @@ interface CommentsProps extends SharedCommentsProps {
 	postAuthorAvatarSrc: string;
 }
 
-interface CommentsComponentProps extends SharedCommentsProps {
+export interface CommentsComponentProps extends SharedCommentsProps {
 	peachFeedIds: string[];
 	getAvatar: (id: string) => string;
 }
 
-export const CommentsComponent: React.FC<CommentsComponentProps> = ({
+export const CommentsComponent = ({
 	comments = [],
 	deleteComment,
 	mutualFriends,
 	peachFeedIds,
 	getAvatar,
 	requesterId,
-}) => {
+}: CommentsComponentProps) => {
 	return (
 		<AllComments>
 			{comments.map(c => (

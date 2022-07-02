@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { CommentsComponent } from './Comments';
+import { CommentsComponent, CommentsComponentProps } from './Comments';
 import { Page } from '../Theme/Layout';
 
 import { darkTheme, lightTheme } from '../Theme/theme';
@@ -11,18 +11,30 @@ const avatars = [
 	'https://upload.wikimedia.org/wikipedia/commons/9/99/Basset_hound_history.jpg',
 	'https://upload.wikimedia.org/wikipedia/commons/1/14/Karl-Marx.jpg',
 ];
+
+const CommentsStory = (props: CommentsComponentProps & { variant: string }) => {
+	const { variant, ...rest } = props;
+	return (
+		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+			<Page>
+				<CommentsComponent {...rest} />
+			</Page>
+		</ThemeProvider>
+	);
+};
+
 export default {
 	title: 'Friend/CommentsComponent',
-	component: CommentsComponent,
+	component: CommentsStory,
 	argTypes: {
 		variant: {
 			options: ['light', 'dark'],
 			control: { type: 'radio' },
 		},
 	},
-} as ComponentMeta<typeof CommentsComponent>;
+} as ComponentMeta<typeof CommentsStory>;
 
-const Template: ComponentStory<typeof CommentsComponent> = ({
+const Template: ComponentStory<typeof CommentsStory> = ({
 	variant,
 	...rest
 }) => {

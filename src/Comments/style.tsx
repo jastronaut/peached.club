@@ -105,8 +105,8 @@ export const DismissCommentsButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	z-index: 999;
-	@media screen and (max-width: 800px) {
+	/* @media screen and (max-width: 800px) {
 		width: 70%;
 		transform: translateY(-40%);
-	}
+	} */
 `;

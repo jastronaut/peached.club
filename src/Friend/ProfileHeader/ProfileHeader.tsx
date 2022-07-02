@@ -9,7 +9,7 @@ import {
 	ProfileHeaderContent,
 } from './style';
 
-type ProfileHeaderProps = {
+export type ProfileHeaderProps = {
 	viewingUser: User;
 };
 

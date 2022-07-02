@@ -1,27 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { LoginComponent } from '.';
+import { LoginComponent, LoginComponentProps } from '.';
 import { Page } from '../Theme/Layout';
 
 import { darkTheme, lightTheme } from '../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
-export default {
-	title: 'Auth/Login',
-	component: LoginComponent,
-	argTypes: {
-		variant: {
-			options: ['light', 'dark'],
-			control: { type: 'radio' },
-		},
-	},
-} as ComponentMeta<typeof LoginComponent>;
-
-const Template: ComponentStory<typeof LoginComponent> = ({
-	variant,
-	...rest
-}) => {
+const LoginStory = (props: LoginComponentProps & { variant: string }) => {
+	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
 			<Page>
@@ -29,6 +16,21 @@ const Template: ComponentStory<typeof LoginComponent> = ({
 			</Page>
 		</ThemeProvider>
 	);
+};
+
+export default {
+	title: 'Auth/Login',
+	component: LoginStory,
+	argTypes: {
+		variant: {
+			options: ['light', 'dark'],
+			control: { type: 'radio' },
+		},
+	},
+} as ComponentMeta<typeof LoginStory>;
+
+const Template: ComponentStory<typeof LoginStory> = props => {
+	return <LoginStory {...props} />;
 };
 
 export const Primary = Template.bind({});

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
 
 export const FriendPostContent = styled.div`
 	height: 100%;
@@ -15,12 +14,8 @@ interface MiniMenuProps {
 export const MiniMenu = styled.div<MiniMenuProps>`
 	height: 100%;
 	visibility: hidden;
-	position: relative;
-	transform: translateY(2rem);
-	float: right;
-	> img:hover {
-		cursor: pointer;
-	}
+	background-color: initial;
+
 	@media screen and (max-width: 700px) {
 		float: initial;
 		top: -1.5rem;
@@ -87,14 +82,16 @@ export const InteractionArea = styled.div`
 	padding: 0.5rem 0.5rem;
 	border-radius: 1rem;
 	transition: 0.25s all ease;
+	height: 0.8rem;
+
 	:last-child {
 		margin-left: 0.75rem;
 	}
+
 	:hover {
 		cursor: pointer;
 		background: ${props => props.theme.background.hover};
 	}
-	height: 0.8rem;
 `;
 
 export const PostTime = styled.div`
