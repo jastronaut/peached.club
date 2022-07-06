@@ -8,7 +8,7 @@ import Comments from '../Comments';
 
 import { DeletePrompt } from '../Comments/style';
 import DeleteIcon from '../Comments/DeleteIcon.svg';
-import LikeIcon from './LikeIcon';
+import LikeIcon from '../Theme/Icons/LikeIcon';
 
 import NewPost from '../NewPost';
 
@@ -35,7 +35,7 @@ import {
 	EmptyStateWrapper,
 	PostTime,
 } from './style';
-import CommentIcon from './CommentIcon';
+import CommentIcon from '../Theme/Icons/CommentIcon';
 import Clock from '../Theme/Icons/Clock';
 import { PeachContext } from '../PeachContext';
 

@@ -11,7 +11,7 @@ import { Page } from '../Theme/Layout';
 import { Title, SubTitle } from '../Theme/Type';
 import Button from '../Theme/Button';
 import { Input, Label, Fieldset } from '../Theme/Form';
-import NightModeIcon from '../Navigation/NightModeIcon';
+import NightModeIcon from '../Theme/Icons/NightModeIcon';
 import {
 	SettingsWrapper,
 	ErrText,

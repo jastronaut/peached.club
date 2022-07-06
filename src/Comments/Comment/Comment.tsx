@@ -23,7 +23,7 @@ import {
 
 import PrivateProfile from '../../PrivateProfile';
 
-import DeleteIcon from '../DeleteIcon';
+import DeleteIcon from '../../Theme/Icons/DeleteIcon';
 
 interface DeletePromptProps {
 	onDelete: () => void;

@@ -7,6 +7,8 @@ export const NavWrap = styled.div`
 	left: 0;
 	background: none;
 	z-index: 100;
+	background: ${props => props.theme.background.accented};
+
 	@media screen and (max-width: 700px) {
 		top: initial;
 		bottom: 0;

@@ -2,8 +2,8 @@ import React from 'react';
 import { ImageUploadButton, MagicPostActionsContainer } from './style';
 
 import ImageIcon from './ImageIcon';
-import ClockIcon from './ClockIcon';
-import CalendarIcon from './CalendarIcon';
+import ClockIcon from '../Theme/Icons/ClockIcon';
+import CalendarIcon from '../Theme/Icons/CalendarIcon';
 
 export const getCurrentTime = (currentPostLen: number) => {
 	const d = new Date();
