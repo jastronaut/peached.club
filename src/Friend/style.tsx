@@ -30,6 +30,9 @@ export const DeletePost = styled(MiniMenu)`
 
 export const PostWrapper = styled.div`
 	background: ${props => props.theme.background.primary};
+
+	border-right: 1px solid ${props => props.theme.border.secondary};
+	border-left: 1px solid ${props => props.theme.border.secondary};
 	color: ${props => props.theme.text.primary};
 	word-wrap: break-word;
 	padding: 2rem 3rem 0;

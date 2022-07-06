@@ -9,6 +9,7 @@ export const lightTheme = {
 		primary: '#ffffff',
 		secondary: '#E7E8EC',
 		hover: '#cacaca90',
+		accented: '#ffe8e5',
 	},
 	accent: '#fe4f72',
 
@@ -30,6 +31,7 @@ export const darkTheme = {
 		primary: '#333',
 		secondary: '#262628',
 		hover: '#cacaca50',
+		accented: '#000000',
 	},
 	border: {
 		primary: '#999',

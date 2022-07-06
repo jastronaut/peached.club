@@ -6,13 +6,16 @@ const ButtonLink = styled.a<{ centered?: boolean }>`
 	text-decoration: none;
 	${props => (props.centered ? '' : 'align-self: start;')}
 	color: white;
+
 	:visited {
 		color: white;
 	}
+
 	:hover {
 		color: white;
 	}
 `;
+
 interface ButtonStyleProps {
 	color?: string;
 	lg?: boolean;
@@ -24,7 +27,6 @@ interface ButtonStyleProps {
 
 type ButtonOptions = 'default' | 'bad' | 'success' | 'muted';
 
-// background: ${props => (props.disabled ? '#b0b0b0' : '#e6395b')};
 type BtnMappingType = {
 	[K in ButtonOptions]: {
 		background: (theme: DefaultTheme) => string;
@@ -34,6 +36,7 @@ type BtnMappingType = {
 		hoverText: (theme: DefaultTheme) => string;
 	};
 };
+
 const ButtonMapping: BtnMappingType = {
 	default: {
 		background: (theme: DefaultTheme) => theme.accent,
@@ -41,12 +44,14 @@ const ButtonMapping: BtnMappingType = {
 		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
 		hoverText: (theme: DefaultTheme) => theme.accent,
 	},
+
 	bad: {
-		background: (theme: DefaultTheme) => '#ae203c',
+		background: (theme: DefaultTheme) => '#f01e1e',
 		text: (theme: DefaultTheme) => '#fff',
 		hoverBackground: (theme: DefaultTheme) => 'rgba(0,0,0,0)',
-		hoverText: (theme: DefaultTheme) => '#ae203c',
+		hoverText: (theme: DefaultTheme) => '#f01e1e',
 	},
+
 	success: {
 		background: (theme: DefaultTheme) => '#00a67e',
 		text: (theme: DefaultTheme) => '#fff',
@@ -71,10 +76,11 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 			: ButtonMapping.default.background(props.theme)};
 	border: 1px solid
 		${props => (props.disabled ? '#cacaca' : props.color || props.theme.accent)};
-	padding: ${rem(10)};
+	padding: ${rem(5)} ${rem(10)};
 	border-radius: ${rem(6)};
 	text-align: center;
 	color: white;
+	margin: ${rem(5)} 0;
 
 	transition: 0.25s all ease;
 	display: flex;
@@ -94,15 +100,20 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 
 		color: ${props =>
 			props.disabled
-				? '#cacaca'
+				? 'white'
 				: props.mode
 				? ButtonMapping[props.mode].hoverText(props.theme)
 				: ButtonMapping.default.hoverText(props.theme)};
 	}
 
-	> img {
-		height: 1.1rem;
+	> svg {
+		/* height: 1.1rem; */
 		margin-right: 0.25rem;
+	}
+
+	:hover svg {
+		fill: ${props => props.theme.accent};
+		stroke: ${props => props.theme.accent};
 	}
 `;
 

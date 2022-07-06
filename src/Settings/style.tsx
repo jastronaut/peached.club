@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 
 export const SettingsWrapper = styled.div`
-	background: ${props => props.theme.background.primary};
+	background: ${props => props.theme.background.accented};
 	color: ${props => props.theme.text.primary};
 	padding: 2rem 2.5rem;
 	height: 100%;
@@ -13,6 +13,10 @@ export const SettingsWrapper = styled.div`
 		padding: 1rem 1.25rem;
 		margin: 0.5rem;
 		border-radius: 0.25rem;
+	}
+
+	p {
+		margin-bottom: 0;
 	}
 `;
 
@@ -30,6 +34,7 @@ export const SettingsSection = styled.div`
 	border: 1px solid ${props => props.theme.border.primary};
 	border-radius: ${rem(5)};
 	padding: ${rem(24)};
+	background-color: ${props => props.theme.background.primary};
 `;
 
 export const LogoutButtonWrapper = styled.div`

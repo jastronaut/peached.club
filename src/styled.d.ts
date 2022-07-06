@@ -1,7 +1,5 @@
-// import original module declarations
 import 'styled-components';
 
-// and extend them!
 declare module 'styled-components' {
 	export interface DefaultTheme {
 		name: string;
@@ -14,6 +12,7 @@ declare module 'styled-components' {
 			primary: string;
 			secondary: string;
 			hover: string;
+			accented: string;
 		};
 		accent: string;
 		border: {

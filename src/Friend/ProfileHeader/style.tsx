@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 const backgrounds = [
-	'aqua.png',
-	'citrus.png',
-	'dream.png',
-	'dusk.png',
-	'fantasy.png',
+	'https://imgur.com/upR9smx.jpg',
+	'https://imgur.com/FYvdKAb.jpg',
+	'https://imgur.com/GRyoWfj.jpg',
+	'https://imgur.com/aqfkgt5.jpg',
+	'https://imgur.com/xyAcBRG.jpg',
 ];
 const numBackgrounds = backgrounds.length;
 
 const getRandomBackgroundUrl = () =>
-	`backgrounds/${backgrounds[Math.floor(Math.random() * numBackgrounds)]}`;
+	`${backgrounds[Math.floor(Math.random() * numBackgrounds)]}`;
 
 export const ProfileHeaderContainer = styled.div`
-	margin-bottom: 1rem;
 	padding-top: ${rem(50)};
 	border-right: 1px solid ${props => props.theme.border.secondary};
 	border-left: 1px solid ${props => props.theme.border.secondary};
@@ -30,9 +29,9 @@ export const ProfileHeaderContainer = styled.div`
 export const ProfileHeaderContent = styled.div`
 	background-color: ${props => props.theme.background.primary};
 	display: flex;
+	padding: ${rem(10)} ${rem(15)};
 	margin-top: ${rem(50)};
 	padding-bottom: ${rem(10)};
-	border-bottom: 1px solid ${props => props.theme.border.secondary};
 	border-top: ${rem(10)} solid ${props => props.theme.background.primary};
 	border-top-left-radius: ${rem(20)};
 	border-top-right-radius: ${rem(20)};

@@ -11,7 +11,7 @@ import { Page } from '../Theme/Layout';
 import { Title, SubTitle } from '../Theme/Type';
 import Button from '../Theme/Button';
 import { Input, Label, Fieldset } from '../Theme/Form';
-import NightModeDark from '../Navigation/NightModeDark.svg';
+import NightModeIcon from '../Navigation/NightModeIcon';
 import {
 	SettingsWrapper,
 	ErrText,
@@ -53,22 +53,14 @@ const ContactSection = () => (
 	<SettingsSection>
 		<SubTitle>Help or suggestions?</SubTitle>
 		<p>
-			Contact @jastronaute on{' '}
+			Create an issue on{' '}
 			<LinkText
-				href='https://twitter.com/jastronaute'
-				title='jastronaute on twitter'
+				href='https://github.com/jastronaut/peached.club/issues'
+				title='peached.club issues on github'
 			>
-				twitter
+				GitHub
 			</LinkText>{' '}
-			or{' '}
-			<LinkText
-				href='https://www.instagram.com/jastronaute/'
-				title='jastronaute on instagram'
-			>
-				instagram
-			</LinkText>
-			, or email jastronaut [at] proton [dot] me. (Or you can contact me on
-			peach if you're already friends with me!)
+			🥳
 		</p>
 	</SettingsSection>
 );
@@ -77,8 +69,8 @@ const CustomizationSection = (props: { toggleDarkMode: Function }) => (
 	<SettingsSection>
 		<SubTitle>Customize app appearance</SubTitle>
 
-		<Button onClick={() => props.toggleDarkMode()}>
-			<img src={NightModeDark} alt='Dark Mode Icon' />
+		<Button onClick={() => props.toggleDarkMode()} mode='bad'>
+			<NightModeIcon />
 			Toggle dark mode
 		</Button>
 	</SettingsSection>

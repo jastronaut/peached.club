@@ -84,13 +84,19 @@ const App: React.FC = () => {
 				}}
 			>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-					<GlobalStyle darkMode={darkMode} />
-					<PeachRoutes />
+					<MainPeachApp />
 				</ThemeProvider>
 			</PeachContext.Provider>
 		</BrowserRouter>
 	);
 };
+
+const MainPeachApp = () => (
+	<>
+		<GlobalStyle />
+		<PeachRoutes />
+	</>
+);
 
 const PeachRoutes = () => (
 	<Routes>
