@@ -90,8 +90,6 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
 	const [entering, setEntering] = useState<boolean>(true);
 	const keepModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
-		// This stops the event from bubbling up.
-		// So it won't trigger the parent div's "onClick" to fire.
 		e.stopPropagation();
 		onKeyDown();
 	};

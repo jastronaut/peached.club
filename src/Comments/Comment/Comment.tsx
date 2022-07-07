@@ -21,7 +21,7 @@ import {
 	DeleteIconButton,
 } from './style';
 
-import PrivateProfile from '../../PrivateProfile';
+import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
 
 import DeleteIcon from '../../Theme/Icons/DeleteIcon';
 
@@ -129,7 +129,11 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 				<PrivateProfile
 					onDismissPrivateProfile={() => setProfilePreviewShowing(false)}
 					avatarSrc={props.avatarSrc}
-					user={authorData ? authorData : props.author}
+					username={authorData ? authorData.name : props.author.name}
+					displayName={
+						authorData ? authorData.displayName : props.author.displayName
+					}
+					bio={authorData ? authorData.bio : props.author.bio}
 				/>
 			) : null}
 		</CommentContainer>
