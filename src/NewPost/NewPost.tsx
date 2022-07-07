@@ -11,8 +11,7 @@ import { PeachContext } from '../PeachContext';
 import { Composer } from './Composer';
 
 import Toasty from '../Theme/Toasty';
-import { NewPostButton } from './style';
-import Plus from './Plus.svg';
+import { NewPostButton } from './NewPostButton';
 
 const NewPost = () => {
 	const [showComposer, setShowComposer] = useState<boolean>(false);
@@ -70,10 +69,8 @@ const NewPost = () => {
 				</>
 			) : (
 				<NewPostButton
-					onClick={() => setShowComposer(showComposer => !showComposer)}
-				>
-					<img src={Plus} alt='+' title='Create a new post' />
-				</NewPostButton>
+					setShowComposer={() => setShowComposer(isShowing => !isShowing)}
+				/>
 			)}
 		</>
 	);

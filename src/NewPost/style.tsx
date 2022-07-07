@@ -1,31 +1,33 @@
 import styled from 'styled-components';
+import { rem } from 'polished';
+
 import { TextArea as OldInput } from '../Theme/Form';
 
-export const NewPostButton = styled.div`
+export const NewPostButtonContainer = styled.div`
 	position: fixed;
-	bottom: 2rem;
-	right: 2rem;
+	bottom: ${rem(16)};
+	right: ${rem(16)};
 	background: #ffa79b;
-	padding: 1.5rem;
+	padding: ${rem(12)};
 	border-radius: 50%;
-	width: 1rem;
-	height: 1rem;
+	width: ${rem(30)};
+	height: ${rem(30)};
 	text-align: center;
-	box-shadow: 5px 5px 5px #00000050;
+	box-shadow: ${rem(5)} ${rem(5)} ${rem(5)} #00000050;
 	transition: all cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+	border: ${rem(2)} solid #ffa79b;
 
-	> img {
-		width: 1rem;
-		height: 1rem;
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	:hover {
 		cursor: pointer;
-		transform: scale(0.9);
+		border-color: white;
 	}
 
 	@media screen and (max-width: 700px) {
-		bottom: 3.5rem;
+		bottom: ${rem(32)};
 	}
 `;
 
@@ -34,12 +36,12 @@ export const TextArea = styled(OldInput)`
 	padding: 0.5rem;
 	background: ${props => props.theme.background.secondary};
 	color: ${props => props.theme.text.primary};
-	font-size: 1rem;
-	margin-bottom: 1rem;
+	font-size: ${rem(16)};
+	margin-bottom: ${rem(16)};
 `;
 
 export const Header = styled.h2`
-	margin-bottom: 1rem;
+	margin-bottom: ${rem(16)};
 	margin-top: 0;
 	color: ${props => props.theme.text.primary};
 `;
@@ -58,7 +60,7 @@ export const ImagesHolder = styled.div`
 	justify-content: start;
 	height: 5rem;
 	width: auto;
-	margin: 0 0 1rem;
+	margin: 0 0 ${rem(16)};
 	overflow: hidden;
 	flex-wrap: wrap;
 `;
@@ -96,7 +98,7 @@ export const UploadedImage = styled.img`
 
 export const ImageWrapper = styled.div`
 	flex-basis: 20%;
-	margin-right: 1rem;
+	margin-right: ${rem(16)};
 	margin-top: 0.25rem;
 	overflow: hidden;
 	border-radius: 0.25rem;
@@ -114,8 +116,8 @@ export const ImageUploadButton = styled.div`
 	overflow: hidden;
 	align-self: start;
 	cursor: pointer;
-	margin-bottom: 1rem;
-	margin-right: 1rem;
+	margin-bottom: ${rem(16)};
+	margin-right: ${rem(16)};
 	display: inline;
 	> input {
 		position: absolute;
@@ -131,7 +133,7 @@ export const ImageUploadButton = styled.div`
 
 export const MagicPostActionsContainer = styled.div`
 	overflow: hidden;
-	margin-bottom: 1rem;
+	margin-bottom: ${rem(16)};
 
 	svg {
 		stroke: ${props => props.theme.accent};
