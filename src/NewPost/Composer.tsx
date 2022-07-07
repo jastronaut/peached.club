@@ -98,10 +98,7 @@ export const ComposerComponent = (
 			body: formData,
 		};
 
-		await fetch(
-			'https://cors-anywhere.herokuapp.com/https://api.imgur.com/3/image',
-			req
-		)
+		await fetch('https://api.imgur.com/3/image', req)
 			.then(resp => resp.json())
 			.then((resp: ImgurUploadResponse) => {
 				if (!resp.success) {

@@ -3,7 +3,6 @@ import React, {
 	useContext,
 	useEffect,
 	FormEvent,
-	ReactEventHandler,
 	SetStateAction,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +15,7 @@ import {
 	DangerTxt,
 	Button,
 	ButtonCenter,
+	LoginFormContainer,
 } from './style';
 import { LoginResponse } from '../api/interfaces';
 import { LOGIN } from '../api/constants';
@@ -103,7 +103,7 @@ export const Login = () => {
 	};
 
 	return (
-		<>
+		<LoginFormContainer>
 			<form onSubmit={onSubmit}>
 				<LoginComponent
 					setEmail={setEmail}
@@ -112,7 +112,7 @@ export const Login = () => {
 				/>
 			</form>
 			{err !== loginErrors.OK && displayError(err)}
-		</>
+		</LoginFormContainer>
 	);
 };
 

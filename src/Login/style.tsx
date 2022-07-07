@@ -9,6 +9,7 @@ export const Page = styled.div`
 	justify-content: center;
 	align-items: center;
 	align-content: center;
+	background-color: ${props => props.theme.background.accented};
 `;
 
 export const Heading = styled.h1`
@@ -19,17 +20,23 @@ export const Heading = styled.h1`
 `;
 
 export const Container = styled.div`
+	border-radius: ${rem(6)};
+
+	border: 1px solid ${props => props.theme.border.secondary};
 	background: ${props => props.theme.background.primary};
 	display: flex;
 	flex-direction: column;
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	width: 45%;
+	height: 100%;
+	width: 50%;
 	padding: ${rem(60)};
+
 	@media screen and (min-width: 1280px) {
-		width: 25%;
+		width: 70%;
 	}
+
 	@media screen and (max-width: 900px) {
 		width: 70%;
 		padding: ${rem(40)};
@@ -106,4 +113,11 @@ export const Button: React.FC<ButtonProps> = (props: ButtonProps) => (
 export const ButtonCenter = styled.div`
 	display: flex;
 	justify-content: center;
+`;
+
+export const LoginFormContainer = styled.main`
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
