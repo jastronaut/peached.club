@@ -37,6 +37,7 @@ export const Primary = Template.bind({});
 Primary.args = {
 	variant: 'dark',
 	deleteComment: (id: string) => null,
+	addReplyHandle: (txt: string) => null,
 
 	id: '5',
 	body: 'sdlkfjsldkf kdsf sdlkf djfks fld fsd faf kdfj sd',

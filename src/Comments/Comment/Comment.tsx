@@ -4,8 +4,8 @@ import {
 	Comment as PostCommentProps,
 	MutualFriend,
 } from '../../api/interfaces';
-import { MiniMenu } from '../../Friend/style';
 
+import { MiniMenu } from '../../Friend/style';
 import Button from '../../Theme/Button';
 import { ModalBackdrop } from '../../Theme/Modal';
 import {
@@ -19,7 +19,10 @@ import {
 	ProfileLink,
 	BasicContainer,
 	DeleteIconButton,
+	ReplyButtonContainer,
+	CommentInteractionsContainer,
 } from './style';
+import CommentIcon from '../../Theme/Icons/CommentIcon';
 
 import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
 
@@ -53,6 +56,7 @@ export interface CommentProps extends PostCommentProps {
 	isFriend: boolean;
 	mutualFriends: MutualFriend[];
 	requesterId: string;
+	addReplyHandle: (username: string) => void;
 }
 
 export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
@@ -69,7 +73,11 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 	const Avatar = (
 		<AvatarStyled>
 			{props.avatarSrc ? (
-				<img src={props.avatarSrc} alt={props.author.displayName} />
+				<img
+					src={props.avatarSrc}
+					alt={props.author.displayName}
+					loading='lazy'
+				/>
 			) : (
 				<span role='img' aria-label={props.author.displayName}>
 					🍑
@@ -107,24 +115,30 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 				</ProfileLink>
 				<p>{props.body}</p>
 			</CommentText>
-			{isRequester ? (
-				<>
-					<MiniMenu onClick={() => setDeletePromptShowing(true)}>
-						<DeleteIconButton>
-							<DeleteIcon />
-						</DeleteIconButton>
-					</MiniMenu>
-					{deletePromptShowing ? (
-						<DeletePrompt
-							onDelete={() => props.deleteComment(props.id)}
-							onCancel={() => setDeletePromptShowing(false)}
-						>
-							Are you sure you want to delete your comment?
-						</DeletePrompt>
-					) : null}
-				</>
-			) : null}
-
+			<CommentInteractionsContainer>
+				{isRequester ? (
+					<>
+						<MiniMenu onClick={() => setDeletePromptShowing(true)}>
+							<DeleteIconButton>
+								<DeleteIcon />
+							</DeleteIconButton>
+						</MiniMenu>
+						{deletePromptShowing ? (
+							<DeletePrompt
+								onDelete={() => props.deleteComment(props.id)}
+								onCancel={() => setDeletePromptShowing(false)}
+							>
+								Are you sure you want to delete your comment?
+							</DeletePrompt>
+						) : null}
+					</>
+				) : null}
+				<ReplyButtonContainer
+					onClick={() => props.addReplyHandle(props.author.name)}
+				>
+					<CommentIcon />
+				</ReplyButtonContainer>
+			</CommentInteractionsContainer>
 			{profilePreviewShowing ? (
 				<PrivateProfile
 					onDismissPrivateProfile={() => setProfilePreviewShowing(false)}

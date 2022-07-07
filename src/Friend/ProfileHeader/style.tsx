@@ -14,15 +14,13 @@ const getRandomBackgroundUrl = () =>
 
 export const ProfileHeaderContainer = styled.div`
 	padding-top: ${rem(50)};
-	border-right: 1px solid ${props => props.theme.border.secondary};
-	border-left: 1px solid ${props => props.theme.border.secondary};
-	border-top: 1px solid ${props => props.theme.border.secondary};
+	border: 1px solid ${props => props.theme.border.secondary};
 	background-image: url(${getRandomBackgroundUrl()});
 	color: ${props => props.theme.text.primary};
 	background-size: cover;
 
 	@media screen and (max-width: 700px) {
-		margin: 3rem 1rem 1rem;
+		margin: 3rem 1rem 0;
 	}
 `;
 
@@ -31,7 +29,7 @@ export const ProfileHeaderContent = styled.div`
 	display: flex;
 	padding: ${rem(10)} ${rem(15)};
 	margin-top: ${rem(50)};
-	padding-bottom: ${rem(10)};
+	padding-bottom: ${rem(16)};
 	border-top: ${rem(10)} solid ${props => props.theme.background.primary};
 	border-top-left-radius: ${rem(20)};
 	border-top-right-radius: ${rem(20)};

@@ -52,8 +52,7 @@ interface FeedPostWrapperProps {
 
 export const FeedPostWrapper = styled.div<FeedPostWrapperProps>`
 	border: 1px solid
-		${props =>
-			props.isUnread ? '#25d87a' : props.theme.background.primary};
+		${props => (props.isUnread ? '#25d87a' : props.theme.background.primary)};
 	background: ${props => props.theme.background.primary};
 	color: ${props => props.theme.text.primary};
 
@@ -111,7 +110,8 @@ export const PostPreview = styled.div`
 		margin-right: 1rem;
 	}
 
-	@media screen and (max-width: 500px) {
+	@media screen and (max-width: 700px) {
+		margin: 3rem 1rem 1rem;
 		> :first-child {
 			flex-basis: 90%;
 		}

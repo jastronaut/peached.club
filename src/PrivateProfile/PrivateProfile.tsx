@@ -47,7 +47,7 @@ export const PrivateProfile: React.FC<PrivateProfileProps> = ({
 	return (
 		<Modal onKeyDown={onDismissPrivateProfile} isMini noSpaceBetween>
 			<PrivateProfileContainer>
-				<AvatarPreview src={avatarSrc} alt='a profile pic' />
+				<AvatarPreview src={avatarSrc} alt='a profile pic' loading='lazy' />
 				<Title>{displayName}</Title>
 				<ProfileHeaderHandle>@{username}</ProfileHeaderHandle>
 				<Bio>{bio}</Bio>

@@ -41,6 +41,7 @@ const Page = styled.div`
 
 export const Primary = Template.bind({});
 Primary.args = {
+	postsLoaded: true,
 	variant: 'dark',
 	viewingUser: {
 		id: '1235',

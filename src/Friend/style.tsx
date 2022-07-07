@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { rem } from 'polished';
 
 export const FriendPostContent = styled.div`
 	height: 100%;
@@ -7,18 +8,19 @@ export const FriendPostContent = styled.div`
 		margin-top: 0;
 	}
 `;
+
 interface MiniMenuProps {
 	onClick?: () => void;
 }
 
 export const MiniMenu = styled.div<MiniMenuProps>`
-	height: 100%;
 	visibility: hidden;
 	background-color: initial;
 
 	@media screen and (max-width: 700px) {
 		float: initial;
 		top: -1.5rem;
+		margin-top: ${rem(12)};
 	}
 `;
 
@@ -35,9 +37,13 @@ export const PostWrapper = styled.div`
 	border-left: 1px solid ${props => props.theme.border.secondary};
 	color: ${props => props.theme.text.primary};
 	word-wrap: break-word;
-	padding: 2rem 3rem 0;
+	padding: ${rem(32)} ${rem(48)} ${rem(16)};
+
 	:last-child {
-		padding: 2rem 3rem;
+		/* padding: 2rem 3rem; */
+
+		border-bottom-left-radius: ${rem(10)};
+		border-bottom-right-radius: ${rem(10)};
 	}
 
 	:hover {
@@ -45,10 +51,14 @@ export const PostWrapper = styled.div`
 			visibility: visible;
 		}
 	}
+
 	@media screen and (max-width: 500px) {
-		padding: 1rem 1.5rem 0;
+		/* padding: 1rem 1.5rem 0; */
+		margin: 0 ${rem(16)} 0;
+		padding: ${rem(24)} ${rem(24)} ${rem(16)};
 		:last-of-type {
-			padding: 1rem 1.5rem 1rem;
+			padding-bottom: ${rem(24)};
+			margin-bottom: ${rem(64)};
 		}
 	}
 `;
@@ -68,6 +78,8 @@ export const Image = styled.img`
 	max-width: 50%;
 	display: block;
 	margin-bottom: 1rem;
+	background-color: ${props => props.theme.background.primary};
+
 	@media screen and (max-width: 1000px) {
 		max-width: 100%;
 	}

@@ -11,22 +11,31 @@ import {
 
 export type ProfileHeaderProps = {
 	viewingUser: User;
+	postsLoaded: boolean;
 };
 
-export const ProfileHeader = ({ viewingUser }: ProfileHeaderProps) => {
+export const ProfileHeader = ({
+	viewingUser,
+	postsLoaded,
+}: ProfileHeaderProps) => {
 	return (
 		<ProfileHeaderContainer>
 			<ProfileHeaderContent>
 				<Avatar>
 					<img
-						src={viewingUser.avatarSrc || '/defaultavatar.jpg'}
+						src={
+							postsLoaded
+								? viewingUser.avatarSrc || '/defaultavatar.jpg'
+								: '/defaultavatar.jpg'
+						}
+						style={{ opacity: postsLoaded ? '1' : '0.5' }}
 						alt={`${viewingUser.name}'s avatar`}
 					/>
 				</Avatar>
 				<ProfileHeaderText>
-					<h2>{viewingUser.displayName}</h2>
+					<h2>{postsLoaded ? viewingUser.displayName : '...'}</h2>
 					<ProfileHeaderHandle>@{viewingUser.name}</ProfileHeaderHandle>
-					<p>{viewingUser.bio}</p>
+					<p>{postsLoaded ? viewingUser.bio : '...'}</p>
 				</ProfileHeaderText>
 			</ProfileHeaderContent>
 		</ProfileHeaderContainer>

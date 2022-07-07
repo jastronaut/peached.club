@@ -24,6 +24,7 @@ interface CommentsProps extends SharedCommentsProps {
 export interface CommentsComponentProps extends SharedCommentsProps {
 	peachFeedIds: string[];
 	getAvatar: (id: string) => string;
+	addReplyHandle: (username: string) => void;
 }
 
 export const CommentsComponent = ({
@@ -33,6 +34,7 @@ export const CommentsComponent = ({
 	peachFeedIds,
 	getAvatar,
 	requesterId,
+	addReplyHandle,
 }: CommentsComponentProps) => {
 	return (
 		<AllComments>
@@ -45,6 +47,7 @@ export const CommentsComponent = ({
 					deleteComment={deleteComment}
 					mutualFriends={mutualFriends}
 					requesterId={requesterId}
+					addReplyHandle={addReplyHandle}
 				/>
 			))}
 		</AllComments>
@@ -72,6 +75,15 @@ export const Comments = (props: CommentsProps) => {
 		return res[0].avatarSrc;
 	};
 
+	const addReplyHandle = (username: string) => {
+		setNewCommentText(txt => {
+			if (txt.length) {
+				return `${txt} @${username} `;
+			}
+			return '@' + username + ' ';
+		});
+	};
+
 	return (
 		<Modal onKeyDown={onDismissComments}>
 			<CommentsComponent
@@ -81,6 +93,7 @@ export const Comments = (props: CommentsProps) => {
 				comments={comments}
 				mutualFriends={mutualFriends}
 				deleteComment={props.deleteComment}
+				addReplyHandle={addReplyHandle}
 			/>
 			<AddComment
 				onSubmit={props.updateComments}

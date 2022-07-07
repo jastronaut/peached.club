@@ -23,7 +23,7 @@ export const ModalBackdrop = styled.div<ModalBackdropProps>`
 	overflow: hidden;
 
 	animation: 0.5s ${props => (props.entering ? '' : 'reverse')} EnterBackdrop;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.4);
 	z-index: ${props => (props.isMini ? '999' : '99')};
 `;
 
@@ -59,6 +59,7 @@ export const ModalContainer = styled.div<ModalContainerProps>`
 	max-height: 80%;
 	overflow: scroll;
 	border-radius: ${rem(6)};
+
 	@media screen and (max-width: 800px) {
 		width: ${props => (props.isMini ? '50%' : '70%')};
 	}

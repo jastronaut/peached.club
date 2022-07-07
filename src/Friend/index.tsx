@@ -83,10 +83,11 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 						key={msgKey}
 						src={obj.src}
 						alt={`image for post ${props.id}`}
+						loading='lazy'
 					/>
 				);
 			case POST_TYPE.GIF:
-				return <Image key={msgKey} src={obj.src} alt={`GIF`} />;
+				return <Image key={msgKey} src={obj.src} alt={`GIF`} loading='lazy' />;
 			case POST_TYPE.LINK:
 				// @ts-ignore
 				return <LinkPost {...obj} />;
@@ -329,7 +330,10 @@ export const FriendFeed = () => {
 			<Page>
 				{viewingUser && curUserData ? (
 					<>
-						<ProfileHeader viewingUser={viewingUser} />
+						<ProfileHeader
+							viewingUser={viewingUser}
+							postsLoaded={postsLoaded}
+						/>
 						{!postsLoaded ? (
 							<Loading />
 						) : posts.length > 0 ? (

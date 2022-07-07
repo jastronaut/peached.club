@@ -19,7 +19,7 @@ const DropdownUserItemContainer = styled.div`
 	margin: 0;
 	padding: 0.5rem;
 	display: flex;
-	color: ${props => (props.theme.text.primary)};
+	color: ${props => props.theme.text.primary};
 	font-size: smaller;
 	border-top: 1px solid #cacaca;
 	height: 100%;
@@ -44,7 +44,7 @@ const DropdownUserItemContainer = styled.div`
 	}
 
 	:hover {
-		background: ${props => (props.theme.background.secondary)};
+		background: ${props => props.theme.background.secondary};
 	}
 `;
 
@@ -65,7 +65,7 @@ export const DropdownUserItem: React.FC<DropdownUserItemProps> = ({
 	onClick,
 }) => (
 	<DropdownUserItemContainer onClick={() => onClick()}>
-		<img src={avatarSrc} alt={`${username}'s avatar'`} />
+		<img src={avatarSrc} alt={`${username}'s avatar'`} loading='lazy' />
 		<div>
 			<p>{truncate(displayName, 25)}</p>
 			<p>@{truncate(username, 25)}</p>
