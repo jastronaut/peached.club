@@ -25,9 +25,14 @@ export const MiniMenu = styled.div<MiniMenuProps>`
 `;
 
 export const DeletePost = styled(MiniMenu)`
+	cursor: pointer;
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+
+	:hover svg {
+		stroke: ${props => props.theme.accent};
+	}
 `;
 
 export const PostWrapper = styled.div`

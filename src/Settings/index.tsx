@@ -85,6 +85,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 	const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 	const [newUserName, setNewUserName] = useState<string>('');
 	const [newDisplayName, setNewDisplayName] = useState<string>('');
+	const [newBio, setNewBio] = useState<string>('');
 	const [isLoaderShowing, setLoaderShowing] = useState<boolean>(false);
 	const [showError, setShowError] = useState<boolean>(false);
 	const [nameChangeSuccess, setNameChangeSuccess] = useState<boolean>(false);
@@ -127,19 +128,39 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 					}
 				});
 			}
+
+			if (newBio) {
+				setLoaderShowing(true);
+				api(ACTIONS.changeBio, jwt, {
+					bio: newBio,
+				}).then((response: NameChangeResponse) => {
+					setLoaderShowing(false);
+					if (response.success) {
+						setNameChangeSuccess(true);
+					} else {
+						if (response.error) {
+							setShowError(true);
+						}
+					}
+				});
+			}
 		}
 	};
 
 	useEffect(() => {
-		if (newUserName !== '' || newDisplayName !== '') {
+		if (
+			newUserName !== '' ||
+			newDisplayName !== '' ||
+			(newBio !== '' && newBio.length <= 200)
+		) {
 			setButtonDisabled(false);
 			setNameChangeSuccess(false);
 		} else setButtonDisabled(true);
-	}, [newUserName, newDisplayName]);
+	}, [newUserName, newDisplayName, newBio]);
 
 	return (
 		<SettingsSection>
-			<SubTitle>Change your identity</SubTitle>
+			<SubTitle>Peach account settings</SubTitle>
 			<Fieldset>
 				<Label htmlFor='displayName'>Display name</Label>
 				<Input
@@ -174,6 +195,20 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 					<SuccessText>
 						Successfully changed your username! Hello, {newUserName}!
 					</SuccessText>
+				) : null}
+			</Fieldset>
+			<Fieldset>
+				<Label htmlFor='bio'>Bio</Label>
+				<Input
+					id='bio'
+					type='text'
+					onChange={e => setNewBio(e.target.value)}
+					maxLength={200}
+				/>
+				{isLoaderShowing && newBio ? <MiniLoader /> : null}
+				{showError && newBio ? <ErrText>Bio is too long</ErrText> : null}
+				{!showError && newBio && nameChangeSuccess ? (
+					<SuccessText>Bio updated</SuccessText>
 				) : null}
 			</Fieldset>
 			<br />

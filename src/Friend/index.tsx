@@ -7,7 +7,7 @@ import getPostTime from '../utils/getPostTime';
 import Comments from '../Comments';
 
 import { DeletePrompt } from '../Comments/style';
-import DeleteIcon from '../Comments/DeleteIcon.svg';
+import DeleteIcon from '../Theme/Icons/DeleteIcon';
 import LikeIcon from '../Theme/Icons/LikeIcon';
 
 import NewPost from '../NewPost';
@@ -177,11 +177,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				{curUserData.id === props.author ? (
 					<>
 						<DeletePost>
-							<img
-								onClick={() => setDeletePromptShowing(true)}
-								src={DeleteIcon}
-								alt='Delete'
-							/>
+							<DeleteIcon onClick={() => setDeletePromptShowing(true)} />
 						</DeletePost>
 						{deletePromptShowing ? (
 							<DeletePrompt

@@ -63,5 +63,6 @@ export const ProfileHeaderText = styled.div`
 
 	> p:last-child {
 		margin: 0 auto;
+		word-break: break-word;
 	}
 `;

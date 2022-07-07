@@ -22,6 +22,7 @@ export const CHANGE_DISPLAY_NAME =
 export const CHANGE_USER_NAME = PROXY + 'https://v1.peachapi.com/stream/name';
 export const ADD_FRIEND = (username: string) =>
 	`${PROXY}https://v1.peachapi.com/stream/n/${username}/connection`;
+export const CHANGE_BIO = `${PROXY}https://v1.peachapi.com/stream/bio`;
 
 enum ACTIONS {
 	login,
@@ -38,6 +39,7 @@ enum ACTIONS {
 	getFriendsOfFriends,
 	changeDisplayName,
 	changeUserName,
+	changeBio,
 	uploadPicture,
 	addFriend,
 }

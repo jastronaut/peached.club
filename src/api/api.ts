@@ -15,6 +15,7 @@ import ACTIONS, {
 	CHANGE_USER_NAME,
 	CHANGE_DISPLAY_NAME,
 	ADD_FRIEND,
+	CHANGE_BIO,
 } from './constants';
 
 const api = (action: ACTIONS, jwt: string, body = {}, id = '') => {
@@ -105,6 +106,11 @@ const api = (action: ACTIONS, jwt: string, body = {}, id = '') => {
 			break;
 		case ACTIONS.changeDisplayName:
 			uri = CHANGE_DISPLAY_NAME;
+			req.method = 'PUT';
+			req.headers.Authorization = `Bearer ${jwt}`;
+			break;
+		case ACTIONS.changeBio:
+			uri = CHANGE_BIO;
 			req.method = 'PUT';
 			req.headers.Authorization = `Bearer ${jwt}`;
 			break;
