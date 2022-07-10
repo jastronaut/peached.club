@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Linkify from 'linkify-react';
 
 import {
 	Comment as PostCommentProps,
@@ -27,6 +28,7 @@ import CommentIcon from '../../Theme/Icons/CommentIcon';
 import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
 
 import DeleteIcon from '../../Theme/Icons/DeleteIcon';
+import { LINKIFY_OPTIONS } from '../../constants';
 
 interface DeletePromptProps {
 	onDelete: () => void;
@@ -113,7 +115,11 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 						</BasicContainer>
 					)}
 				</ProfileLink>
-				<p>{props.body}</p>
+				<p>
+					<Linkify tagName='span' options={LINKIFY_OPTIONS}>
+						{props.body}
+					</Linkify>
+				</p>
 			</CommentText>
 			<CommentInteractionsContainer>
 				{isRequester ? (

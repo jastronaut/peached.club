@@ -69,7 +69,7 @@ Primary.args = {
 		},
 		{
 			id: '6',
-			body: 'siejhr hdsfg shdf hdf dhfasdgf29q 39474i ffypfg; dlkfjsldkf kdsf sdlkf djfks fld fsd faf kdfj sd',
+			body: 'siejhr hdsfg shdf https://news.ycombinator.com/ hdf dhfasdgf29q 39474i ffypfg; dlkfjsldkf kdsf sdlkf djfks fld fsd faf kdfj sd',
 			author: {
 				id: '1',
 				name: 'jastronaut',

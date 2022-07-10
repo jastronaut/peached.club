@@ -48,7 +48,7 @@ Primary.args = {
 		name: 'futuresounds',
 		displayName: 'Hatsune Miku',
 		avatarSrc: 'http://peach.cool/images/icon-peach-header-big@2x.png',
-		bio: 'Hey there shdf sdjhf sjdkfh sdjf sdjf d k',
+		bio: 'Hey there shdf sdjhf https://news.ycombinator.com/ sjdkfh sdjf sdjf d k',
 		isPublic: false,
 		friendsSharing: false,
 		youFollow: true,

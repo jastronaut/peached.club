@@ -2,6 +2,8 @@ import React from 'react';
 import Linkify from 'linkify-react';
 
 import { User } from '../../api/interfaces';
+import { LINKIFY_OPTIONS } from '../../constants';
+
 import {
 	Avatar,
 	ProfileHeaderContainer,
@@ -13,11 +15,6 @@ import {
 export type ProfileHeaderProps = {
 	viewingUser: User;
 	postsLoaded: boolean;
-};
-
-const options = {
-	defaultProtocol: 'http',
-	target: '_blank',
 };
 
 export const ProfileHeader = ({
@@ -45,7 +42,7 @@ export const ProfileHeader = ({
 					</ProfileHeaderHandle>
 					<p>
 						{postsLoaded ? (
-							<Linkify tagName='span' options={options}>
+							<Linkify tagName='span' options={LINKIFY_OPTIONS}>
 								{viewingUser.bio}
 							</Linkify>
 						) : (
