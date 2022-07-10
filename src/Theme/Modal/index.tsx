@@ -22,7 +22,7 @@ export const ModalBackdrop = styled.div<ModalBackdropProps>`
 
 	overflow: hidden;
 
-	animation: 0.5s ${props => (props.entering ? '' : 'reverse')} EnterBackdrop;
+	animation: 0.25s ${props => (props.entering ? '' : 'reverse')} EnterBackdrop;
 	background: rgba(0, 0, 0, 0.4);
 	z-index: ${props => (props.isMini ? '999' : '99')};
 `;
