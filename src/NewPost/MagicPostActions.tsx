@@ -1,20 +1,19 @@
 import React from 'react';
-import { ImageUploadButton, MagicPostActionsContainer } from './style';
+import dayjs from 'dayjs';
 
+import { ImageUploadButton, MagicPostActionsContainer } from './style';
 import ImageIcon from './ImageIcon';
 import ClockIcon from '../Theme/Icons/ClockIcon';
 import CalendarIcon from '../Theme/Icons/CalendarIcon';
 
 export const getCurrentTime = (currentPostLen: number) => {
-	const d = new Date();
-	const [time, hour = ''] = d.toLocaleTimeString().split(' ');
-	// remove the milliseconds part of the time string
-	return `${currentPostLen ? '\n' : ''}🕓 ${time.slice(0, -3)} ${hour}\n`;
+	const now = dayjs().format('h:mm A');
+	return `${currentPostLen ? '\n' : ''}🕓 ${now}\n`;
 };
 
 export const getCurrentDate = (currentPostLen: number) => {
-	const d = new Date();
-	return `${currentPostLen ? '\n' : ''}📰 ${d.toDateString()}\n`;
+	const now = dayjs().format('dddd, MMMM D, YYYY');
+	return `${currentPostLen ? '\n' : ''}📰 ${now} \n`;
 };
 
 type MagicPostActionsProps = {
