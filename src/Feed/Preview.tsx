@@ -1,14 +1,7 @@
 import React from 'react';
-import { createPostPreview } from '../utils';
-import getPostTime from '../utils/getPostTime';
-import {
-	FeedPostWrapper,
-	ProfilePic,
-	PicFrame,
-	InfoContainer,
-	PostPreview,
-	DisplayName,
-} from './style';
+import { FeedPostWrapper, ProfilePic, InfoContainer } from './style';
+
+import { PicFrame, PreviewContent } from '../Theme/Preview';
 
 import { PostContent } from '../api/interfaces';
 
@@ -26,34 +19,13 @@ interface PreviewProps {
 const Preview: React.FC<PreviewProps> = props => {
 	return (
 		<FeedPostWrapper isUnread={false}>
-			<PicFrame>
-				{props.avatarSrc ? (
-					<ProfilePic
-						unread={props.unread}
-						src={props.avatarSrc}
-						alt={props.name}
-					/>
-				) : (
-					<span role='img' aria-label={props.name}>
-						🍑
-					</span>
-				)}
-			</PicFrame>
-			<InfoContainer>
-				<DisplayName>{props.displayName}</DisplayName>
+			<PreviewContent
+				avatarSrc={props.avatarSrc}
+				name={props.name}
+				displayName={props.displayName}
+			>
 				{props.children}
-				<PostPreview>
-					<p>
-						{typeof props.message === 'string'
-							? props.message
-							: createPostPreview(props.message)}
-					</p>
-
-					{props.createdTime && (
-						<p>{getPostTime(props.createdTime)}</p>
-					)}
-				</PostPreview>
-			</InfoContainer>
+			</PreviewContent>
 		</FeedPostWrapper>
 	);
 };

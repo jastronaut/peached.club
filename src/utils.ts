@@ -1,6 +1,10 @@
 import { PostContent, POST_TYPE } from './api/interfaces';
 
-export const createPostPreview = (post: PostContent) => {
+export const createPostPreview = (post: PostContent | string) => {
+	if (typeof post === 'string') {
+		return '';
+	}
+
 	switch (post.type) {
 		case POST_TYPE.TEXT:
 			return post.text.length > 300

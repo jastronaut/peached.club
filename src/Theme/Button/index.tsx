@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { rem } from 'polished';
 
-const ButtonLink = styled.a<{ centered?: boolean }>`
+export const ButtonLink = styled.a<{ centered?: boolean }>`
 	text-decoration: none;
 	${props => (props.centered ? '' : 'align-self: start;')}
 	color: white;
@@ -12,6 +12,7 @@ const ButtonLink = styled.a<{ centered?: boolean }>`
 	}
 
 	:hover {
+		text-decoration: none;
 		color: white;
 	}
 `;
@@ -23,6 +24,7 @@ interface ButtonStyleProps {
 	isSmall?: boolean;
 	colorHover?: string;
 	mode?: ButtonOptions;
+	isInverted?: boolean;
 }
 
 type ButtonOptions = 'default' | 'bad' | 'success' | 'muted';
@@ -67,19 +69,84 @@ const ButtonMapping: BtnMappingType = {
 	},
 };
 
+const getButtonBgColor = (
+	theme: DefaultTheme,
+	mode: ButtonOptions,
+	isDisabled: boolean,
+	isInverted: boolean,
+
+	isHover: boolean
+) => {
+	if (isInverted) {
+		if (isHover) {
+			return ButtonMapping[mode ?? 'default'].background(theme);
+		}
+
+		return 'transparent';
+	}
+
+	if (isHover) {
+		return 'transparent';
+	}
+
+	if (isDisabled) {
+		return theme.text.muted;
+	}
+
+	return ButtonMapping[mode ?? 'default'].background(theme);
+};
+
+const getButtonTextColor = (
+	theme: DefaultTheme,
+	mode: ButtonOptions,
+	isDisabled: boolean,
+	isInverted: boolean,
+	isHover: boolean
+) => {
+	if (isInverted) {
+		if (isHover) {
+			return '#fff';
+		}
+
+		return ButtonMapping[mode ?? 'default'].background(theme);
+	}
+
+	if (isHover) {
+		return ButtonMapping[mode ?? 'default'].background(theme);
+	}
+
+	return '#fff';
+};
+
 const ButtonStyle = styled.button<ButtonStyleProps>`
 	background: ${props =>
-		props.disabled
-			? '#cacaca'
-			: props.mode
-			? ButtonMapping[props.mode].background(props.theme)
-			: ButtonMapping.default.background(props.theme)};
+		getButtonBgColor(
+			props.theme,
+			props.mode ?? 'default',
+			props.disabled ?? false,
+			props.isInverted ?? false,
+			false
+		)};
 	border: 1px solid
-		${props => (props.disabled ? '#cacaca' : props.color || props.theme.accent)};
+		${props =>
+			getButtonTextColor(
+				props.theme,
+				props.mode ?? 'default',
+				props.disabled ?? false,
+				props.isInverted ?? false,
+				false
+			)};
 	padding: ${rem(5)} ${rem(10)};
 	border-radius: ${rem(6)};
 	text-align: center;
-	color: white;
+	color: ${props =>
+		getButtonTextColor(
+			props.theme,
+			props.mode ?? 'default',
+			props.disabled ?? false,
+			props.isInverted ?? false,
+			false
+		)};
 	margin: ${rem(5)} 0;
 
 	transition: 0.25s all ease;
@@ -89,25 +156,36 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 	align-items: center;
 
 	:hover {
-		background: ${props => (props.disabled ? '#cacaca' : 'rgba(0,0,0,0)')};
+		background: ${props =>
+			getButtonBgColor(
+				props.theme,
+				props.mode ?? 'default',
+				props.disabled ?? false,
+				props.isInverted ?? false,
+				true
+			)};
 		border-color: ${props =>
-			props.disabled
-				? '#cacaca'
-				: props.colorHover
-				? props.colorHover
-				: props.theme.accent};
+			getButtonBgColor(
+				props.theme,
+				props.mode ?? 'default',
+				props.disabled ?? false,
+				props.isInverted ?? false,
+				false
+			)};
+
 		cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 
 		color: ${props =>
-			props.disabled
-				? 'white'
-				: props.mode
-				? ButtonMapping[props.mode].hoverText(props.theme)
-				: ButtonMapping.default.hoverText(props.theme)};
+			getButtonTextColor(
+				props.theme,
+				props.mode ?? 'default',
+				props.disabled ?? false,
+				props.isInverted ?? false,
+				true
+			)};
 	}
 
 	> svg {
-		/* height: 1.1rem; */
 		margin-right: 0.25rem;
 	}
 
@@ -127,15 +205,18 @@ interface ButtonProps extends ButtonStyleProps {
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => (
 	<ButtonLink
 		href={props.link || '#'}
-		onClick={e => (props.onClick ? props.onClick() : {})}
+		onClick={_e => (props.onClick ? props.onClick() : {})}
 		centered={props.centered}
+		role='button'
 	>
 		<ButtonStyle
 			type='submit'
 			color={props.color}
 			lg={props.lg}
-			disabled={props.disabled}
+			disabled={props.disabled ?? false}
 			colorHover={props.colorHover}
+			mode={props.mode ?? 'default'}
+			isInverted={props.isInverted}
 		>
 			{props.children}
 		</ButtonStyle>

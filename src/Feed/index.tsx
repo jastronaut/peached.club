@@ -11,9 +11,12 @@ import ACTIONS from '../api/constants';
 import api from '../api';
 
 import { LinkStyled } from './style';
-import Preview from './Preview';
+import { Preview } from '../Theme/Preview';
 import { Page } from '../Theme/Layout';
 import { Title } from '../Theme/Type';
+import { createPostPreview } from '../utils';
+import { PostPreview } from './style';
+import getPostTime from '../utils/getPostTime';
 
 export const Feed = () => {
 	const [connections, setConnections] = useState<User[] | null>(null);
@@ -28,17 +31,13 @@ export const Feed = () => {
 			api(ACTIONS.getConnections, jwt).then(
 				(response: { data: Connections; success: number }) => {
 					if (response.success === 1) {
-						const connectionsUnread =
-							response.data.connections.filter(
-								user => user.unreadPostCount
-							);
-						const connectionsRead =
-							response.data.connections.filter(
-								user => !user.unreadPostCount
-							);
-						setConnections(
-							connectionsUnread.concat(connectionsRead)
+						const connectionsUnread = response.data.connections.filter(
+							user => user.unreadPostCount
 						);
+						const connectionsRead = response.data.connections.filter(
+							user => !user.unreadPostCount
+						);
+						setConnections(connectionsUnread.concat(connectionsRead));
 						setPeachFeed(
 							response.data.connections.map(user => {
 								user.posts = user.posts.reverse();
@@ -81,19 +80,20 @@ export const Feed = () => {
 								avatarSrc={user.avatarSrc}
 								displayName={user.displayName}
 								name={user.name}
-								id={user.id}
-								message={
-									user.posts && user.posts[0]
-										? user.posts[0].message[0]
-										: ''
-								}
-								unread={user.unreadPostCount > 0}
-								createdTime={
-									user.posts && user.posts[0]
-										? user.posts[0].createdTime
-										: null
-								}
-							/>
+							>
+								<PostPreview>
+									<p>
+										{createPostPreview(
+											user.posts && user.posts[0]
+												? user.posts[0].message[0]
+												: ''
+										)}
+									</p>
+									{user?.posts[0]?.createdTime && (
+										<p>{getPostTime(user.posts[0].createdTime)}</p>
+									)}
+								</PostPreview>
+							</Preview>
 						</LinkStyled>
 					))
 				) : (
