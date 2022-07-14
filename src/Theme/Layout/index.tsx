@@ -8,10 +8,6 @@ export const Page = styled.main`
 		margin: 5rem 10rem;
 	}
 	@media screen and (max-width: 900px) {
-		margin: 5rem 5rem;
-	}
-
-	@media screen and (max-width: 700px) {
-		margin: 2rem 0;
+		margin: 0 0;
 	}
 `;

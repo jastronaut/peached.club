@@ -56,8 +56,8 @@ export const PostWrapper = styled.div`
 		}
 	}
 
-	@media screen and (max-width: 500px) {
-		margin: 0 ${rem(16)} 0;
+	@media screen and (max-width: 800px) {
+		margin: 0;
 		padding: ${rem(24)} ${rem(16)} ${rem(16)};
 		:last-of-type {
 			padding-bottom: ${rem(24)};

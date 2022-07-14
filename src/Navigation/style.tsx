@@ -13,7 +13,6 @@ export const NavWrap = styled.div`
 	@media screen and (max-width: 700px) {
 		top: initial;
 		bottom: 0;
-		border-top: 1px solid ${props => props.theme.border.primary};
 	}
 `;
 

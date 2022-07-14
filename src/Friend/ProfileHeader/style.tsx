@@ -20,7 +20,7 @@ export const ProfileHeaderContainer = styled.div`
 	background-size: cover;
 
 	@media screen and (max-width: 700px) {
-		margin: 3rem 1rem 0;
+		margin: 0;
 	}
 `;
 
@@ -38,6 +38,7 @@ export const ProfileHeaderContent = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-top: 0;
 	}
 `;
 
