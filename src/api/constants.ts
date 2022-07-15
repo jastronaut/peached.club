@@ -44,6 +44,4 @@ enum ACTIONS {
 	addFriend,
 }
 
-export const IMGUR_ID = '7683e91b3b47a80';
-
 export default ACTIONS;

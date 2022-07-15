@@ -1,6 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
 
-import { IMGUR_ID } from '../api/constants';
 import {
 	ImgurUploadResponse,
 	ImageMessage,
@@ -92,7 +91,7 @@ export const ComposerComponent = (
 		const req = {
 			method: 'POST',
 			headers: {
-				Authorization: 'Client-ID ' + IMGUR_ID,
+				Authorization: 'Client-ID ' + process.env.IMGUR_ID,
 				Accept: 'application/json',
 			},
 			body: formData,
