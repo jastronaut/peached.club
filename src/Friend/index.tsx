@@ -4,15 +4,12 @@ import Linkify from 'linkify-react';
 
 import api from '../api';
 import Loading from '../Loading';
-import getPostTime from '../utils/getPostTime';
+import { PostInteractions } from './Posts/PostInteractions';
 
 import Comments from '../Comments';
 
 import { DeletePrompt } from '../Comments/style';
 import DeleteIcon from '../Theme/Icons/DeleteIcon';
-import LikeIcon from '../Theme/Icons/LikeIcon';
-import CommentIcon from '../Theme/Icons/CommentIcon';
-import ClockIcon from '../Theme/Icons/ClockIcon';
 
 import NewPost from '../NewPost';
 
@@ -31,13 +28,9 @@ import ACTIONS from '../api/constants';
 import {
 	DeletePost,
 	PostWrapper,
-	PostInteraction,
 	FriendPostContent,
 	Image,
-	InteractionInfo,
-	InteractionArea,
 	EmptyStateWrapper,
-	PostTime,
 } from './style';
 import { PeachContext } from '../PeachContext';
 
@@ -204,20 +197,14 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				) : null}
 				<FriendPostContent>{msgs}</FriendPostContent>
 			</>
-			<PostInteraction>
-				<InteractionArea onClick={e => onClickLike()}>
-					<LikeIcon isLiked={liked} />{' '}
-					<InteractionInfo>{likeCount}</InteractionInfo>
-				</InteractionArea>
-				<InteractionArea onClick={e => onClickComments()}>
-					<CommentIcon />
-					<InteractionInfo>{comments.length}</InteractionInfo>
-				</InteractionArea>
-				<PostTime>
-					<ClockIcon />
-					<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
-				</PostTime>
-			</PostInteraction>
+			<PostInteractions
+				commentsLength={comments.length}
+				onClickLike={onClickLike}
+				onClickComments={onClickComments}
+				isLiked={liked}
+				likeCount={likeCount}
+				createdTime={props.createdTime}
+			/>
 			{showComments ? (
 				<Comments
 					postAuthorAvatarSrc={props.postAuthorAvatarSrc}

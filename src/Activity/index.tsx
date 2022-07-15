@@ -17,6 +17,7 @@ import Navigation from '../Navigation';
 import { Page } from '../Theme/Layout';
 import { Title } from '../Theme/Type';
 import Preview from '../Feed/Preview';
+import { Container } from '../Theme/Layout';
 
 function shortenPost(text: string): string {
 	return text.length > 300 ? text.slice(0, 300) + '...' : text;
@@ -66,10 +67,8 @@ function getActivityDescription(item: ActivityItem): string {
 }
 
 export const Activity = () => {
-	const [activityFeed, setActivityFeed] = useState<ActivityItem[] | null>(
-		null
-	);
-	const { darkMode, peachFeed, jwt } = useContext(PeachContext);
+	const [activityFeed, setActivityFeed] = useState<ActivityItem[] | null>(null);
+	const { peachFeed, jwt } = useContext(PeachContext);
 
 	useEffect(() => {
 		try {
