@@ -4,14 +4,12 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { PeachContext } from '../PeachContext';
 
 import { NavWrap, Link, Nav, FeedsNav, PageIconWrapper } from './style';
+import ArrowLeftIcon from '../Theme/Icons/ArrowLeftIcon';
 import ArrowRightIcon from '../Theme/Icons/ArrowRightIcon';
 import HomeIcon from '../Theme/Icons/HomeIcon';
 import UserIcon from '../Theme/Icons/UserIcon';
 import ActivityIcon from '../Theme/Icons/PulseIcon';
 import GearIcon from '../Theme/Icons/GearIcon';
-
-import ArrowLeft from './ArrowLeft.svg';
-import ArrowLeftDarkMode from './ArrowLeftDarkMode.svg';
 
 interface NavigationProps {
 	curFeed?: string;
@@ -22,7 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({
 	curFeed,
 	onCurUsersProfile,
 }) => {
-	const { darkMode, curUser, peachFeed } = useContext(PeachContext);
+	const { curUser, peachFeed } = useContext(PeachContext);
 	const { pathname } = useLocation();
 
 	let feedListIDs: string[] = [];
@@ -55,10 +53,7 @@ const Navigation: React.FC<NavigationProps> = ({
 					{showLeftArrow ? (
 						<RouterLink to={`/friend/${prevUser}`}>
 							<FeedsNav>
-								<img
-									src={darkMode ? ArrowLeftDarkMode : ArrowLeft}
-									alt='Prev feed'
-								/>
+								<ArrowLeftIcon />
 							</FeedsNav>
 						</RouterLink>
 					) : null}

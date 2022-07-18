@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { rem, parseToRgb, rgba } from 'polished';
+import { rem, parseToRgb, rgba, darken } from 'polished';
 
 const getRgba = (color: string, opacity: number) => {
-	const rgb = parseToRgb(color);
+	const rgb = parseToRgb(darken(0.1, color));
 	return `${rgba(rgb.red, rgb.green, rgb.blue, opacity)}`;
 };
 
@@ -23,6 +23,10 @@ export const NavWrap = styled.div`
 		top: initial;
 		bottom: 0;
 	}
+
+	@media screen and (max-width: 500px) {
+		width: 100vw;
+	}
 `;
 
 export const FeedsNav = styled.div<{ right?: boolean }>`
@@ -34,11 +38,16 @@ export const FeedsNav = styled.div<{ right?: boolean }>`
 	border-radius: 1rem;
 	box-shadow: 3px 3px 5px #00000050;
 	transition: all ease 0.25s;
+	background-color: ${props => getRgba(props.theme.background.accented, 0.8)};
+
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(50px);
+	-o-backdrop-filter: blur(50px);
+	-moz-backdrop-filter: blur(50px);
 
 	:hover {
 		cursor: pointer;
 		transform: translateY(0.25rem);
-		background: #cacaca;
 	}
 
 	@media screen and (min-width: 701px) {
@@ -110,6 +119,12 @@ export const PageIconWrapper = styled.div<{ isActive: boolean }>`
 		stroke: ${props =>
 			props.isActive ? props.theme.text.primary : props.theme.text.muted};
 	}
+
+	/* @media screen and (max-width: 700px) {
+		svg {
+			stroke: ${props => props.theme.text.primary};
+		}
+	} */
 
 	:hover {
 		background-color: ${props => props.theme.accent};
