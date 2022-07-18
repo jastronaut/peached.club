@@ -13,6 +13,7 @@ const ButtonLink = styled.a<{ centered?: boolean }>`
 
 	:hover {
 		color: white;
+		text-decoration: none;
 	}
 `;
 
