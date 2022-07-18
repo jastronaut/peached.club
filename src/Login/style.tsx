@@ -44,7 +44,7 @@ export const Container = styled.div`
 `;
 
 export const AuthInput = styled.input`
-	padding: ${rem(5)} ${rem(3)};
+	padding: ${rem(12)} ${rem(6)};
 	display: block;
 	margin: 0 0;
 	font-size: ${rem(16)};
@@ -55,6 +55,7 @@ export const AuthInput = styled.input`
 	color: ${props => props.theme.text.primary};
 	background-color: ${props => props.theme.background.secondary};
 	outline-style: none;
+	font-family: monospace;
 `;
 
 export const DangerTxt = styled.p`
