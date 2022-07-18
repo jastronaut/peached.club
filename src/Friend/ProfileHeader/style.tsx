@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
+
 const backgrounds = [
 	'https://imgur.com/upR9smx.jpg',
 	'https://imgur.com/FYvdKAb.jpg',
@@ -7,6 +8,7 @@ const backgrounds = [
 	'https://imgur.com/aqfkgt5.jpg',
 	'https://imgur.com/xyAcBRG.jpg',
 ];
+
 const numBackgrounds = backgrounds.length;
 
 const getRandomBackgroundUrl = () =>
