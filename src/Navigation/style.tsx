@@ -1,14 +1,27 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
+import { rem, parseToRgb, rgba } from 'polished';
+
+const getRgba = (color: string, opacity: number) => {
+	const rgb = parseToRgb(color);
+	return `${rgba(rgb.red, rgb.green, rgb.blue, opacity)}`;
+};
 
 export const NavWrap = styled.div`
 	width: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
-	background: none;
+	/* background: none; */
 	z-index: 100;
-	background: ${props => props.theme.background.accented};
+	/* background-color: ${props => props.theme.background.accented}; */
+	background-color: ${props => getRgba(props.theme.background.accented, 0.2)};
+
+	/* opacity: 0.6; */
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(50px);
+	-o-backdrop-filter: blur(50px);
+	-moz-backdrop-filter: blur(50px);
+	/* box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1); */
 
 	@media screen and (max-width: 700px) {
 		top: initial;
@@ -17,7 +30,6 @@ export const NavWrap = styled.div`
 `;
 
 export const FeedsNav = styled.div<{ right?: boolean }>`
-	background: ${props => props.theme.background.primary};
 	position: fixed;
 	top: 0.5rem;
 	${props => (props.right ? 'right: 1rem;' : 'left: 1rem;')};
@@ -26,6 +38,7 @@ export const FeedsNav = styled.div<{ right?: boolean }>`
 	border-radius: 1rem;
 	box-shadow: 3px 3px 5px #00000050;
 	transition: all ease 0.25s;
+
 	:hover {
 		cursor: pointer;
 		transform: translateY(0.25rem);
@@ -90,6 +103,13 @@ export const IconImage = styled.img`
 	border-radius: 50%;
 	:hover {
 		background: #cacaca50;
+	}
+`;
+
+export const PageIconWrapper = styled.div<{ isActive: boolean }>`
+	svg {
+		stroke: ${props =>
+			props.isActive ? props.theme.text.primary : props.theme.text.muted};
 	}
 `;
 
