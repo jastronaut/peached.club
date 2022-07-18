@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 
 export const Page = styled.div`
-	height: 100%;
+	height: 100vh;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -29,7 +29,7 @@ export const Container = styled.div`
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
+	/* height: 100%; */
 	width: 50%;
 	padding: ${rem(60)};
 

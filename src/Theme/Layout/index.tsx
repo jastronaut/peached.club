@@ -4,12 +4,19 @@ import { rem } from 'polished';
 export const Page = styled.main`
 	background-color: ${props => props.theme.background.accented};
 	margin: 5rem 15rem;
+	/* padding-bottom: ${rem(5)}; */
 
 	@media screen and (max-width: 1080px) {
 		margin: 5rem 10rem;
 	}
+
 	@media screen and (max-width: 900px) {
+		margin: ${rem(48)} ${rem(32)};
+	}
+
+	@media screen and (max-width: 700px) {
 		margin: 0 0;
+		/* padding-bottom: ${rem(50)}; */
 	}
 `;
 
