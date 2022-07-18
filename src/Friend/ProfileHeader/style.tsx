@@ -33,7 +33,7 @@ export const ProfileHeaderContent = styled.div`
 	border-top-left-radius: ${rem(20)};
 	border-top-right-radius: ${rem(20)};
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: 500px) {
 		padding-bottom: ${rem(6)};
 		flex-direction: column;
 		justify-content: center;
