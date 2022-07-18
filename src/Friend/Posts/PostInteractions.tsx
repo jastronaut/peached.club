@@ -5,7 +5,6 @@ import getPostTime from '../../utils/getPostTime';
 import LikeIcon from '../../Theme/Icons/LikeIcon';
 import CommentIcon from '../../Theme/Icons/CommentIcon';
 import ClockIcon from '../../Theme/Icons/ClockIcon';
-// import MoreIcon from '../../Theme/Icons/MoreIcon';
 import {
 	PostInteraction,
 	InteractionInfo,
@@ -23,8 +22,6 @@ type Props = {
 };
 
 export const PostInteractions = (props: Props) => {
-	// const [isDeletePromptShowing, setIsDeletePromptShowing] = useState(false);
-
 	return (
 		<PostInteraction>
 			<InteractionArea onClick={_e => props.onClickLike()}>
@@ -39,10 +36,6 @@ export const PostInteractions = (props: Props) => {
 				<ClockIcon />
 				<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
 			</PostTime>
-			<InteractionArea>
-				{/* <MoreIcon onClick={() => setIsDeletePromptShowing(s => !s)} />
-				{isDeletePromptShowing ? 'hello' : null} */}
-			</InteractionArea>
 		</PostInteraction>
 	);
 };
