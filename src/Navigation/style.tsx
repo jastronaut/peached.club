@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { rem, parseToRgb, rgba, darken } from 'polished';
 
-const getRgba = (color: string, opacity: number) => {
-	const rgb = parseToRgb(darken(0.1, color));
+const getRgba = (color: string, opacity: number, isDarkened: boolean) => {
+	const rgb = parseToRgb(isDarkened ? darken(0.1, color) : color);
 	return `${rgba(rgb.red, rgb.green, rgb.blue, opacity)}`;
 };
 
@@ -12,7 +12,8 @@ export const NavWrap = styled.div`
 	top: 0;
 	left: 0;
 	z-index: 100;
-	background-color: ${props => getRgba(props.theme.background.accented, 0.2)};
+	background-color: ${props =>
+		getRgba(props.theme.background.accented, 0.2, false)};
 
 	backdrop-filter: blur(50px);
 	-webkit-backdrop-filter: blur(50px);
@@ -22,6 +23,8 @@ export const NavWrap = styled.div`
 	@media screen and (max-width: 700px) {
 		top: initial;
 		bottom: 0;
+		background-color: ${props =>
+			getRgba(props.theme.background.accented, 0.2, true)};
 	}
 
 	@media screen and (max-width: 500px) {
@@ -38,7 +41,8 @@ export const FeedsNav = styled.div<{ right?: boolean }>`
 	border-radius: 1rem;
 	box-shadow: 3px 3px 5px #00000050;
 	transition: all ease 0.25s;
-	background-color: ${props => getRgba(props.theme.background.accented, 0.8)};
+	background-color: ${props =>
+		getRgba(props.theme.background.accented, 0.8, true)};
 
 	backdrop-filter: blur(50px);
 	-webkit-backdrop-filter: blur(50px);
@@ -119,12 +123,6 @@ export const PageIconWrapper = styled.div<{ isActive: boolean }>`
 		stroke: ${props =>
 			props.isActive ? props.theme.text.primary : props.theme.text.muted};
 	}
-
-	/* @media screen and (max-width: 700px) {
-		svg {
-			stroke: ${props => props.theme.text.primary};
-		}
-	} */
 
 	:hover {
 		background-color: ${props => props.theme.accent};

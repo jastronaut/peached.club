@@ -40,7 +40,8 @@ export const ProfileHeaderContent = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-top: 0;
+		margin-top: ${rem(24)};
+		text-align: center;
 	}
 `;
 

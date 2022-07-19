@@ -67,7 +67,7 @@ export const PostWrapper = styled.div`
 `;
 
 export const EmptyStateWrapper = styled(PostWrapper)`
-	height: 20%;
+	height: ${rem(120)};
 	text-align: center;
 `;
 
