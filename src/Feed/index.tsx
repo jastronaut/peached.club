@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mantine/core';
 
 import Navigation from '../Navigation';
 import Loading from '../Loading';
@@ -28,17 +29,13 @@ export const Feed = () => {
 			api(ACTIONS.getConnections, jwt).then(
 				(response: { data: Connections; success: number }) => {
 					if (response.success === 1) {
-						const connectionsUnread =
-							response.data.connections.filter(
-								user => user.unreadPostCount
-							);
-						const connectionsRead =
-							response.data.connections.filter(
-								user => !user.unreadPostCount
-							);
-						setConnections(
-							connectionsUnread.concat(connectionsRead)
+						const connectionsUnread = response.data.connections.filter(
+							user => user.unreadPostCount
 						);
+						const connectionsRead = response.data.connections.filter(
+							user => !user.unreadPostCount
+						);
+						setConnections(connectionsUnread.concat(connectionsRead));
 						setPeachFeed(
 							response.data.connections.map(user => {
 								user.posts = user.posts.reverse();
@@ -73,6 +70,14 @@ export const Feed = () => {
 			<Navigation />
 			<Page>
 				<Title>All Feeds</Title>
+				<Alert title='Bummer!' color='red'>
+					This domain will be down for a couple of days, effective tomorrow.
+					Please visit{' '}
+					<a href='https://peached-club.vercel.app/'>
+						https://peached-club.vercel.app/
+					</a>{' '}
+					instead.
+				</Alert>
 				{connections ? (
 					connections.map(user => (
 						<LinkStyled key={user.id} to={`/friend/${user.id}`}>
@@ -83,15 +88,11 @@ export const Feed = () => {
 								name={user.name}
 								id={user.id}
 								message={
-									user.posts && user.posts[0]
-										? user.posts[0].message[0]
-										: ''
+									user.posts && user.posts[0] ? user.posts[0].message[0] : ''
 								}
 								unread={user.unreadPostCount > 0}
 								createdTime={
-									user.posts && user.posts[0]
-										? user.posts[0].createdTime
-										: null
+									user.posts && user.posts[0] ? user.posts[0].createdTime : null
 								}
 							/>
 						</LinkStyled>
