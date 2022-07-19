@@ -139,6 +139,7 @@ export const ComposerComponent = (
 				placeholder="What's going on?"
 				onChange={e => setPostText(e.target.value)}
 				value={postText}
+				autoFocus
 			/>
 
 			<MagicPostActions

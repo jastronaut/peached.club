@@ -23,10 +23,7 @@ const AddComment: React.FC<AddCommentProps> = ({
 	const { peachFeed } = useContext(PeachContext);
 
 	useEffect(() => {
-		if (
-			newCommentText.slice(-1) === ' ' ||
-			newCommentText.slice(-1) === '@'
-		) {
+		if (newCommentText.slice(-1) === ' ' || newCommentText.slice(-1) === '@') {
 			setDropdownShowing(false);
 			setNameSuggestions([]);
 			return;
@@ -85,6 +82,7 @@ const AddComment: React.FC<AddCommentProps> = ({
 				value={newCommentText}
 				onChange={e => setNewCommentText(e.target.value)}
 				placeholder='Write a comment...'
+				autoFocus
 			/>{' '}
 			<ButtonWrapper>
 				<Button
