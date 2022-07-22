@@ -34,7 +34,7 @@ const displayError = (err: loginErrors) => {
 	return <DangerTxt>{msg}</DangerTxt>;
 };
 
-export const Login = () => {
+export const LoginPage = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState<string>('');
 	const [pw, setPassword] = useState<string>('');

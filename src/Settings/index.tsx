@@ -22,7 +22,7 @@ import {
 import { ERROR } from '../api/error';
 import { LinkText } from '../Friend/Posts/LinkPost';
 
-export const Settings = () => {
+export const SettingsPage = () => {
 	const navigate = useNavigate();
 	const { jwt, toggleDarkMode } = useContext(PeachContext);
 

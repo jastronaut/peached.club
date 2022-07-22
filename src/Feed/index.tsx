@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Alert } from '@mantine/core';
 
 import Navigation from '../Navigation';
 import Loading from '../Loading';
@@ -16,7 +15,32 @@ import Preview from './Preview';
 import { Page } from '../Theme/Layout';
 import { Title } from '../Theme/Type';
 
-export const Feed = () => {
+const Feed = (props: { connections: User[] }) => {
+	return (
+		<>
+			{props.connections.map(user => (
+				<LinkStyled key={user.id} to={`/friend/${user.id}`}>
+					<Preview
+						key={user.id}
+						avatarSrc={user.avatarSrc}
+						displayName={user.displayName}
+						name={user.name}
+						id={user.id}
+						message={
+							user.posts && user.posts[0] ? user.posts[0].message[0] : ''
+						}
+						unread={user.unreadPostCount > 0}
+						createdTime={
+							user.posts && user.posts[0] ? user.posts[0].createdTime : null
+						}
+					/>
+				</LinkStyled>
+			))}
+		</>
+	);
+};
+
+export const FeedPage = () => {
 	const [connections, setConnections] = useState<User[] | null>(null);
 	const { jwt, setPeachFeed, curUser, curUserData, setCurUserData } =
 		useContext(PeachContext);
@@ -70,28 +94,7 @@ export const Feed = () => {
 			<Navigation />
 			<Page>
 				<Title>All Feeds</Title>
-				{connections ? (
-					connections.map(user => (
-						<LinkStyled key={user.id} to={`/friend/${user.id}`}>
-							<Preview
-								key={user.id}
-								avatarSrc={user.avatarSrc}
-								displayName={user.displayName}
-								name={user.name}
-								id={user.id}
-								message={
-									user.posts && user.posts[0] ? user.posts[0].message[0] : ''
-								}
-								unread={user.unreadPostCount > 0}
-								createdTime={
-									user.posts && user.posts[0] ? user.posts[0].createdTime : null
-								}
-							/>
-						</LinkStyled>
-					))
-				) : (
-					<Loading />
-				)}
+				{connections ? <Feed connections={connections} /> : <Loading />}
 				<NewPost />
 			</Page>
 		</>

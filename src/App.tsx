@@ -10,12 +10,12 @@ import {
 	STORAGE_USER_KEY,
 } from './constants';
 
-import { Login } from './Login';
+import { LoginPage } from './Login';
 import { Logout } from './Login/Logout';
-import { Feed } from './Feed';
-import { FriendFeed } from './Friend';
-import { Activity } from './Activity';
-import { Settings } from './Settings';
+import { FeedPage } from './Feed';
+import { FriendFeedPage } from './Friend';
+import { ActivityPage } from './Activity';
+import { SettingsPage } from './Settings';
 import { darkTheme, lightTheme } from './Theme/theme';
 import { GlobalStyle } from './style';
 
@@ -100,14 +100,14 @@ const MainPeachApp = () => (
 
 const PeachRoutes = () => (
 	<Routes>
-		<Route path='/' element={<Login />} />
-		<Route path='/login' element={<Login />} />
-		<Route path='/feed' element={<Feed />} />
+		<Route path='/' element={<LoginPage />} />
+		<Route path='/login' element={<LoginPage />} />
+		<Route path='/feed' element={<FeedPage />} />
 		<Route path='/friend'>
-			<Route path=':id' element={<FriendFeed />} />
+			<Route path=':id' element={<FriendFeedPage />} />
 		</Route>
-		<Route path='/activity' element={<Activity />} />
-		<Route path='/settings' element={<Settings />} />
+		<Route path='/activity' element={<ActivityPage />} />
+		<Route path='/settings' element={<SettingsPage />} />
 		<Route path='/logout' element={<Logout />} />
 	</Routes>
 );

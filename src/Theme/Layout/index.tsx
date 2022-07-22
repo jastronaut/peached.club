@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
+import React from 'react';
+import Navigation from '../../Navigation';
 
-export const Page = styled.main`
+export const PageContainer = styled.main`
 	background-color: ${props => props.theme.background.accented};
 	margin: 5rem 15rem;
-	/* padding-bottom: ${rem(5)}; */
 
 	@media screen and (max-width: 1080px) {
 		margin: 5rem 10rem;
@@ -16,9 +17,17 @@ export const Page = styled.main`
 
 	@media screen and (max-width: 700px) {
 		margin: 0 0;
-		/* padding-bottom: ${rem(50)}; */
 	}
 `;
+
+export const Page = (props: { children: React.ReactNode }) => {
+	return (
+		<>
+			<Navigation />
+			<PageContainer>{props.children}</PageContainer>
+		</>
+	);
+};
 
 export const Container = styled.div`
 	display: flex;

@@ -227,7 +227,7 @@ const EmptyState = () => (
 	</EmptyStateWrapper>
 );
 
-export const FriendFeed = () => {
+export const FriendFeedPage = () => {
 	const { jwt, curUser, peachFeed, curUserData } = useContext(PeachContext);
 	const [posts, setPosts] = useState<Post[]>([]);
 
