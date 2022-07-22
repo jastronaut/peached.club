@@ -1,4 +1,5 @@
 import { PostContent, POST_TYPE } from './api/interfaces';
+import { STORAGE_USER_KEY } from './constants';
 
 export const createPostPreview = (post: PostContent) => {
 	switch (post.type) {
@@ -16,3 +17,12 @@ export const createPostPreview = (post: PostContent) => {
 			return '';
 	}
 };
+
+export function getUserFromStorage() {
+	const user = localStorage.getItem(STORAGE_USER_KEY);
+	if (user) {
+		return JSON.parse(user);
+	} else {
+		return null;
+	}
+}

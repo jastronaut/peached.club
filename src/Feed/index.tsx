@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Navigation from '../Navigation';
 import Loading from '../Loading';
 import NewPost from '../NewPost';
 
@@ -85,21 +84,16 @@ export const FeedPage = () => {
 					}
 				);
 			}
-		} else {
-			console.log('okay ');
 		}
 		// eslint-disable-next-line
 	}, []);
 
 	if (!jwt || !curUser) {
-		console.log('hey');
 		navigate('/logout', { replace: true });
-		console.log('???');
 	}
 
 	return (
 		<>
-			<Navigation />
 			<Page>
 				<Title>All Feeds</Title>
 				{connections ? <Feed connections={connections} /> : <Loading />}

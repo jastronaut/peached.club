@@ -4,11 +4,8 @@ import { ThemeProvider } from 'styled-components';
 
 import { PeachContext } from './PeachContext';
 import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
-import {
-	STORAGE_IS_DARK_MODE,
-	STORAGE_TOKEN_KEY,
-	STORAGE_USER_KEY,
-} from './constants';
+import { STORAGE_IS_DARK_MODE, STORAGE_TOKEN_KEY } from './constants';
+import { getUserFromStorage } from './utils';
 
 import { LoginPage } from './Login';
 import { Logout } from './Login/Logout';
@@ -18,15 +15,6 @@ import { ActivityPage } from './Activity';
 import { SettingsPage } from './Settings';
 import { darkTheme, lightTheme } from './Theme/theme';
 import { GlobalStyle } from './style';
-
-function getUserFromStorage() {
-	const user = localStorage.getItem(STORAGE_USER_KEY);
-	if (user) {
-		return JSON.parse(user);
-	} else {
-		return null;
-	}
-}
 
 const App: React.FC = () => {
 	const [jwt, setJwt] = useState<string>(

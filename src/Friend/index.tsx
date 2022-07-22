@@ -245,6 +245,12 @@ export const FriendFeedPage = () => {
 	}, [id]);
 
 	useEffect(() => {
+		if (peachFeed.length === 0) {
+			navigate('/feed', { replace: true });
+		}
+	}, [peachFeed.length]);
+
+	useEffect(() => {
 		if (!viewingUser && peachFeed) {
 			setCurUserProfile(peachFeed.filter(user => user.id === id)[0]);
 		}
@@ -313,16 +319,8 @@ export const FriendFeedPage = () => {
 		);
 	};
 
-	if (!jwt || peachFeed.length === 0) {
-		navigate('/feed', { replace: true });
-	}
-
 	return (
 		<>
-			<Navigation
-				curFeed={curFeedId}
-				onCurUsersProfile={(curUser && curUser.id === id) || false}
-			/>
 			<Page>
 				{viewingUser && curUserData ? (
 					<>

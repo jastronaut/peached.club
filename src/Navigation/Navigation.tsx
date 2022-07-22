@@ -1,7 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PeachContext } from '../PeachContext';
+import { getUserFromStorage } from '../utils';
+import { STORAGE_TOKEN_KEY } from '../constants';
+import { CurUser } from '../api/interfaces';
+import api from '../api';
+import ACTIONS from '../api/constants';
 
 import { NavWrap, Link, Nav, FeedsNav, PageIconWrapper } from './style';
 import ArrowLeftIcon from '../Theme/Icons/ArrowLeftIcon';
@@ -13,15 +19,20 @@ import GearIcon from '../Theme/Icons/GearIcon';
 
 interface NavigationProps {
 	curFeed?: string;
-	onCurUsersProfile?: boolean;
 }
 
-const Navigation: React.FC<NavigationProps> = ({
-	curFeed,
-	onCurUsersProfile,
-}) => {
-	const { curUser, peachFeed } = useContext(PeachContext);
+const Navigation: React.FC<NavigationProps> = ({ curFeed }) => {
+	const {
+		curUser,
+		curUserData,
+		setCurUserData,
+		peachFeed,
+		jwt,
+		setCurUser,
+		setJwt,
+	} = useContext(PeachContext);
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 
 	let feedListIDs: string[] = [];
 
@@ -29,6 +40,34 @@ const Navigation: React.FC<NavigationProps> = ({
 	let showLeftArrow = false;
 	let nextUser = '';
 	let prevUser = '';
+
+	useEffect(() => {
+		if (!curUser || !jwt || !curUserData.id) {
+			const storedCurUser = getUserFromStorage();
+			const storedJwt = localStorage.getItem(STORAGE_TOKEN_KEY);
+
+			if (!storedCurUser || !storedJwt) {
+				navigate('/login', { replace: true });
+			} else {
+				setJwt(storedJwt);
+				setCurUser(storedCurUser);
+
+				if (!curUserData.id) {
+					api(ACTIONS.connectionStream, storedJwt, {}, storedCurUser.id).then(
+						(response: { data: CurUser }) => {
+							if (response.data) {
+								setCurUserData(response.data);
+							} else {
+								navigate('/login', { replace: true });
+							}
+						}
+					);
+				}
+			}
+		}
+	}, [curUser, jwt, curUserData.id]);
+
+	const onCurUsersProfile = pathname === `/friend/${curUser!.id}`;
 
 	if (curFeed && !onCurUsersProfile) {
 		feedListIDs = peachFeed
@@ -78,7 +117,7 @@ const Navigation: React.FC<NavigationProps> = ({
 					</Link>
 					<Link>
 						<RouterLink to={`/friend/${curUser ? curUser.id : ''}`}>
-							<PageIconWrapper isActive={onCurUsersProfile ?? false}>
+							<PageIconWrapper isActive={onCurUsersProfile}>
 								<UserIcon />
 							</PageIconWrapper>
 						</RouterLink>
