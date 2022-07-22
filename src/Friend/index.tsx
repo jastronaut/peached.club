@@ -37,7 +37,6 @@ import { PeachContext } from '../PeachContext';
 import LocationPost from './Posts/LocationPost';
 import LinkPost from './Posts/LinkPost';
 
-import Navigation from '../Navigation';
 import { ProfileHeader } from './ProfileHeader/ProfileHeader';
 
 const options = {

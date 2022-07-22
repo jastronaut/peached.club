@@ -67,7 +67,12 @@ const Navigation: React.FC<NavigationProps> = ({ curFeed }) => {
 		}
 	}, [curUser, jwt, curUserData.id]);
 
-	const onCurUsersProfile = pathname === `/friend/${curUser!.id}`;
+	let onCurUsersProfile = false;
+	if (!curUser) {
+		navigate('/login', { replace: true });
+	} else {
+		onCurUsersProfile = pathname === `/friend/${curUser.id}`;
+	}
 
 	if (curFeed && !onCurUsersProfile) {
 		feedListIDs = peachFeed
