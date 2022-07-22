@@ -119,6 +119,19 @@ export const ButtonCenter = styled.div`
 export const LoginFormContainer = styled.main`
 	height: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	form {
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	form > :last-child {
+		margin-top: ${rem(50)};
+	}
 `;

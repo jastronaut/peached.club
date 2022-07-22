@@ -6,20 +6,23 @@ import React, {
 	SetStateAction,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Notification } from '@mantine/core';
+
 import { PeachContext } from '../PeachContext';
+import { LoginResponse } from '../api/interfaces';
+import { LOGIN } from '../api/constants';
+import { STORAGE_TOKEN_KEY, STORAGE_USER_KEY } from '../constants';
+
 import {
 	AuthInput,
 	Page,
 	Container,
 	Heading,
-	DangerTxt,
 	Button,
 	ButtonCenter,
 	LoginFormContainer,
 } from './style';
-import { LoginResponse } from '../api/interfaces';
-import { LOGIN } from '../api/constants';
-import { STORAGE_TOKEN_KEY, STORAGE_USER_KEY } from '../constants';
+
 enum loginErrors {
 	OK,
 	INVALID_LOGIN,
@@ -28,10 +31,17 @@ enum loginErrors {
 
 const displayError = (err: loginErrors) => {
 	let msg = '';
-	if (err === loginErrors.INVALID_LOGIN)
+	if (err === loginErrors.INVALID_LOGIN) {
 		msg = 'Incorrect username and/or password';
-	else msg = 'Missing email and/or password';
-	return <DangerTxt>{msg}</DangerTxt>;
+	} else {
+		msg = 'Missing email and/or password';
+	}
+
+	return (
+		<Notification disallowClose color='red' radius='xs'>
+			{msg}
+		</Notification>
+	);
 };
 
 export const LoginPage = () => {
@@ -103,16 +113,18 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<LoginFormContainer>
-			<form onSubmit={onSubmit}>
-				<LoginComponent
-					setEmail={setEmail}
-					setPassword={setPassword}
-					onClickSubmit={onClickSubmit}
-				/>
-			</form>
-			{err !== loginErrors.OK && displayError(err)}
-		</LoginFormContainer>
+		<Page>
+			<LoginFormContainer>
+				<form onSubmit={onSubmit}>
+					<LoginComponent
+						setEmail={setEmail}
+						setPassword={setPassword}
+						onClickSubmit={onClickSubmit}
+					/>
+					{err !== loginErrors.OK && displayError(err)}
+				</form>
+			</LoginFormContainer>
+		</Page>
 	);
 };
 
@@ -128,27 +140,27 @@ export const LoginComponent = ({
 	onClickSubmit,
 }: LoginComponentProps) => {
 	return (
-		<Page>
-			<Container>
-				<Heading>Log in to Peached</Heading>
-				<AuthInput
-					onChange={e => setEmail(e.target.value)}
-					key='email'
-					type='text'
-					placeholder='email'
-				/>
-				<AuthInput
-					onChange={e => setPassword(e.target.value)}
-					key='password'
-					type='password'
-					placeholder='password'
-				/>
-				<ButtonCenter>
-					<Button onClick={onClickSubmit} link='#' lg>
-						Submit
-					</Button>
-				</ButtonCenter>
-			</Container>
-		</Page>
+		<Container>
+			<Heading>Log in to Peached</Heading>
+			<AuthInput
+				onChange={e => setEmail(e.target.value)}
+				key='email'
+				type='text'
+				placeholder='email'
+				required
+			/>
+			<AuthInput
+				onChange={e => setPassword(e.target.value)}
+				key='password'
+				type='password'
+				placeholder='password'
+				required
+			/>
+			<ButtonCenter>
+				<Button onClick={onClickSubmit} link='#' lg>
+					Submit
+				</Button>
+			</ButtonCenter>
+		</Container>
 	);
 };
