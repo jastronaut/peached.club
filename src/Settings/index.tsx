@@ -165,6 +165,8 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				<Input
 					id='displayName'
 					type='text'
+					value={newDisplayName}
+					placeholder={curUserData.displayName}
 					onChange={e => setNewDisplayName(e.target.value)}
 				/>
 				{isLoaderShowing && newDisplayName ? <MiniLoader /> : null}
@@ -184,6 +186,8 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				<Input
 					id='userName'
 					type='text'
+					value={newUserName}
+					placeholder={curUserData.name}
 					onChange={e => setNewUserName(e.target.value)}
 				/>
 				{isLoaderShowing && newUserName ? <MiniLoader /> : null}
