@@ -24,28 +24,27 @@ import { LinkText } from '../Friend/Posts/LinkPost';
 
 export const SettingsPage = () => {
 	const navigate = useNavigate();
-	const { jwt, toggleDarkMode } = useContext(PeachContext);
+	const { jwt, toggleDarkMode, curUser } = useContext(PeachContext);
 
-	if (!jwt) {
-		navigate('/login', { replace: true });
-	}
+	useEffect(() => {
+		if (!jwt || !curUser) {
+			navigate('/login', { replace: true });
+		}
+	}, [jwt, curUser]);
 
 	return (
-		<>
-			<Navigation />
-			<Page>
-				<Title>Settings</Title>
-				<SettingsWrapper>
-					<CustomizationSection toggleDarkMode={toggleDarkMode} />
-					<PeachAccountSection
-						logout={() => {
-							navigate('/logout', { replace: true });
-						}}
-					/>
-					<ContactSection />
-				</SettingsWrapper>
-			</Page>
-		</>
+		<Page>
+			<Title>Settings</Title>
+			<SettingsWrapper>
+				<CustomizationSection toggleDarkMode={toggleDarkMode} />
+				<PeachAccountSection
+					logout={() => {
+						navigate('/logout', { replace: true });
+					}}
+				/>
+				<ContactSection />
+			</SettingsWrapper>
+		</Page>
 	);
 };
 
@@ -81,11 +80,11 @@ export type PeachAccountSectionProps = {
 };
 
 export const PeachAccountSection = (props: PeachAccountSectionProps) => {
-	const { jwt } = useContext(PeachContext);
+	const { jwt, curUserData } = useContext(PeachContext);
 	const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 	const [newUserName, setNewUserName] = useState<string>('');
 	const [newDisplayName, setNewDisplayName] = useState<string>('');
-	const [newBio, setNewBio] = useState<string>('');
+	const [newBio, setNewBio] = useState<string>(curUserData.bio);
 	const [isLoaderShowing, setLoaderShowing] = useState<boolean>(false);
 	const [showError, setShowError] = useState<boolean>(false);
 	const [nameChangeSuccess, setNameChangeSuccess] = useState<boolean>(false);
@@ -202,6 +201,8 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				<Input
 					id='bio'
 					type='text'
+					value={newBio}
+					placeholder={curUserData.bio}
 					onChange={e => setNewBio(e.target.value)}
 					maxLength={200}
 				/>
