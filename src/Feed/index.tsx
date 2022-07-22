@@ -70,14 +70,6 @@ export const Feed = () => {
 			<Navigation />
 			<Page>
 				<Title>All Feeds</Title>
-				<Alert title='Bummer!' color='red'>
-					This domain will be down for a couple of days, effective tomorrow.
-					Please visit{' '}
-					<a href='https://peached-club.vercel.app/'>
-						https://peached-club.vercel.app/
-					</a>{' '}
-					instead.
-				</Alert>
 				{connections ? (
 					connections.map(user => (
 						<LinkStyled key={user.id} to={`/friend/${user.id}`}>
