@@ -49,6 +49,10 @@ export const FeedPage = () => {
 
 	useEffect(() => {
 		window.scroll(0, 0);
+		if (!jwt || !curUser) {
+			navigate('/login', { replace: true });
+		}
+
 		if (jwt && curUser) {
 			api(ACTIONS.getConnections, jwt).then(
 				(response: { data: Connections; success: number }) => {
@@ -81,12 +85,16 @@ export const FeedPage = () => {
 					}
 				);
 			}
+		} else {
+			console.log('okay ');
 		}
 		// eslint-disable-next-line
 	}, []);
 
 	if (!jwt || !curUser) {
-		navigate('/login', { replace: true });
+		console.log('hey');
+		navigate('/logout', { replace: true });
+		console.log('???');
 	}
 
 	return (
