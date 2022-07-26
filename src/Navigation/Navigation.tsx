@@ -17,11 +17,7 @@ import UserIcon from '../Theme/Icons/UserIcon';
 import ActivityIcon from '../Theme/Icons/PulseIcon';
 import GearIcon from '../Theme/Icons/GearIcon';
 
-interface NavigationProps {
-	curFeed?: string;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ curFeed }) => {
+const Navigation = () => {
 	const {
 		curUser,
 		curUserData,
@@ -73,6 +69,8 @@ const Navigation: React.FC<NavigationProps> = ({ curFeed }) => {
 	} else {
 		onCurUsersProfile = pathname === `/friend/${curUser.id}`;
 	}
+
+	const curFeed = pathname.split('/friend/')[1] ?? null;
 
 	if (curFeed && !onCurUsersProfile) {
 		feedListIDs = peachFeed
