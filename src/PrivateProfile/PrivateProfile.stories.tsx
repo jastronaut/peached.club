@@ -2,12 +2,12 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { PrivateProfile } from './PrivateProfile';
 
-import { darkTheme } from '../Theme/theme';
+import { darkTheme, PeachThemeProvider } from '../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
 export const Story = () => {
 	return (
-		<ThemeProvider theme={darkTheme}>
+		<PeachThemeProvider theme={darkTheme}>
 			<PrivateProfile
 				onDismissPrivateProfile={() => null}
 				username={'futuresounds'}
@@ -15,7 +15,7 @@ export const Story = () => {
 				bio='Virtual pop star'
 				avatarSrc='https://upload.wikimedia.org/wikipedia/commons/1/14/Karl-Marx.jpg'
 			/>
-		</ThemeProvider>
+		</PeachThemeProvider>
 	);
 };
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import { PeachContext } from './PeachContext';
 import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
@@ -13,7 +12,7 @@ import { FeedPage } from './Feed';
 import { FriendFeedPage } from './Friend';
 import { ActivityPage } from './Activity';
 import { SettingsPage } from './Settings';
-import { darkTheme, lightTheme } from './Theme/theme';
+import { darkTheme, lightTheme, PeachThemeProvider } from './Theme/theme';
 import { GlobalStyle } from './style';
 
 const App: React.FC = () => {
@@ -71,9 +70,9 @@ const App: React.FC = () => {
 					setCurUserData,
 				}}
 			>
-				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+				<PeachThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<MainPeachApp />
-				</ThemeProvider>
+				</PeachThemeProvider>
 			</PeachContext.Provider>
 		</BrowserRouter>
 	);

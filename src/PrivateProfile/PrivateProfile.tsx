@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Button } from '@mantine/core';
 
 import api from '../api/api';
 import { AddFriendResponse } from '../api/interfaces';
@@ -7,7 +8,6 @@ import { PeachContext } from '../PeachContext';
 
 import Modal from '../Theme/Modal';
 import { Title } from '../Theme/Type';
-import Button from '../Theme/Button';
 import Toasty from '../Theme/Toasty';
 import { PrivateProfileContainer, Bio, AvatarPreview } from './style';
 import { ProfileHeaderHandle } from '../Friend/ProfileHeader/style';
@@ -51,11 +51,7 @@ export const PrivateProfile: React.FC<PrivateProfileProps> = ({
 				<Title>{displayName}</Title>
 				<ProfileHeaderHandle>@{username}</ProfileHeaderHandle>
 				<Bio>{bio}</Bio>
-				<Button
-					isSmall
-					centered
-					onClick={hasMadeRequest ? () => {} : sendFriendRequest}
-				>
+				<Button onClick={hasMadeRequest ? () => {} : sendFriendRequest}>
 					{hasMadeRequest ? 'Pending' : 'Add Friend'}
 				</Button>
 			</PrivateProfileContainer>
