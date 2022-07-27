@@ -91,7 +91,7 @@ export const ComposerComponent = (
 		const req = {
 			method: 'POST',
 			headers: {
-				Authorization: 'Client-ID ' + process.env.IMGUR_ID,
+				Authorization: 'Client-ID 7683e91b3b47a80',
 				Accept: 'application/json',
 			},
 			body: formData,
