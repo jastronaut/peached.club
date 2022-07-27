@@ -3,7 +3,6 @@ import { ComponentMeta } from '@storybook/react';
 import { PrivateProfile } from './PrivateProfile';
 
 import { darkTheme, PeachThemeProvider } from '../Theme/theme';
-import { ThemeProvider } from 'styled-components';
 
 export const Story = () => {
 	return (

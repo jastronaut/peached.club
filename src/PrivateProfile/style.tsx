@@ -16,13 +16,13 @@ export const PrivateProfileContainer = styled.div`
 	}
 
 	> p {
-		color: ${props => props.theme.text.primary};
 		margin: 0 0 ${rem(4)};
 	}
 `;
 
 export const Bio = styled.p`
 	margin: 0 0 ${rem(16)};
+	color: ${props => props.theme.text.primary};
 `;
 
 export const AvatarPreview = styled.img`
