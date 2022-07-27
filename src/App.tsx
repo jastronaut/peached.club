@@ -6,12 +6,12 @@ import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
 import { STORAGE_IS_DARK_MODE, STORAGE_TOKEN_KEY } from './constants';
 import { getUserFromStorage } from './utils';
 
-import { LoginPage } from './Login';
-import { Logout } from './Login/Logout';
-import { FeedPage } from './Feed';
+import { LoginPage } from './pages/Login';
+import { Logout } from './pages/Login/Logout';
+import { FeedPage } from './pages/Feed';
 import { FriendFeedPage } from './Friend';
-import { ActivityPage } from './Activity';
-import { SettingsPage } from './Settings';
+import { ActivityPage } from './pages/Activity';
+import { SettingsPage } from './pages/Settings';
 import { darkTheme, lightTheme, PeachThemeProvider } from './Theme/theme';
 import { GlobalStyle } from './style';
 

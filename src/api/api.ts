@@ -123,7 +123,7 @@ const api = (action: ACTIONS, jwt: string, body = {}, id = '') => {
 
 	return fetch(uri, req)
 		.catch(err => {
-			console.log(err);
+			console.error(err);
 			throw new Error(`cant make call for ${action}`);
 		})
 		.then(response => response.json());

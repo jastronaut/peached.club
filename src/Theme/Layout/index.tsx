@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import React from 'react';
-import Navigation from '../../Navigation';
+import Navigation from '../Navigation';
 
 export const PageContainer = styled.main`
 	background-color: ${props => props.theme.background.accented};

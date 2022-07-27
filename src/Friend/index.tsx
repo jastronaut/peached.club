@@ -4,13 +4,13 @@ import Linkify from 'linkify-react';
 
 import api from '../api';
 import Loading from '../Theme/Loading';
-import { PostInteractions } from './Posts/PostInteractions';
+import { PostInteractions } from '../components/Posts/PostInteractions';
 
-import Comments from '../Comments';
+import Comments from '../components/Comments';
 
-import { DeletePrompt } from '../Comments/style';
+import { DeletePrompt } from '../components/Comments/style';
 
-import NewPost from '../NewPost';
+import NewPost from '../components/NewPost';
 
 import { Page } from '../Theme/Layout';
 import {
@@ -35,10 +35,10 @@ import {
 } from './style';
 import { PeachContext } from '../PeachContext';
 
-import LocationPost from './Posts/LocationPost';
-import LinkPost from './Posts/LinkPost';
+import LocationPost from '../components/Posts/LocationPost';
+import LinkPost from '../components/Posts/LinkPost';
 
-import { ProfileHeader } from './ProfileHeader/ProfileHeader';
+import { ProfileHeader } from '../pages/Profile/ProfileHeader/ProfileHeader';
 
 const addNewlines = (txt: string, id: string) =>
 	txt.indexOf('\n') < 0
@@ -257,6 +257,7 @@ export const FriendFeedPage = () => {
 		if (!jwt || peachFeed.length === 0 || !id) {
 			return;
 		}
+
 		const getUserProfile = async () => {
 			setPostsLoaded(false);
 			const resp: { data: User } = await api(
@@ -282,8 +283,6 @@ export const FriendFeedPage = () => {
 					otherFriendsResponse.data.connections
 				) {
 					setOtherFriends(otherFriendsResponse.data.connections);
-				} else {
-					console.log('ugh');
 				}
 			}
 
