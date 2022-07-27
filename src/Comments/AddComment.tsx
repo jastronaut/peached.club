@@ -83,7 +83,7 @@ const AddComment: React.FC<AddCommentProps> = ({
 				onChange={e => setNewCommentText(e.target.value)}
 				placeholder='Write a comment...'
 				autoFocus
-			/>{' '}
+			/>
 			<ButtonWrapper>
 				<Button
 					disabled={newCommentText.length < 1}

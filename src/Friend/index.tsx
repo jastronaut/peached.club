@@ -24,6 +24,8 @@ import {
 	POST_TYPE,
 } from '../api/interfaces';
 import ACTIONS from '../api/constants';
+import { LINKIFY_OPTIONS } from '../constants';
+
 import {
 	DeletePost,
 	PostWrapper,
@@ -37,11 +39,6 @@ import LocationPost from './Posts/LocationPost';
 import LinkPost from './Posts/LinkPost';
 
 import { ProfileHeader } from './ProfileHeader/ProfileHeader';
-
-const options = {
-	defaultProtocol: 'http',
-	target: '_blank',
-};
 
 const addNewlines = (txt: string) =>
 	txt.indexOf('\n') < 0
@@ -68,15 +65,14 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 		useState<boolean>(false);
 	const [likeCount, setLikeCount] = useState<number>(props.likeCount);
 	const { curUserData, jwt } = useContext(PeachContext);
+	const [newCommentText, setNewCommentText] = useState('');
 
-	let msgKey = 0;
-	const msgs = props.message.map(obj => {
-		msgKey++;
+	const msgs = props.message.map((obj, index) => {
 		switch (obj.type) {
 			case POST_TYPE.TEXT:
 				return (
-					<p>
-						<Linkify key='msgKey' tagName='span' options={options}>
+					<p key={`${props.id}-txt-${index}`}>
+						<Linkify tagName='span' options={LINKIFY_OPTIONS}>
 							{addNewlines(obj.text)}
 						</Linkify>
 					</p>
@@ -84,21 +80,28 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 			case POST_TYPE.IMAGE:
 				return (
 					<Image
-						key={msgKey}
+						key={`${props.id}-img-${index}`}
 						src={obj.src}
 						alt={`image for post ${props.id}`}
 						loading='lazy'
 					/>
 				);
 			case POST_TYPE.GIF:
-				return <Image key={msgKey} src={obj.src} alt={`GIF`} loading='lazy' />;
+				return (
+					<Image
+						key={`${props.id}-gif-${index}`}
+						src={obj.src}
+						alt={`GIF`}
+						loading='lazy'
+					/>
+				);
 			case POST_TYPE.LINK:
 				// @ts-ignore
-				return <LinkPost {...obj} />;
+				return <LinkPost key={`${props.id}-link-${index}`} {...obj} />;
 
 			case POST_TYPE.LOCATION:
 				// @ts-ignore
-				return <LocationPost {...obj} />;
+				return <LocationPost key={`${props.id}-loc-${index}`} {...obj} />;
 
 			default:
 				return '';
@@ -207,6 +210,8 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 					requesterId={curUserData.id}
 					deleteComment={deleteComment}
 					mutualFriends={props.otherFriends}
+					newCommentText={newCommentText}
+					setNewCommentText={setNewCommentText}
 				/>
 			) : null}
 		</PostWrapper>

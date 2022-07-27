@@ -3,7 +3,7 @@ import { Comment as CommentType, MutualFriend } from '../api/interfaces';
 import { PeachContext } from '../PeachContext';
 
 import AddComment from './AddComment';
-import { AllComments } from './style';
+import { AllComments, DeletePrompt } from './style';
 import { Comment } from './Comment/Comment';
 import Modal from '../Theme/Modal';
 
@@ -12,6 +12,9 @@ interface SharedCommentsProps {
 	comments: CommentType[];
 	mutualFriends: MutualFriend[];
 	requesterId: string;
+
+	setNewCommentText: React.Dispatch<React.SetStateAction<string>>;
+	newCommentText: string;
 }
 
 interface CommentsProps extends SharedCommentsProps {
@@ -27,27 +30,21 @@ export interface CommentsComponentProps extends SharedCommentsProps {
 	addReplyHandle: (username: string) => void;
 }
 
-export const CommentsComponent = ({
-	comments = [],
-	deleteComment,
-	mutualFriends,
-	peachFeedIds,
-	getAvatar,
-	requesterId,
-	addReplyHandle,
-}: CommentsComponentProps) => {
+export const CommentsComponent = (props: CommentsComponentProps) => {
 	return (
 		<AllComments>
-			{comments.map(c => (
+			{props.comments.map(c => (
 				<Comment
-					isFriend={peachFeedIds.filter(id => id === c.author.id).length > 0}
+					isFriend={
+						props.peachFeedIds.filter(id => id === c.author.id).length > 0
+					}
 					key={c.id}
-					avatarSrc={getAvatar(c.author.id)}
+					avatarSrc={props.getAvatar(c.author.id)}
 					{...c}
-					deleteComment={deleteComment}
-					mutualFriends={mutualFriends}
-					requesterId={requesterId}
-					addReplyHandle={addReplyHandle}
+					deleteComment={props.deleteComment}
+					mutualFriends={props.mutualFriends}
+					requesterId={props.requesterId}
+					addReplyHandle={props.addReplyHandle}
 				/>
 			))}
 		</AllComments>
@@ -62,21 +59,25 @@ export const Comments = (props: CommentsProps) => {
 		onDismissComments,
 		requesterId,
 		comments,
+		setNewCommentText,
+		newCommentText,
 	} = props;
-	const [newCommentText, setNewCommentText] = useState('');
 	const { peachFeed } = useContext(PeachContext);
+	const [isDismissWarningShowing, setIsDismissWarningShowing] = useState(false);
 	const peachFeedIds = peachFeed.map(user => user.id);
 
 	const getAvatar = (id: string) => {
 		if (id === postAuthorId) return postAuthorAvatarSrc;
 		const res = mutualFriends.filter(friend => friend.id === id);
-		if (res.length === 0) return '/defaultavatar.jpg';
-		if (!res[0].avatarSrc) return '/defaultavatar.jpg';
+		if (res.length === 0 || !res[0].avatarSrc) {
+			return '/defaultavatar.jpg';
+		}
+
 		return res[0].avatarSrc;
 	};
 
 	const addReplyHandle = (username: string) => {
-		setNewCommentText(txt => {
+		setNewCommentText((txt: string) => {
 			if (txt.length) {
 				return `${txt} @${username} `;
 			}
@@ -84,8 +85,28 @@ export const Comments = (props: CommentsProps) => {
 		});
 	};
 
+	const dismissComments = () => {
+		setNewCommentText('');
+		onDismissComments();
+	};
+
+	const onTryDismissComments = (newCommentText: string) => {
+		if (newCommentText.length > 2) {
+			setIsDismissWarningShowing(true);
+		} else {
+			dismissComments();
+		}
+	};
+
 	return (
-		<Modal onKeyDown={onDismissComments}>
+		<Modal onKeyDown={() => onTryDismissComments(newCommentText)}>
+			<DeletePrompt
+				isShowing={isDismissWarningShowing}
+				onDelete={dismissComments}
+				onCancel={() => setIsDismissWarningShowing(false)}
+			>
+				Are you sure you want to abandon this comment?
+			</DeletePrompt>
 			<CommentsComponent
 				getAvatar={getAvatar}
 				peachFeedIds={peachFeedIds}
@@ -94,6 +115,8 @@ export const Comments = (props: CommentsProps) => {
 				mutualFriends={mutualFriends}
 				deleteComment={props.deleteComment}
 				addReplyHandle={addReplyHandle}
+				newCommentText={newCommentText}
+				setNewCommentText={setNewCommentText}
 			/>
 			<AddComment
 				onSubmit={props.updateComments}
