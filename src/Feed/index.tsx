@@ -69,8 +69,6 @@ export const FeedPage = () => {
 								return user;
 							})
 						);
-					} else {
-						console.log('handle error here :)');
 					}
 				}
 			);

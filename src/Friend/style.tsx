@@ -107,6 +107,10 @@ export const InteractionArea = styled.div`
 		margin-left: ${rem(12)};
 	}
 
+	:hover :last-child {
+		visibility: visible;
+	}
+
 	:hover {
 		cursor: pointer;
 		background: ${props => props.theme.background.hover};

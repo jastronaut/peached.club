@@ -5,6 +5,8 @@ import getPostTime from '../../utils/getPostTime';
 import LikeIcon from '../../Theme/Icons/LikeIcon';
 import CommentIcon from '../../Theme/Icons/CommentIcon';
 import ClockIcon from '../../Theme/Icons/ClockIcon';
+import DeleteIcon from '../../Theme/Icons/DeleteIcon';
+
 import {
 	PostInteraction,
 	InteractionInfo,
@@ -13,12 +15,14 @@ import {
 } from '../style';
 
 type Props = {
+	isCurUsersPost: boolean;
 	isLiked: boolean;
 	likeCount: number;
 	commentsLength: number;
 	createdTime: number;
 	onClickLike: Function;
 	onClickComments: Function;
+	onClickDelete: Function;
 };
 
 export const PostInteractions = (props: Props) => {
@@ -36,6 +40,11 @@ export const PostInteractions = (props: Props) => {
 				<ClockIcon />
 				<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
 			</PostTime>
+			{props.isCurUsersPost && (
+				<InteractionArea onClick={() => props.onClickDelete()}>
+					<DeleteIcon />
+				</InteractionArea>
+			)}
 		</PostInteraction>
 	);
 };

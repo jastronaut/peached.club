@@ -9,7 +9,6 @@ import { PostInteractions } from './Posts/PostInteractions';
 import Comments from '../Comments';
 
 import { DeletePrompt } from '../Comments/style';
-import DeleteIcon from '../Theme/Icons/DeleteIcon';
 
 import NewPost from '../NewPost';
 
@@ -47,8 +46,8 @@ const options = {
 const addNewlines = (txt: string) =>
 	txt.indexOf('\n') < 0
 		? txt
-		: txt.split('\n').map(item => (
-				<span>
+		: txt.split('\n').map((item, index) => (
+				<span key={`${index}${item}`}>
 					{item}
 					<br />
 				</span>
@@ -179,21 +178,13 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 	return (
 		<PostWrapper>
 			<>
-				{curUserData.id === props.author ? (
-					<>
-						<DeletePost>
-							<DeleteIcon onClick={() => setDeletePromptShowing(true)} />
-						</DeletePost>
-						{deletePromptShowing ? (
-							<DeletePrompt
-								onDelete={() => props.deletePost(props.id)}
-								onCancel={() => setDeletePromptShowing(false)}
-							>
-								Are you sure you want to delete your post?
-							</DeletePrompt>
-						) : null}
-					</>
-				) : null}
+				<DeletePrompt
+					onDelete={() => props.deletePost(props.id)}
+					onCancel={() => setDeletePromptShowing(false)}
+					isShowing={deletePromptShowing}
+				>
+					Are you sure you want to delete your post?
+				</DeletePrompt>
 				<FriendPostContent>{msgs}</FriendPostContent>
 			</>
 			<PostInteractions
@@ -203,6 +194,8 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				isLiked={liked}
 				likeCount={likeCount}
 				createdTime={props.createdTime}
+				onClickDelete={() => setDeletePromptShowing(true)}
+				isCurUsersPost={curUserData.id === props.author}
 			/>
 			{showComments ? (
 				<Comments

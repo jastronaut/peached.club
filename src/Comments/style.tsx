@@ -39,19 +39,26 @@ interface DeletePromptProps {
 	onDelete: () => void;
 	onCancel: () => void;
 	children: React.ReactNode;
+	isShowing?: boolean;
 }
 
-export const DeletePrompt = (props: DeletePromptProps) => (
-	<ModalBackdrop entering>
-		<DeletePromptContainer alignTop={false} isMini={true}>
-			{props.children}
-			<DeleteOptions>
-				<Button onClick={() => props.onDelete()}>Delete</Button>
-				<Button onClick={() => props.onCancel()}>Cancel</Button>
-			</DeleteOptions>
-		</DeletePromptContainer>
-	</ModalBackdrop>
-);
+export const DeletePrompt = (props: DeletePromptProps) => {
+	if (!props.isShowing) {
+		return null;
+	}
+
+	return (
+		<ModalBackdrop entering>
+			<DeletePromptContainer alignTop={false} isMini={true}>
+				{props.children}
+				<DeleteOptions>
+					<Button onClick={() => props.onDelete()}>Delete</Button>
+					<Button onClick={() => props.onCancel()}>Cancel</Button>
+				</DeleteOptions>
+			</DeletePromptContainer>
+		</ModalBackdrop>
+	);
+};
 
 export const AddCommentContainer = styled.div`
 	padding-bottom: 0;
