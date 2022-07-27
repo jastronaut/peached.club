@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 
-import { ImageUploadButton, MagicPostActionsContainer } from './style';
+import { ActionButton, MagicPostActionsContainer } from './style';
 import ImageIcon from './ImageIcon';
 import ClockIcon from '../Theme/Icons/ClockIcon';
 import CalendarIcon from '../Theme/Icons/CalendarIcon';
@@ -25,7 +25,7 @@ type MagicPostActionsProps = {
 export const MagicPostActions = (props: MagicPostActionsProps) => {
 	return (
 		<MagicPostActionsContainer>
-			<ImageUploadButton>
+			<ActionButton>
 				<ImageIcon accented />
 				<input
 					type='file'
@@ -36,8 +36,8 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 							: null
 					}
 				/>
-			</ImageUploadButton>
-			<ImageUploadButton>
+			</ActionButton>
+			<ActionButton>
 				<ClockIcon
 					onClick={() =>
 						props.setPostText(
@@ -45,8 +45,8 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 						)
 					}
 				/>
-			</ImageUploadButton>
-			<ImageUploadButton>
+			</ActionButton>
+			<ActionButton>
 				<CalendarIcon
 					onClick={() =>
 						props.setPostText(
@@ -54,7 +54,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 						)
 					}
 				/>
-			</ImageUploadButton>
+			</ActionButton>
 		</MagicPostActionsContainer>
 	);
 };

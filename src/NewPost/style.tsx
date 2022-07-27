@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
+import { rem, lighten } from 'polished';
 
 import { TextArea as OldInput } from '../Theme/Form';
 
@@ -113,7 +113,7 @@ export const ImageWrapper = styled.div`
 	position: relative;
 `;
 
-export const ImageUploadButton = styled.div`
+export const ActionButton = styled.div`
 	position: relative;
 	overflow: hidden;
 	align-self: start;
@@ -121,6 +121,7 @@ export const ImageUploadButton = styled.div`
 	margin-bottom: ${rem(16)};
 	margin-right: ${rem(16)};
 	display: inline;
+
 	> input {
 		position: absolute;
 		top: 0;
@@ -130,6 +131,10 @@ export const ImageUploadButton = styled.div`
 		font-size: 1.5rem;
 		min-width: 100%;
 		min-height: 100%;
+	}
+
+	:hover svg {
+		stroke: ${props => lighten(props.theme.accent).toString()};
 	}
 `;
 
