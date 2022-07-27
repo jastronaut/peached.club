@@ -6,7 +6,7 @@ import api from '../api';
 import ACTIONS from '../api/constants';
 import { ActivityResponse, ActivityItem } from '../api/interfaces';
 
-import Loading from '../Loading';
+import Loading from '../Theme/Loading';
 import { Page } from '../Theme/Layout';
 import { Title } from '../Theme/Type';
 import Preview from '../Feed/Preview';

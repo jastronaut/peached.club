@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Linkify from 'linkify-react';
 
 import api from '../api';
-import Loading from '../Loading';
+import Loading from '../Theme/Loading';
 import { PostInteractions } from './Posts/PostInteractions';
 
 import Comments from '../Comments';
@@ -40,11 +40,11 @@ import LinkPost from './Posts/LinkPost';
 
 import { ProfileHeader } from './ProfileHeader/ProfileHeader';
 
-const addNewlines = (txt: string) =>
+const addNewlines = (txt: string, id: string) =>
 	txt.indexOf('\n') < 0
 		? txt
 		: txt.split('\n').map((item, index) => (
-				<span key={`${index}${item}`}>
+				<span key={`${id}-${index}`}>
 					{item}
 					<br />
 				</span>
@@ -73,7 +73,7 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 				return (
 					<p key={`${props.id}-txt-${index}`}>
 						<Linkify tagName='span' options={LINKIFY_OPTIONS}>
-							{addNewlines(obj.text)}
+							{addNewlines(obj.text, props.id)}
 						</Linkify>
 					</p>
 				);

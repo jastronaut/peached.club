@@ -7,6 +7,10 @@ export const FriendPostContent = styled.div`
 	> p:first-of-type {
 		margin-top: 0;
 	}
+
+	p {
+		margin-bottom: 0;
+	}
 `;
 
 interface MiniMenuProps {

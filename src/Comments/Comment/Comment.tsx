@@ -25,7 +25,7 @@ import {
 } from './style';
 import CommentIcon from '../../Theme/Icons/CommentIcon';
 
-import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
+import { PrivateProfile } from '../../components/PrivateProfile/PrivateProfile';
 
 import DeleteIcon from '../../Theme/Icons/DeleteIcon';
 import { LINKIFY_OPTIONS } from '../../constants';

@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mantine/core';
 
-import api from '../api/api';
-import { AddFriendResponse } from '../api/interfaces';
-import ACTIONS from '../api/constants';
-import { PeachContext } from '../PeachContext';
+import api from '../../api/api';
+import { AddFriendResponse } from '../../api/interfaces';
+import ACTIONS from '../../api/constants';
+import { PeachContext } from '../../PeachContext';
 
-import Modal from '../Theme/Modal';
-import { Title } from '../Theme/Type';
-import Toasty from '../Theme/Toasty';
+import Modal from '../../Theme/Modal';
+import { Title } from '../../Theme/Type';
+import Toasty from '../../Theme/Toasty';
 import { PrivateProfileContainer, Bio, AvatarPreview } from './style';
-import { ProfileHeaderHandle } from '../Friend/ProfileHeader/style';
+import { ProfileHeaderHandle } from '../../Friend/ProfileHeader/style';
 
 interface PrivateProfileProps {
 	onDismissPrivateProfile: () => void;

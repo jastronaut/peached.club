@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { MiniLoader } from '../Loading';
+import { MiniLoader } from '../Theme/Loading';
 import { PeachContext } from '../PeachContext';
 import ACTIONS from '../api/constants';
 import { NameChangeResponse } from '../api/interfaces';

@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta } from '@storybook/react';
 import { PrivateProfile } from './PrivateProfile';
 
-import { darkTheme, PeachThemeProvider } from '../Theme/theme';
+import { darkTheme, PeachThemeProvider } from '../../Theme/theme';
 
 export const Story = () => {
 	return (

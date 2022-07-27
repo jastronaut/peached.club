@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { PeachContext } from '../PeachContext';
 import { useNavigate } from 'react-router';
-import Loading from '../Loading';
+import Loading from '../Theme/Loading';
 
 export const Logout = () => {
 	const { setPeachFeed, setJwt } = useContext(PeachContext);
