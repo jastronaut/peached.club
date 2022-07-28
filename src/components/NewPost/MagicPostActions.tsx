@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useSpring, animated, config } from 'react-spring';
 import dayjs from 'dayjs';
 
-import { ActionButton, MagicPostActionsContainer } from './style';
+import {
+	ActionButton,
+	MagicPostActionsContainer,
+	PictureInputStyled,
+} from './style';
 import ImageIcon from '../../Theme/Icons/ImageIcon';
 import ClockIcon from '../../Theme/Icons/ClockIcon';
 import CalendarIcon from '../../Theme/Icons/CalendarIcon';
@@ -51,7 +55,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 			<MagicPostActionsContainer>
 				<ActionButton>
 					<ImageIcon accented title='Add an image to your post' />
-					<input
+					<PictureInputStyled
 						type='file'
 						accept='image*'
 						onChange={e =>

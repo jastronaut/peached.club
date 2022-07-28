@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 
 export const TextArea = styled.textarea`
-	flex: 9;
+	/* flex: 9; */
 	margin-right: 1rem;
 	resize: none;
 	border-radius: ${rem(6)};

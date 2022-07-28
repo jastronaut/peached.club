@@ -6,23 +6,21 @@ import {
 	TextMessage,
 	isImage,
 	POST_TYPE,
-} from '../../api/interfaces';
-import { PeachContext } from '../../PeachContext';
+} from '../../../api/interfaces';
+import { PeachContext } from '../../../PeachContext';
 
-import Modal from '../../Theme/Modal';
-import Button from '../../Theme/Button';
+import Modal from '../../../Theme/Modal';
+import Button from '../../../Theme/Button';
 
 import {
 	TextArea,
-	Header,
 	ImagesHolder,
 	ImageWrapper,
 	UploadedImage,
 	DeleteImage,
 } from './style';
-import DeleteIcon from '../../Theme/Icons/DeleteIcon';
-import { MagicPostActions } from './MagicPostActions';
-import { GifPicker } from './GifPicker';
+import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
+import { MagicPostActions } from '../MagicPostActions';
 
 type ImageProps = {
 	images: (TextMessage | ImageMessage)[];

@@ -8,7 +8,7 @@ import {
 	TextMessage,
 } from '../../api/interfaces';
 import { PeachContext } from '../../PeachContext';
-import { Composer } from './Composer';
+import { Composer } from './Composer/Composer';
 
 import Toasty from '../../Theme/Toasty';
 import { NewPostButton } from './NewPostButton';
