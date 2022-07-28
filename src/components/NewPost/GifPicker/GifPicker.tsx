@@ -10,7 +10,7 @@ import {
 } from './style';
 
 const NUM_GIFS_TO_FETCH = 10;
-const LOAD_GIFS_SCROLL_INCREMENT = 100;
+const LOAD_GIFS_SCROLL_INCREMENT = 200;
 
 type GiphyItem = {
 	type: string;
@@ -34,7 +34,8 @@ export const GifPicker = () => {
 	const [results, setResults] = useState<GiphyItem[]>([]);
 	const [scrollPositionX, setScrollPositionX] = useState(0);
 	const [greatestScrollPositionX, setGreatestScrollPositionX] = useState(0);
-	const prevScrollPositionX = useRef<number>();
+	const prevScrollPositionX = useRef<number>(0);
+	const gifScrollerRef = useRef<any>(null);
 
 	useEffect(() => {
 		getGifs(true);
@@ -87,20 +88,58 @@ export const GifPicker = () => {
 		getGifs(true, query);
 	}, [query]);
 
-	const getGifsAfterScroll = useCallback(() => {
-		if (scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT !== 0) {
-			return;
-		}
+	const getAndSetGifsOnScroll = useCallback(() => {
+		const curGreatestScrollPosX = greatestScrollPositionX;
+
+		console.log('made it');
 		if (
 			(prevScrollPositionX.current as number) < scrollPositionX &&
-			scrollPositionX > greatestScrollPositionX
+			scrollPositionX >= greatestScrollPositionX
 		) {
 			getGifs(false, query);
+			console.log('ok');
 		}
-	}, [prevScrollPositionX.current, scrollPositionX]);
+
+		console.log('heeya');
+		if (curGreatestScrollPosX < scrollPositionX) {
+			setGreatestScrollPositionX(scrollPositionX);
+		}
+
+		prevScrollPositionX.current = scrollPositionX;
+	}, [
+		scrollPositionX,
+		prevScrollPositionX.current,
+		greatestScrollPositionX,
+		getGifs,
+		query,
+	]);
 
 	useEffect(() => {
-		getGifsAfterScroll();
+		console.log(
+			greatestScrollPositionX,
+			scrollPositionX,
+			prevScrollPositionX.current
+		);
+
+		const threshold = 100;
+		const x = scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT;
+		const y = prevScrollPositionX.current % LOAD_GIFS_SCROLL_INCREMENT;
+
+		let shouldGetGifs = false;
+
+		shouldGetGifs =
+			scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT === 0 ||
+			(x >= LOAD_GIFS_SCROLL_INCREMENT - threshold &&
+				y <= LOAD_GIFS_SCROLL_INCREMENT - threshold);
+		// if (scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT !== 0) {
+		// 	if (gifScrollerRef && gifScrollerRef.current && gifScrollerRef) {
+		// 		const c = gifScrollerRef.current;
+		// 		console.log({ c });
+		// 	}
+		// 	return;
+		// }
+
+		if (shouldGetGifs) getAndSetGifsOnScroll();
 	}, [scrollPositionX]);
 
 	return (
@@ -110,6 +149,7 @@ export const GifPicker = () => {
 			) : (
 				<ScrollAreaStyled
 					onScrollPositionChange={pos => setScrollPositionX(pos.x)}
+					ref={gifScrollerRef}
 				>
 					<GifResultsWrapper>
 						{results.map(({ images }, index) =>

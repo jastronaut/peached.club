@@ -35,14 +35,14 @@ export const GifResultsWrapper = styled.div`
 export const Gif = styled.img<{ index: number }>`
 	object-fit: cover;
 	min-width: ${rem(120)};
-	min-height: ${rem(110)};
 	max-width: ${rem(160)};
-	max-height: ${rem(150)};
+	height: ${rem(150)};
 	cursor: pointer;
-	transition: 0.2s ease scale;
+	transition: 0.2s ease all;
 
 	:hover {
-		scale: 0.9;
+		scale: 0.95;
+		object-fit: contain;
 	}
 
 	:active {
