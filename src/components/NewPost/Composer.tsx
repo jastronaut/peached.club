@@ -22,6 +22,7 @@ import {
 } from './style';
 import DeleteIcon from '../../Theme/Icons/DeleteIcon';
 import { MagicPostActions } from './MagicPostActions';
+import { GifPicker } from './GifPicker';
 
 type ImageProps = {
 	images: (TextMessage | ImageMessage)[];
@@ -64,6 +65,7 @@ export type ComposerProps = {
 	onSubmit: (messages: (TextMessage | ImageMessage)[]) => void;
 	toggleComposer: () => void;
 };
+
 export const Composer = (props: ComposerProps) => {
 	const { curUser } = useContext(PeachContext);
 
@@ -140,15 +142,12 @@ export const ComposerComponent = (
 				value={postText}
 				autoFocus
 			/>
-
 			<MagicPostActions
 				setPostText={setPostText}
 				curUserId={curUserId}
 				uploadImage={uploadImage}
 			/>
-
 			<Images images={images} setImages={setImages} />
-
 			<Button
 				disabled={images.length < 1 && postText.length < 1}
 				onClick={() => onSubmitPost()}

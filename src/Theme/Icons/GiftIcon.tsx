@@ -13,11 +13,10 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
 			strokeWidth={2}
 			strokeLinecap='round'
 			strokeLinejoin='round'
-			className='feather feather-link'
+			className='feather feather-gift'
 			{...props}
 		>
-			<path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71' />
-			<path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71' />
+			<path d='M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z' />
 		</svg>
 	);
 };
