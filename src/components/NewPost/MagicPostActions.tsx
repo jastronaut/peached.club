@@ -3,11 +3,11 @@ import { useSpring, animated, config } from 'react-spring';
 import dayjs from 'dayjs';
 
 import { ActionButton, MagicPostActionsContainer } from './style';
-import ImageIcon from './ImageIcon';
+import ImageIcon from '../../Theme/Icons/ImageIcon';
 import ClockIcon from '../../Theme/Icons/ClockIcon';
 import CalendarIcon from '../../Theme/Icons/CalendarIcon';
 import GiftIcon from '../../Theme/Icons/GiftIcon';
-import { GifPicker } from './GifPicker';
+import { GifPicker } from './GifPicker/GifPicker';
 
 export const getCurrentTime = (currentPostLen: number) => {
 	const now = dayjs().format('h:mm A');
@@ -50,7 +50,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 		<div>
 			<MagicPostActionsContainer>
 				<ActionButton>
-					<ImageIcon accented />
+					<ImageIcon accented title='Add an image to your post' />
 					<input
 						type='file'
 						accept='image*'
@@ -68,6 +68,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 								postText => postText + getCurrentTime(postText.length)
 							)
 						}
+						title='Add the current time to post'
 					/>
 				</ActionButton>
 				<ActionButton>
@@ -77,10 +78,14 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 								postText => postText + getCurrentDate(postText.length)
 							)
 						}
+						title="Add today's date to post"
 					/>
 				</ActionButton>
 				<ActionButton>
-					<GiftIcon onClick={() => setIsGifPickerShowing(i => !i)} />
+					<GiftIcon
+						onClick={() => setIsGifPickerShowing(i => !i)}
+						title='Add GIF to post'
+					/>
 				</ActionButton>
 			</MagicPostActionsContainer>
 

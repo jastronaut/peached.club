@@ -1,7 +1,10 @@
 import React, { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
+import { SVGIcon } from './constants';
+
+const SvgComponent = (props: SVGIcon) => {
+	const { title, ...rest } = props;
 	const theme = useTheme();
 	return (
 		<svg
@@ -14,8 +17,9 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => {
 			strokeLinecap='round'
 			strokeLinejoin='round'
 			className='feather feather-clock'
-			{...props}
+			{...rest}
 		>
+			{title && <title>{title}</title>}
 			<circle cx={12} cy={12} r={10} />
 			<path d='M12 6v6l4 2' />
 		</svg>
