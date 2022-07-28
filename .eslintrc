@@ -2,7 +2,11 @@
 	"parser": "@typescript-eslint/parser",
 	"ignorePatterns": ["src/**/*.stories.tsx"],
 	"plugins": ["prettier", "@typescript-eslint"],
-	"extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+	"extends": [
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"plugin:react-hooks/recommended"
+	],
 	"rules": {
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": "off",
@@ -11,6 +15,7 @@
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/no-empty-function": "off",
-		"@typescript-eslint/no-non-null-assertion": "off"
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"react-hooks/exhaustive-deps": "warn"
 	}
 }
