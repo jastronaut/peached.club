@@ -45,9 +45,8 @@ const Navigation = () => {
 			if (!storedCurUser || !storedJwt) {
 				navigate('/login', { replace: true });
 			} else {
-				setJwt(storedJwt);
-				setCurUser(storedCurUser);
-
+				// setJwt(storedJwt);
+				// setCurUser(storedCurUser);
 				// if (!curUserData.id) {
 				// 	api(ACTIONS.connectionStream, storedJwt, {}, storedCurUser.id).then(
 				// 		(response: { data: CurUser }) => {
