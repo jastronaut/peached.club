@@ -6,6 +6,7 @@ import {
 	TextMessage,
 	isImage,
 	POST_TYPE,
+	GifMessage,
 } from '../../../api/interfaces';
 import { PeachContext } from '../../../PeachContext';
 
@@ -22,11 +23,11 @@ import {
 import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
 import { MagicPostActions } from '../MagicPostActions';
 
+type UploadableMessageTypes = TextMessage | ImageMessage | GifMessage;
+
 type ImageProps = {
-	images: (TextMessage | ImageMessage)[];
-	setImages: React.Dispatch<
-		React.SetStateAction<(TextMessage | ImageMessage)[]>
-	>;
+	images: UploadableMessageTypes[];
+	setImages: React.Dispatch<React.SetStateAction<UploadableMessageTypes[]>>;
 };
 
 const Images = ({ images, setImages }: ImageProps) => {
@@ -60,7 +61,7 @@ const Images = ({ images, setImages }: ImageProps) => {
 };
 
 export type ComposerProps = {
-	onSubmit: (messages: (TextMessage | ImageMessage)[]) => void;
+	onSubmit: (messages: UploadableMessageTypes[]) => void;
 	toggleComposer: () => void;
 };
 
@@ -80,7 +81,7 @@ export const ComposerComponent = (
 	const { curUserId, onSubmit, toggleComposer } = props;
 	const postRef = useRef<HTMLTextAreaElement>(null);
 	const [postText, setPostText] = useState<string>('');
-	const [images, setImages] = useState<(ImageMessage | TextMessage)[]>([]);
+	const [images, setImages] = useState<UploadableMessageTypes[]>([]);
 
 	const uploadImage = async (files: FileList | null, id: string) => {
 		if (files === null || files.length < 1) return;
@@ -125,11 +126,13 @@ export const ComposerComponent = (
 								type: POST_TYPE.TEXT,
 								text: postText,
 							},
-						] as (ImageMessage | TextMessage)[]
+						] as UploadableMessageTypes[]
 				  ).concat(images)
 				: images
 		);
 	};
+
+	const onGifSelect = () => {};
 
 	return (
 		<Modal onKeyDown={() => toggleComposer()}>
@@ -144,6 +147,7 @@ export const ComposerComponent = (
 				setPostText={setPostText}
 				curUserId={curUserId}
 				uploadImage={uploadImage}
+				onGifSelect={onGifSelect}
 			/>
 			<Images images={images} setImages={setImages} />
 			<Button

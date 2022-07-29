@@ -23,7 +23,7 @@ export const getCurrentDate = (currentPostLen: number) => {
 	return `${currentPostLen ? '\n' : ''}📰 ${now} \n`;
 };
 
-const GifPickerComponent = () => {
+const GifPickerComponent = (props: { onGifSelect: Function }) => {
 	const [flip, set] = useState(false);
 
 	const springProps = useSpring({
@@ -45,6 +45,7 @@ type MagicPostActionsProps = {
 	setPostText: React.Dispatch<React.SetStateAction<string>>;
 	uploadImage: (files: FileList | null, id: string) => void;
 	curUserId: string | null;
+	onGifSelect: Function;
 };
 
 export const MagicPostActions = (props: MagicPostActionsProps) => {
@@ -93,7 +94,9 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 				</ActionButton>
 			</MagicPostActionsContainer>
 
-			{isGifPickerShowing && <GifPickerComponent />}
+			{isGifPickerShowing && (
+				<GifPickerComponent onGifSelect={props.onGifSelect} />
+			)}
 		</div>
 	);
 };

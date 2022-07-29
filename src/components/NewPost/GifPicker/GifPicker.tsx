@@ -35,7 +35,6 @@ export const GifPicker = () => {
 	const [scrollPositionX, setScrollPositionX] = useState(0);
 	const [greatestScrollPositionX, setGreatestScrollPositionX] = useState(0);
 	const prevScrollPositionX = useRef<number>(0);
-	const gifScrollerRef = useRef<any>(null);
 
 	useEffect(() => {
 		getGifs(true);
@@ -125,21 +124,14 @@ export const GifPicker = () => {
 		const x = scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT;
 		const y = prevScrollPositionX.current % LOAD_GIFS_SCROLL_INCREMENT;
 
-		let shouldGetGifs = false;
-
-		shouldGetGifs =
+		const shouldGetGifs =
 			scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT === 0 ||
 			(x >= LOAD_GIFS_SCROLL_INCREMENT - threshold &&
 				y <= LOAD_GIFS_SCROLL_INCREMENT - threshold);
-		// if (scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT !== 0) {
-		// 	if (gifScrollerRef && gifScrollerRef.current && gifScrollerRef) {
-		// 		const c = gifScrollerRef.current;
-		// 		console.log({ c });
-		// 	}
-		// 	return;
-		// }
 
-		if (shouldGetGifs) getAndSetGifsOnScroll();
+		if (shouldGetGifs) {
+			getAndSetGifsOnScroll();
+		}
 	}, [scrollPositionX]);
 
 	return (
@@ -149,12 +141,12 @@ export const GifPicker = () => {
 			) : (
 				<ScrollAreaStyled
 					onScrollPositionChange={pos => setScrollPositionX(pos.x)}
-					ref={gifScrollerRef}
 				>
 					<GifResultsWrapper>
 						{results.map(({ images }, index) =>
 							images.preview_gif.url ? (
 								<Gif
+									onClick={() => console.log(images.preview_gif.url)}
 									src={images.preview_gif.url}
 									key={`giphy-${index}`}
 									index={index}
