@@ -2,10 +2,9 @@ import React, { useState, useRef, useContext } from 'react';
 
 import {
 	ImgurUploadResponse,
-	ImageMessage,
-	TextMessage,
 	isImage,
 	POST_TYPE,
+	isGif,
 	GifMessage,
 } from '../../../api/interfaces';
 import { PeachContext } from '../../../PeachContext';
@@ -22,8 +21,7 @@ import {
 } from './style';
 import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
 import { MagicPostActions } from '../MagicPostActions';
-
-type UploadableMessageTypes = TextMessage | ImageMessage | GifMessage;
+import { GiphyImage, UploadableMessageTypes } from '../../../api/interfaces';
 
 type ImageProps = {
 	images: UploadableMessageTypes[];
@@ -37,7 +35,7 @@ const Images = ({ images, setImages }: ImageProps) => {
 				<ImagesHolder>
 					{images.map(
 						img =>
-							isImage(img) && (
+							(isImage(img) || isGif(img)) && (
 								<ImageWrapper key={img.src}>
 									<DeleteImage
 										onClick={() =>
@@ -50,7 +48,12 @@ const Images = ({ images, setImages }: ImageProps) => {
 									>
 										<DeleteIcon />
 									</DeleteImage>
-									<UploadedImage src={img.src} alt={img.src} />
+									<UploadedImage
+										src={img.src}
+										alt={img.src}
+										height={img.height}
+										width={img.width}
+									/>
 								</ImageWrapper>
 							)
 					)}
@@ -84,7 +87,10 @@ export const ComposerComponent = (
 	const [images, setImages] = useState<UploadableMessageTypes[]>([]);
 
 	const uploadImage = async (files: FileList | null, id: string) => {
-		if (files === null || files.length < 1) return;
+		if (files === null || files.length < 1) {
+			return;
+		}
+
 		const file = files[0];
 		const formData = new FormData();
 		formData.append('image', file);
@@ -92,7 +98,7 @@ export const ComposerComponent = (
 		const req = {
 			method: 'POST',
 			headers: {
-				Authorization: 'Client-ID 7683e91b3b47a80',
+				Authorization: 'Client-ID f3f088c23280375',
 				Accept: 'application/json',
 			},
 			body: formData,
@@ -132,7 +138,17 @@ export const ComposerComponent = (
 		);
 	};
 
-	const onGifSelect = () => {};
+	const onGifSelect = (selectedGif: GiphyImage) => {
+		const formData = new FormData();
+		const gifPost: GifMessage = {
+			type: POST_TYPE.GIF,
+			src: selectedGif.url,
+			width: parseInt(selectedGif.width),
+			height: parseInt(selectedGif.height),
+		};
+
+		setImages(images => images.concat(gifPost));
+	};
 
 	return (
 		<Modal onKeyDown={() => toggleComposer()}>

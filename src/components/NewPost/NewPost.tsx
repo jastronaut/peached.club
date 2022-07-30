@@ -4,8 +4,7 @@ import ACTIONS from '../../api/constants';
 import api from '../../api';
 import {
 	CreatePostResponse,
-	ImageMessage,
-	TextMessage,
+	UploadableMessageTypes,
 } from '../../api/interfaces';
 import { PeachContext } from '../../PeachContext';
 import { Composer } from './Composer/Composer';
@@ -21,7 +20,7 @@ const NewPost = () => {
 	const [posting, setPosting] = useState<boolean>(false);
 	const { jwt } = useContext(PeachContext);
 
-	const submitPost = (messages: (TextMessage | ImageMessage)[]) => {
+	const submitPost = (messages: UploadableMessageTypes[]) => {
 		if (messages.length < 1) return;
 
 		setSubmitted(true);

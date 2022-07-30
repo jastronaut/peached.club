@@ -19,6 +19,7 @@ export const MPAComponent = () => {
 				setPostText={setPostText}
 				curUserId='5'
 				uploadImage={(files: FileList | null, id: string) => null}
+				onGifSelect={() => console.log('hi')}
 			/>
 			<ResultBox>{postText}</ResultBox>
 		</ThemeProvider>

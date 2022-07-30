@@ -12,6 +12,7 @@ import ClockIcon from '../../Theme/Icons/ClockIcon';
 import CalendarIcon from '../../Theme/Icons/CalendarIcon';
 import GiftIcon from '../../Theme/Icons/GiftIcon';
 import { GifPicker } from './GifPicker/GifPicker';
+import { GiphyImage } from '../../api/interfaces';
 
 export const getCurrentTime = (currentPostLen: number) => {
 	const now = dayjs().format('h:mm A');
@@ -23,7 +24,9 @@ export const getCurrentDate = (currentPostLen: number) => {
 	return `${currentPostLen ? '\n' : ''}📰 ${now} \n`;
 };
 
-const GifPickerComponent = (props: { onGifSelect: Function }) => {
+const GifPickerComponent = (props: {
+	onGifSelect: (selectedGif: GiphyImage) => void;
+}) => {
 	const [flip, set] = useState(false);
 
 	const springProps = useSpring({
@@ -36,7 +39,7 @@ const GifPickerComponent = (props: { onGifSelect: Function }) => {
 
 	return (
 		<animated.div style={springProps}>
-			<GifPicker />
+			<GifPicker onGifSelect={props.onGifSelect} />
 		</animated.div>
 	);
 };
@@ -45,7 +48,7 @@ type MagicPostActionsProps = {
 	setPostText: React.Dispatch<React.SetStateAction<string>>;
 	uploadImage: (files: FileList | null, id: string) => void;
 	curUserId: string | null;
-	onGifSelect: Function;
+	onGifSelect: (selectedGif: GiphyImage) => void;
 };
 
 export const MagicPostActions = (props: MagicPostActionsProps) => {

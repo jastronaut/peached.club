@@ -7,7 +7,7 @@ import { Page } from '../../../Theme/Layout';
 import { darkTheme, lightTheme } from '../../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
-import { TextMessage, ImageMessage } from '../../../api/interfaces';
+import { UploadableMessageTypes } from '../../../api/interfaces';
 
 const ComposerStory = (
 	props: ComposerProps & { curUserId: string } & { variant: string }
@@ -41,6 +41,6 @@ export const Primary = Template.bind({});
 Primary.args = {
 	variant: 'dark',
 	curUserId: '4',
-	onSubmit: (messages: (TextMessage | ImageMessage)[]) => null,
+	onSubmit: (messages: UploadableMessageTypes[]) => null,
 	toggleComposer: () => null,
 };

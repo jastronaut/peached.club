@@ -59,6 +59,8 @@ export type PostContent =
 	| LocationMessage
 	| GifMessage;
 
+export type UploadableMessageTypes = TextMessage | ImageMessage | GifMessage;
+
 /*eslint-disable */
 export function isLink(object: any): object is LinkMessage {
 	return 'imageURL' in object;
@@ -69,6 +71,10 @@ export function isText(object: any): object is TextMessage {
 }
 
 export function isImage(object: any): object is ImageMessage {
+	return 'src' in object;
+}
+
+export function isGif(object: any): object is GifMessage {
 	return 'src' in object;
 }
 
@@ -374,3 +380,26 @@ export interface ImgurUploadResponse {
 	success: boolean;
 	status: 200;
 }
+
+export type GiphyItem = {
+	type: string;
+	id: string;
+	url: string;
+	images: {
+		preview_gif: GiphyImage;
+		fixed_width: GiphyImage;
+	};
+};
+
+export type GiphyImage = {
+	height: string;
+	width: string;
+	url: string;
+};
+
+export type GiphyResponse = {
+	data: GiphyItem[];
+	meta: {
+		status: number;
+	};
+};

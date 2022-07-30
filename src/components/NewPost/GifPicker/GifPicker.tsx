@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 
+import { GiphyImage, GiphyItem, GiphyResponse } from '../../../api/interfaces';
+
 import Loading from '../../../Theme/Loading';
 import {
 	Wrapper,
@@ -12,24 +14,9 @@ import {
 const NUM_GIFS_TO_FETCH = 10;
 const LOAD_GIFS_SCROLL_INCREMENT = 200;
 
-type GiphyItem = {
-	type: string;
-	id: string;
-	url: string;
-	images: {
-		preview_gif: { url: string };
-		fixed_width: { url: string };
-	};
-};
-
-type GiphyResponse = {
-	data: GiphyItem[];
-	meta: {
-		status: number;
-	};
-};
-
-export const GifPicker = () => {
+export const GifPicker = (props: {
+	onGifSelect: (selectedGif: GiphyImage) => void;
+}) => {
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState<GiphyItem[]>([]);
 	const [scrollPositionX, setScrollPositionX] = useState(0);
@@ -143,11 +130,11 @@ export const GifPicker = () => {
 					onScrollPositionChange={pos => setScrollPositionX(pos.x)}
 				>
 					<GifResultsWrapper>
-						{results.map(({ images }, index) =>
-							images.preview_gif.url ? (
+						{results.map((gif, index) =>
+							gif.images.preview_gif.url ? (
 								<Gif
-									onClick={() => console.log(images.preview_gif.url)}
-									src={images.preview_gif.url}
+									onClick={() => props.onGifSelect(gif.images.preview_gif)}
+									src={gif.images.preview_gif.url}
 									key={`giphy-${index}`}
 									index={index}
 									loading='lazy'

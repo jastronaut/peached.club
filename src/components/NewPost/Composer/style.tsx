@@ -10,7 +10,7 @@ export const TextArea = styled(OldInput)`
 	color: ${props => props.theme.text.primary};
 	font-size: ${rem(16)};
 	margin-bottom: ${rem(16)};
-	min-height: ${rem(300)};
+	min-height: ${rem(100)};
 `;
 
 export const Header = styled.h2`
