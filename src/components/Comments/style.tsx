@@ -73,7 +73,7 @@ export const Input = styled.textarea`
 	flex: 9;
 	resize: none;
 	border-radius: 0.5rem;
-	border: 1px solid #cacaca;
+	border: 1px solid ${props => props.theme.border.primary};
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-size: 1rem;
@@ -93,11 +93,11 @@ export const Input = styled.textarea`
 /*
  * aligned with ../Theme/Modal
  */
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.span`
 	margin: 0;
-	flex: 1;
+	/* flex: 1; */
 	z-index: 9999;
-	width: inherit;
+	/* width: inherit; */
 `;
 
 /*

@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { rem } from 'polished';
 
-const ButtonLink = styled.a<{ centered?: boolean }>`
+const ButtonLink = styled.span<{ centered?: boolean }>`
 	text-decoration: none;
 	${props => (props.centered ? '' : 'align-self: start;')}
 	color: white;
@@ -125,12 +125,9 @@ interface ButtonProps extends ButtonStyleProps {
 }
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => (
-	<ButtonLink
-		href={props.link || '#'}
-		onClick={e => (props.onClick ? props.onClick() : {})}
-		centered={props.centered}
-	>
+	<ButtonLink centered={props.centered}>
 		<ButtonStyle
+			onClick={_e => (props.onClick ? props.onClick() : {})}
 			type='submit'
 			color={props.color}
 			lg={props.lg}
