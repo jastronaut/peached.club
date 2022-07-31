@@ -37,7 +37,7 @@ import { PeachContext } from '../../PeachContext';
 import LocationPost from '../../components/Posts/LocationPost';
 import LinkPost from '../../components/Posts/LinkPost';
 
-import { ProfileHeader } from '../../pages/Profile/ProfileHeader/ProfileHeader';
+import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
 
 const addNewlines = (txt: string, id: string) =>
 	txt.indexOf('\n') < 0

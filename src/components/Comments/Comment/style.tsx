@@ -4,7 +4,7 @@ import { rem } from 'polished';
 import {
 	Avatar,
 	ProfileHeaderHandle as Handle,
-} from '../../../pages/Profile/ProfileHeader/style';
+} from '../../ProfileHeader/style';
 import { MiniMenu } from '../../../Friend/style';
 import { ModalContainer } from '../../../Theme/Modal';
 

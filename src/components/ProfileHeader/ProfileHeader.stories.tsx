@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { ProfileHeader, ProfileHeaderProps } from './ProfileHeader';
 
-import { darkTheme, lightTheme } from '../../../Theme/theme';
+import { darkTheme, lightTheme } from '../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
 const Story = (props: ProfileHeaderProps & { variant: string }) => {

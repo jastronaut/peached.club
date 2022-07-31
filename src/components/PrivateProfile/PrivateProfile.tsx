@@ -10,7 +10,7 @@ import Modal from '../../Theme/Modal';
 import { Title } from '../../Theme/Type';
 import Toasty from '../../Theme/Toasty';
 import { PrivateProfileContainer, Bio, AvatarPreview } from './style';
-import { ProfileHeaderHandle } from '../../pages/Profile/ProfileHeader/style';
+import { ProfileHeaderHandle } from '../ProfileHeader/style';
 
 interface PrivateProfileProps {
 	onDismissPrivateProfile: () => void;

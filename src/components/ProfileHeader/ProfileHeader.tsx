@@ -1,8 +1,8 @@
 import React from 'react';
 import Linkify from 'linkify-react';
 
-import { User } from '../../../api/interfaces';
-import { LINKIFY_OPTIONS } from '../../../constants';
+import { User } from '../../api/interfaces';
+import { LINKIFY_OPTIONS } from '../../constants';
 
 import {
 	Avatar,
