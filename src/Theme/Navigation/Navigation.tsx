@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { PeachContext } from '../../PeachContext';
 import { getUserFromStorage } from '../../utils';
 import { STORAGE_TOKEN_KEY } from '../../constants';
-import { CurUser } from '../../api/interfaces';
-import api from '../../api';
-import ACTIONS from '../../api/constants';
 
 import { NavWrap, Link, Nav, FeedsNav, PageIconWrapper } from './style';
 import ArrowLeftIcon from '../Icons/ArrowLeftIcon';
@@ -18,15 +15,7 @@ import ActivityIcon from '../Icons/PulseIcon';
 import GearIcon from '../Icons/GearIcon';
 
 const Navigation = () => {
-	const {
-		curUser,
-		curUserData,
-		setCurUserData,
-		peachFeed,
-		jwt,
-		setCurUser,
-		setJwt,
-	} = useContext(PeachContext);
+	const { curUser, curUserData, peachFeed, jwt } = useContext(PeachContext);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
@@ -44,20 +33,6 @@ const Navigation = () => {
 
 			if (!storedCurUser || !storedJwt) {
 				navigate('/login', { replace: true });
-			} else {
-				// setJwt(storedJwt);
-				// setCurUser(storedCurUser);
-				// if (!curUserData.id) {
-				// 	api(ACTIONS.connectionStream, storedJwt, {}, storedCurUser.id).then(
-				// 		(response: { data: CurUser }) => {
-				// 			if (response.data) {
-				// 				setCurUserData(response.data);
-				// 			} else {
-				// 				navigate('/login', { replace: true });
-				// 			}
-				// 		}
-				// 	);
-				// }
 			}
 		}
 	}, [curUser, jwt, curUserData.id]);
