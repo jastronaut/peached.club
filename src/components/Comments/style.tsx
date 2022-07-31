@@ -14,6 +14,8 @@ const DeletePromptContainer = styled(ModalContainer)`
 	width: 30%;
 	height: auto;
 	text-align: center;
+	color: ${props => props.theme.text.primary};
+
 	@media screen and (max-width: 800px) {
 		width: 50%;
 	}

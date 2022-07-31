@@ -11,6 +11,7 @@ import { PeachContext } from '../../../PeachContext';
 
 import Modal from '../../../Theme/Modal';
 import Button from '../../../Theme/Button';
+import { DeletePrompt } from '../../Comments/style';
 
 import {
 	TextArea,
@@ -82,6 +83,7 @@ export const ComposerComponent = (
 	const postRef = useRef<HTMLTextAreaElement>(null);
 	const [postText, setPostText] = useState<string>('');
 	const [images, setImages] = useState<UploadableMessageTypes[]>([]);
+	const [isDismissWarningShowing, setIsDismissWarningShowing] = useState(false);
 
 	const uploadImage = async (files: FileList | null, id: string) => {
 		if (files === null || files.length < 1) {
@@ -146,8 +148,23 @@ export const ComposerComponent = (
 		setImages(images => images.concat(gifPost));
 	};
 
+	const onTryDismissComposer = (postText: string, numImages: number) => {
+		if (postText || numImages) {
+			setIsDismissWarningShowing(true);
+		} else {
+			toggleComposer();
+		}
+	};
+
 	return (
-		<Modal onKeyDown={() => toggleComposer()}>
+		<Modal onKeyDown={() => onTryDismissComposer(postText, images.length)}>
+			<DeletePrompt
+				isShowing={isDismissWarningShowing}
+				onDelete={toggleComposer}
+				onCancel={() => setIsDismissWarningShowing(false)}
+			>
+				Are you sure you want to abandon this post?
+			</DeletePrompt>
 			<TextArea
 				ref={postRef}
 				placeholder="What's going on?"
