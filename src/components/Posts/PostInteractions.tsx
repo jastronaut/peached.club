@@ -1,6 +1,6 @@
 import React from 'react';
 
-import getPostTime from '../../utils/getPostTime';
+import getPostTime, { formatPostTime } from '../../utils/getPostTime';
 
 import LikeIcon from '../../Theme/Icons/LikeIcon';
 import CommentIcon from '../../Theme/Icons/CommentIcon';
@@ -37,7 +37,7 @@ export const PostInteractions = (props: Props) => {
 				<InteractionInfo>{props.commentsLength}</InteractionInfo>
 			</InteractionArea>
 			<PostTime>
-				<ClockIcon />
+				<ClockIcon title={formatPostTime(props.createdTime)} />
 				<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
 			</PostTime>
 			{props.isCurUsersPost && (

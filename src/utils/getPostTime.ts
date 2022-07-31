@@ -26,3 +26,7 @@ dayjs.updateLocale('en', {
 export default (timestamp: number) => {
 	return dayjs().to(dayjs.unix(timestamp), true);
 };
+
+export const formatPostTime = (timestamp: number) => {
+	return dayjs(dayjs.unix(timestamp)).format('MMM D, YYYY');
+};
