@@ -43,6 +43,7 @@ export const Gif = styled.img<{ index: number }>`
 	:hover {
 		scale: 0.95;
 		object-fit: contain;
+		transition: 0.2s ease all;
 	}
 
 	:active {
