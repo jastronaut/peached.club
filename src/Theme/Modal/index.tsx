@@ -60,7 +60,7 @@ export const ModalContainer = styled.div<ModalContainerProps>`
 	overflow: scroll;
 	border-radius: ${rem(6)};
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 1000px) {
 		width: ${props => (props.isMini ? '65%' : '70%')};
 		padding: ${rem(20)} ${rem(24)};
 	}
