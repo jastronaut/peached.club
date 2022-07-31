@@ -47,7 +47,7 @@ const App: React.FC = () => {
 
 	const toggleDarkMode = () => {
 		setDarkMode(darkMode => {
-			localStorage.setItem(STORAGE_IS_DARK_MODE, darkMode ? 'true' : 'false');
+			localStorage.setItem(STORAGE_IS_DARK_MODE, darkMode ? 'false' : 'true');
 			return !darkMode;
 		});
 	};

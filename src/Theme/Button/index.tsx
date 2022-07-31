@@ -108,7 +108,6 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 	}
 
 	> svg {
-		/* height: 1.1rem; */
 		margin-right: 0.25rem;
 	}
 
