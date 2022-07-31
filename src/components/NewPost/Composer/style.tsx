@@ -31,7 +31,7 @@ export const ImagesHolder = styled.div`
 `;
 
 export const DeleteImage = styled.div`
-	visibility: hidden;
+	opacity: 0.7;
 
 	float: right;
 	top: 0;
@@ -68,8 +68,9 @@ export const ImageWrapper = styled.div`
 	overflow: hidden;
 	border-radius: 0.25rem;
 	cursor: pointer;
+
 	:hover > ${DeleteImage} {
-		visibility: visible;
+		opacity: 1;
 		cursor: pointer;
 	}
 
