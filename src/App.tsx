@@ -17,7 +17,7 @@ import api from './api';
 import { LoginPage } from './pages/Login';
 import { Logout } from './pages/Login/Logout';
 import { FeedPage } from './pages/Feed';
-import { FriendFeedPage } from './Friend';
+import { ProfilePage } from './pages/Profile/Profile';
 import { ActivityPage } from './pages/Activity';
 import { SettingsPage } from './pages/Settings';
 import { darkTheme, lightTheme, PeachThemeProvider } from './Theme/theme';
@@ -148,7 +148,7 @@ const PeachRoutes = () => (
 		<Route path='/login' element={<LoginPage />} />
 		<Route path='/feed' element={<FeedPage />} />
 		<Route path='/friend'>
-			<Route path=':id' element={<FriendFeedPage />} />
+			<Route path=':id' element={<ProfilePage />} />
 		</Route>
 		<Route path='/activity' element={<ActivityPage />} />
 		<Route path='/settings' element={<SettingsPage />} />

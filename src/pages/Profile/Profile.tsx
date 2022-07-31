@@ -1,18 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Linkify from 'linkify-react';
 
-import api from '../api';
-import Loading from '../Theme/Loading';
-import { PostInteractions } from '../components/Posts/PostInteractions';
+import api from '../../api';
+import Loading from '../../Theme/Loading';
+import { PostInteractions } from '../../components/Posts/PostInteractions';
 
-import Comments from '../components/Comments';
+import Comments from '../../components/Comments';
 
-import { DeletePrompt } from '../components/Comments/style';
+import { DeletePrompt } from '../../components/Comments/style';
 
-import NewPost from '../components/NewPost';
+import NewPost from '../../components/NewPost';
 
-import { Page } from '../Theme/Layout';
+import { Page } from '../../Theme/Layout';
 import {
 	Post,
 	LikePostResponse,
@@ -22,9 +22,9 @@ import {
 	MutualFriend,
 	FriendsOfFriendsResponse,
 	POST_TYPE,
-} from '../api/interfaces';
-import ACTIONS from '../api/constants';
-import { LINKIFY_OPTIONS } from '../constants';
+} from '../../api/interfaces';
+import ACTIONS from '../../api/constants';
+import { LINKIFY_OPTIONS } from '../../constants';
 
 import {
 	PostWrapper,
@@ -32,12 +32,12 @@ import {
 	Image,
 	EmptyStateWrapper,
 } from './style';
-import { PeachContext } from '../PeachContext';
+import { PeachContext } from '../../PeachContext';
 
-import LocationPost from '../components/Posts/LocationPost';
-import LinkPost from '../components/Posts/LinkPost';
+import LocationPost from '../../components/Posts/LocationPost';
+import LinkPost from '../../components/Posts/LinkPost';
 
-import { ProfileHeader } from '../pages/Profile/ProfileHeader/ProfileHeader';
+import { ProfileHeader } from '../../pages/Profile/ProfileHeader/ProfileHeader';
 
 const addNewlines = (txt: string, id: string) =>
 	txt.indexOf('\n') < 0
@@ -223,7 +223,7 @@ const EmptyState = () => (
 	</EmptyStateWrapper>
 );
 
-export const FriendFeedPage = () => {
+export const ProfilePage = () => {
 	const { jwt, curUser, peachFeed, curUserData } = useContext(PeachContext);
 	const [posts, setPosts] = useState<Post[]>([]);
 
@@ -233,7 +233,6 @@ export const FriendFeedPage = () => {
 	const [postsLoaded, setPostsLoaded] = useState<boolean>(false);
 
 	const { id } = useParams();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
@@ -335,7 +334,7 @@ export const FriendFeedPage = () => {
 						) : (
 							<EmptyState />
 						)}
-						{curUser !== null && curUser.id === id ? <NewPost /> : null}
+						{curUser !== null && curUser.id === id && <NewPost />}
 					</>
 				) : (
 					<Loading />
