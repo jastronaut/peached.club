@@ -386,8 +386,9 @@ export type GiphyItem = {
 	id: string;
 	url: string;
 	images: {
-		preview_gif: GiphyImage;
+		downsized_large: GiphyImage;
 		fixed_width: GiphyImage;
+		preview_gif: GiphyImage;
 	};
 };
 

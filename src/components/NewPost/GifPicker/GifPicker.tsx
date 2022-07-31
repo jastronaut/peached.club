@@ -133,10 +133,12 @@ export const GifPicker = (props: {
 						{results.map((gif, index) =>
 							gif.images.preview_gif.url ? (
 								<Gif
-									onClick={() => props.onGifSelect(gif.images.preview_gif)}
+									onClick={() => props.onGifSelect(gif.images.downsized_large)}
 									src={gif.images.preview_gif.url}
 									key={`giphy-${index}`}
 									index={index}
+									width={gif.images.preview_gif.width}
+									height={gif.images.preview_gif.height}
 									loading='lazy'
 									title='Add this GIF to post'
 								/>

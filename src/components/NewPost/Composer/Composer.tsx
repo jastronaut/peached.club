@@ -29,37 +29,34 @@ type ImageProps = {
 };
 
 const Images = ({ images, setImages }: ImageProps) => {
+	if (images.length < 1) {
+		return null;
+	}
 	return (
-		<>
-			{images.length > 0 ? (
-				<ImagesHolder>
-					{images.map(
-						img =>
-							(isImage(img) || isGif(img)) && (
-								<ImageWrapper key={img.src}>
-									<DeleteImage
-										onClick={() =>
-											setImages(images =>
-												images.filter(
-													i => isImage(i) && i.src && i.src !== img.src
-												)
-											)
-										}
-									>
-										<DeleteIcon />
-									</DeleteImage>
-									<UploadedImage
-										src={img.src}
-										alt={img.src}
-										height={img.height}
-										width={img.width}
-									/>
-								</ImageWrapper>
-							)
-					)}
-				</ImagesHolder>
-			) : null}
-		</>
+		<ImagesHolder>
+			{images.map(
+				(img, index) =>
+					(isImage(img) || isGif(img)) && (
+						<ImageWrapper key={`${index}-${img.src}`}>
+							<DeleteImage
+								onClick={() =>
+									setImages(images =>
+										images.filter(i => isImage(i) && i.src && i.src !== img.src)
+									)
+								}
+							>
+								<DeleteIcon />
+							</DeleteImage>
+							<UploadedImage
+								src={img.src}
+								alt={img.src}
+								height={img.height}
+								width={img.width}
+							/>
+						</ImageWrapper>
+					)
+			)}
+		</ImagesHolder>
 	);
 };
 
@@ -139,7 +136,6 @@ export const ComposerComponent = (
 	};
 
 	const onGifSelect = (selectedGif: GiphyImage) => {
-		const formData = new FormData();
 		const gifPost: GifMessage = {
 			type: POST_TYPE.GIF,
 			src: selectedGif.url,
