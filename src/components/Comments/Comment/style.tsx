@@ -56,7 +56,7 @@ export const CommentText = styled.div`
 	}
 
 	> p {
-		word-wrap: break-word;
+		word-wrap: anywhere;
 		font-size: 0.9rem;
 		margin-top: 0;
 		margin-bottom: 0;
