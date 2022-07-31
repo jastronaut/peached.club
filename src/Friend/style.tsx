@@ -11,6 +11,10 @@ export const FriendPostContent = styled.div`
 	p {
 		margin-bottom: 0;
 	}
+
+	> p:last-of-type {
+		margin-bottom: ${rem(8)};
+	}
 `;
 
 interface MiniMenuProps {
