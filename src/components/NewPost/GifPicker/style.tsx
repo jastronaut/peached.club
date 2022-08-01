@@ -53,6 +53,10 @@ export const Gif = styled.img<{ index: number }>`
 
 export const ScrollAreaStyled = styled(ScrollArea)`
 	height: ${rem(170)};
+
+	.mantine-ScrollArea-scrollbar:hover {
+		background-color: initial;
+	}
 `;
 
 export const SearchBar = (props: { setQuery: Function; query: string }) => {

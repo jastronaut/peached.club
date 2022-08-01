@@ -54,11 +54,9 @@ export const GifPicker = (props: {
 
 					setResults(curResults => {
 						if (replaceCurrentResults) {
-							console.log(resp.data);
 							return resp.data;
 						}
 
-						console.log([...curResults, ...resp.data]);
 						return [...curResults, ...resp.data];
 					});
 				});
@@ -77,16 +75,13 @@ export const GifPicker = (props: {
 	const getAndSetGifsOnScroll = useCallback(() => {
 		const curGreatestScrollPosX = greatestScrollPositionX;
 
-		console.log('made it');
 		if (
 			(prevScrollPositionX.current as number) < scrollPositionX &&
 			scrollPositionX >= greatestScrollPositionX
 		) {
 			getGifs(false, query);
-			console.log('ok');
 		}
 
-		console.log('heeya');
 		if (curGreatestScrollPosX < scrollPositionX) {
 			setGreatestScrollPositionX(scrollPositionX);
 		}
@@ -101,12 +96,6 @@ export const GifPicker = (props: {
 	]);
 
 	useEffect(() => {
-		console.log(
-			greatestScrollPositionX,
-			scrollPositionX,
-			prevScrollPositionX.current
-		);
-
 		const threshold = 100;
 		const x = scrollPositionX % LOAD_GIFS_SCROLL_INCREMENT;
 		const y = prevScrollPositionX.current % LOAD_GIFS_SCROLL_INCREMENT;

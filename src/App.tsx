@@ -38,6 +38,7 @@ const App: React.FC = () => {
 		localStorage.getItem(STORAGE_IS_DARK_MODE) === 'true'
 	);
 	const [curUserData, setCurUserData] = useState<CurUser>(DummyCurUser);
+	const [isPeachLoading, setIsPeachLoading] = useState(false);
 
 	const updateCurFeedIndex = (newIndex: number) => {
 		if (!peachFeed) {
@@ -78,6 +79,8 @@ const App: React.FC = () => {
 			return;
 		}
 
+		setIsPeachLoading(true);
+
 		api(ACTIONS.getConnections, jwt).then(
 			(response: { data: Connections; success: number }) => {
 				if (response.success === 1) {
@@ -99,18 +102,22 @@ const App: React.FC = () => {
 				}
 			}
 		);
+
 		const storedDarkMode = localStorage.getItem(STORAGE_IS_DARK_MODE);
 		if (!storedDarkMode || storedDarkMode === 'true') {
 			setDarkMode(true);
 		} else {
 			setDarkMode(false);
 		}
+
+		setIsPeachLoading(false);
 	}, [jwt, curUser, darkMode]);
 
 	return (
 		<BrowserRouter>
 			<PeachContext.Provider
 				value={{
+					isPeachLoading,
 					jwt,
 					setJwt,
 					peachFeed,

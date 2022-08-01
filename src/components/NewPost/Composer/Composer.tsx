@@ -2,64 +2,29 @@ import React, { useState, useRef, useContext } from 'react';
 
 import {
 	ImgurUploadResponse,
-	isImage,
 	POST_TYPE,
-	isGif,
 	GifMessage,
+	TextMessage,
 } from '../../../api/interfaces';
+import { UPLOAD_IMAGE } from '../../../api/constants';
 import { PeachContext } from '../../../PeachContext';
 
 import Modal from '../../../Theme/Modal';
 import Button from '../../../Theme/Button';
 import { DeletePrompt } from '../../Comments/style';
 
-import {
-	TextArea,
-	ImagesHolder,
-	ImageWrapper,
-	UploadedImage,
-	DeleteImage,
-} from './style';
-import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
+import { TextArea } from './style';
 import { MagicPostActions } from '../MagicPostActions';
 import { GiphyImage, UploadableMessageTypes } from '../../../api/interfaces';
+import { UploadedImages } from './UploadedImages';
 
-type ImageProps = {
-	images: UploadableMessageTypes[];
-	setImages: React.Dispatch<React.SetStateAction<UploadableMessageTypes[]>>;
-};
-
-const Images = ({ images, setImages }: ImageProps) => {
-	if (images.length < 1) {
-		return null;
-	}
-	return (
-		<ImagesHolder>
-			{images.map(
-				(img, index) =>
-					(isImage(img) || isGif(img)) && (
-						<ImageWrapper key={`${index}-${img.src}`}>
-							<DeleteImage
-								onClick={() =>
-									setImages(images =>
-										images.filter(i => isImage(i) && i.src && i.src !== img.src)
-									)
-								}
-							>
-								<DeleteIcon />
-							</DeleteImage>
-							<UploadedImage
-								src={img.src}
-								alt={img.src}
-								height={img.height}
-								width={img.width}
-							/>
-						</ImageWrapper>
-					)
-			)}
-		</ImagesHolder>
-	);
-};
+function createImageUploadRequest(files: FileList) {
+	const file = files[0];
+	const formData = new FormData();
+	formData.append('image', file);
+	formData.append('type', 'file');
+	return formData;
+}
 
 export type ComposerProps = {
 	onSubmit: (messages: UploadableMessageTypes[]) => void;
@@ -90,20 +55,16 @@ export const ComposerComponent = (
 			return;
 		}
 
-		const file = files[0];
-		const formData = new FormData();
-		formData.append('image', file);
-		formData.append('type', 'file');
 		const req = {
 			method: 'POST',
 			headers: {
 				Authorization: 'Client-ID f3f088c23280375',
 				Accept: 'application/json',
 			},
-			body: formData,
+			body: createImageUploadRequest(files),
 		};
 
-		await fetch('https://api.imgur.com/3/image', req)
+		await fetch(UPLOAD_IMAGE, req)
 			.then(resp => resp.json())
 			.then((resp: ImgurUploadResponse) => {
 				if (!resp.success) {
@@ -178,7 +139,7 @@ export const ComposerComponent = (
 				uploadImage={uploadImage}
 				onGifSelect={onGifSelect}
 			/>
-			<Images images={images} setImages={setImages} />
+			<UploadedImages images={images} setImages={setImages} />
 			<Button
 				disabled={images.length < 1 && postText.length < 1}
 				onClick={() => onSubmitPost()}

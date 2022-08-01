@@ -3,12 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import Loading from '../../Theme/Loading';
 import NewPost from '../../components/NewPost';
-
 import { PeachContext } from '../../PeachContext';
-import { Connections, User, CurUser } from '../../api/interfaces';
+import { User, CurUser } from '../../api/interfaces';
 import ACTIONS from '../../api/constants';
 import api from '../../api';
-
 import { LinkStyled } from './style';
 import Preview from './Preview';
 import { Page } from '../../Theme/Layout';
@@ -40,13 +38,20 @@ const Feed = (props: { connections: User[] }) => {
 };
 
 export const FeedPage = () => {
-	const { jwt, curUser, curUserData, setCurUserData, connections } =
-		useContext(PeachContext);
+	const {
+		jwt,
+		curUser,
+		curUserData,
+		setCurUserData,
+		connections,
+		isPeachLoading,
+	} = useContext(PeachContext);
+	const [isCurUserDataLoading, setIsCurUserDataLoading] = useState(false);
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		window.scroll(0, 0);
+		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 		if (!jwt || !curUser) {
 			navigate('/login', { replace: true });
 		}
@@ -55,6 +60,8 @@ export const FeedPage = () => {
 			return;
 		}
 
+		setIsCurUserDataLoading(true);
+
 		api(ACTIONS.connectionStream, jwt, {}, curUser.id).then(
 			(response: { data: CurUser }) => {
 				if (response.data) {
@@ -62,6 +69,7 @@ export const FeedPage = () => {
 				}
 			}
 		);
+		setIsCurUserDataLoading(false);
 		// eslint-disable-next-line
 	}, [curUserData.id, curUser, jwt]);
 
@@ -69,7 +77,11 @@ export const FeedPage = () => {
 		<>
 			<Page>
 				<Title>All Feeds</Title>
-				{connections ? <Feed connections={connections} /> : <Loading />}
+				{isPeachLoading || isCurUserDataLoading ? (
+					<Loading />
+				) : (
+					<Feed connections={connections} />
+				)}
 				<NewPost />
 			</Page>
 		</>

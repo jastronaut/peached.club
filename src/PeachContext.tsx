@@ -16,6 +16,7 @@ interface PeachContextTypes {
 	setCurUserData: (newCurUser: CurUser) => void;
 	connections: User[];
 	setConnections: (newConnections: User[]) => void;
+	isPeachLoading: boolean;
 }
 
 const defaults = {
@@ -33,6 +34,7 @@ const defaults = {
 	setCurUserData: (newCurUser: CurUser) => {},
 	connections: [],
 	setConnections: (newConnections: User[]) => {},
+	isPeachLoading: false,
 };
 
 export const PeachContext = React.createContext<PeachContextTypes>(defaults);

@@ -96,7 +96,6 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 					/>
 				</ActionButton>
 			</MagicPostActionsContainer>
-
 			{isGifPickerShowing && (
 				<GifPickerComponent onGifSelect={props.onGifSelect} />
 			)}
