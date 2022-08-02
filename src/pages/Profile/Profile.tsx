@@ -22,6 +22,7 @@ import {
 	MutualFriend,
 	FriendsOfFriendsResponse,
 	POST_TYPE,
+	PostContent,
 } from '../../api/interfaces';
 import ACTIONS from '../../api/constants';
 import { LINKIFY_OPTIONS } from '../../constants';
@@ -49,6 +50,53 @@ const addNewlines = (txt: string, id: string) =>
 				</span>
 		  ));
 
+type DisplayedPostProps = {
+	obj: PostContent;
+	id: string;
+	index: number;
+};
+
+const DisplayedPost = ({ obj, id, index }: DisplayedPostProps) => {
+	switch (obj.type) {
+		case POST_TYPE.TEXT:
+			return (
+				<p key={`${id}-txt-${index}`}>
+					<Linkify tagName='span' options={LINKIFY_OPTIONS}>
+						{addNewlines(obj.text, id)}
+					</Linkify>
+				</p>
+			);
+		case POST_TYPE.IMAGE:
+			return (
+				<Image
+					key={`${id}-img-${index}`}
+					src={obj.src}
+					alt={`image for post ${id}`}
+					loading='lazy'
+				/>
+			);
+		case POST_TYPE.GIF:
+			return (
+				<Image
+					key={`${id}-gif-${index}`}
+					src={obj.src}
+					alt={`GIF`}
+					loading='lazy'
+				/>
+			);
+		case POST_TYPE.LINK:
+			// @ts-ignore
+			return <LinkPost key={`${id}-link-${index}`} {...obj} />;
+
+		case POST_TYPE.LOCATION:
+			// @ts-ignore
+			return <LocationPost key={`${id}-loc-${index}`} {...obj} />;
+
+		default:
+			return null;
+	}
+};
+
 export interface FriendFeedProps extends Post {
 	deletePost: (id: string) => void;
 	author: string;
@@ -66,46 +114,9 @@ export const FriendFeedContainer = (props: FriendFeedProps) => {
 	const { curUserData, jwt } = useContext(PeachContext);
 	const [newCommentText, setNewCommentText] = useState('');
 
-	const msgs = props.message.map((obj, index) => {
-		switch (obj.type) {
-			case POST_TYPE.TEXT:
-				return (
-					<p key={`${props.id}-txt-${index}`}>
-						<Linkify tagName='span' options={LINKIFY_OPTIONS}>
-							{addNewlines(obj.text, props.id)}
-						</Linkify>
-					</p>
-				);
-			case POST_TYPE.IMAGE:
-				return (
-					<Image
-						key={`${props.id}-img-${index}`}
-						src={obj.src}
-						alt={`image for post ${props.id}`}
-						loading='lazy'
-					/>
-				);
-			case POST_TYPE.GIF:
-				return (
-					<Image
-						key={`${props.id}-gif-${index}`}
-						src={obj.src}
-						alt={`GIF`}
-						loading='lazy'
-					/>
-				);
-			case POST_TYPE.LINK:
-				// @ts-ignore
-				return <LinkPost key={`${props.id}-link-${index}`} {...obj} />;
-
-			case POST_TYPE.LOCATION:
-				// @ts-ignore
-				return <LocationPost key={`${props.id}-loc-${index}`} {...obj} />;
-
-			default:
-				return '';
-		}
-	});
+	const msgs = props.message.map((obj, index) => (
+		<DisplayedPost obj={obj} index={index} id={props.id} />
+	));
 
 	const onClickLike = () => {
 		toggleLiked(liked => !liked);
