@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Linkify from 'linkify-react';
 
 import {
 	Comment as PostCommentProps,
 	MutualFriend,
+	User,
 } from '../../../api/interfaces';
 
 import { MiniMenu } from '../../../Friend/style';
@@ -29,6 +30,19 @@ import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
 
 import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
 import { LINKIFY_OPTIONS } from '../../../constants';
+import { PeachContext } from '../../../PeachContext';
+
+const Avatar = (props: { avatarSrc: string; displayName: string }) => (
+	<AvatarStyled>
+		{props.avatarSrc ? (
+			<img src={props.avatarSrc} alt={props.displayName} loading='lazy' />
+		) : (
+			<span role='img' aria-label={props.displayName}>
+				🍑
+			</span>
+		)}
+	</AvatarStyled>
+);
 
 interface DeletePromptProps {
 	onDelete: () => void;
@@ -62,31 +76,20 @@ export interface CommentProps extends PostCommentProps {
 }
 
 export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
+	const { connections } = useContext(PeachContext);
 	const [deletePromptShowing, setDeletePromptShowing] =
 		useState<boolean>(false);
 	const [profilePreviewShowing, setProfilePreviewShowing] =
 		useState<boolean>(false);
 	const isRequester = props.requesterId === props.author.id;
 
-	const authorData = props.mutualFriends.filter(
-		f => f.id === props.author.id
-	)[0];
+	const allFriends: (User | MutualFriend)[] = [
+		...connections,
+		...props.mutualFriends,
+	];
 
-	const Avatar = (
-		<AvatarStyled>
-			{props.avatarSrc ? (
-				<img
-					src={props.avatarSrc}
-					alt={props.author.displayName}
-					loading='lazy'
-				/>
-			) : (
-				<span role='img' aria-label={props.author.displayName}>
-					🍑
-				</span>
-			)}
-		</AvatarStyled>
-	);
+	const authorData = allFriends.filter(f => f.id === props.author.id)[0];
+
 	const Name = (
 		<>
 			<AuthorName>{props.author.displayName}</AuthorName>
@@ -98,10 +101,18 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 		<CommentContainer>
 			<ProfileLink>
 				{props.author.isPublic || props.isFriend || isRequester ? (
-					<a href={`/friend/${props.author.id}`}>{Avatar}</a>
+					<a href={`/friend/${props.author.id}`}>
+						<Avatar
+							displayName={props.author.displayName}
+							avatarSrc={props.avatarSrc}
+						/>
+					</a>
 				) : (
 					<BasicContainer onClick={() => setProfilePreviewShowing(true)}>
-						{Avatar}
+						<Avatar
+							displayName={props.author.displayName}
+							avatarSrc={props.avatarSrc}
+						/>
 					</BasicContainer>
 				)}
 			</ProfileLink>

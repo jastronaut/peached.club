@@ -67,7 +67,11 @@ export const Comments = (props: CommentsProps) => {
 	const peachFeedIds = peachFeed.map(user => user.id);
 
 	const getAvatar = (id: string) => {
-		if (id === postAuthorId) return postAuthorAvatarSrc;
+		// commenter is author
+		if (id === postAuthorId) {
+			return postAuthorAvatarSrc;
+		}
+		//
 		const res = mutualFriends.filter(friend => friend.id === id);
 		if (res.length === 0 || !res[0].avatarSrc) {
 			return '/defaultavatar.jpg';

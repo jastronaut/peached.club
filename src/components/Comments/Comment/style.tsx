@@ -126,6 +126,7 @@ export const BasicContainer = styled.div`
 `;
 
 export const HandleStyled = styled(Handle)`
+	width: fit-content;
 	margin-bottom: ${rem(5)};
 	font-size: ${rem(12)};
 
@@ -135,6 +136,7 @@ export const HandleStyled = styled(Handle)`
 `;
 
 export const AuthorName = styled.p`
+	width: fit-content;
 	font-weight: bold;
 	margin: 0;
 	font-size: ${rem(15)};
