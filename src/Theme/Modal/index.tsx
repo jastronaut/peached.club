@@ -59,21 +59,21 @@ export const ModalContainer = styled.div<ModalContainerProps>`
 	max-height: 80%;
 	overflow: scroll;
 	border-radius: ${rem(6)};
+	z-index: 10000;
 
 	@media screen and (max-width: 1000px) {
 		width: ${props => (props.isMini ? '65%' : '70%')};
 		padding: ${rem(20)} ${rem(24)};
 	}
 
-	@media screen and (max-height: 700px) {
+	@media screen and (max-width: 700px) {
 		/* height: ${props => (props.isMini ? '60%' : '80%')}; */
-		max-height: calc(100% - 2rem);
+		${props => (props.isMini ? '' : 'width: 90%')}
+		max-height: calc(100% - 10rem);
 	}
 
 	display: flex;
 	flex-direction: column;
-	/* ${props =>
-		props.noSpaceBetween ? '' : 'justify-content: space-between;'} */
 `;
 
 interface ModalProps {

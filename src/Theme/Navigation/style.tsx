@@ -11,7 +11,7 @@ export const NavWrap = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 100;
+	z-index: 99;
 	background-color: ${props =>
 		getRgba(props.theme.background.accented, 0.2, false)};
 

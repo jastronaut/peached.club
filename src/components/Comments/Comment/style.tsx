@@ -173,7 +173,6 @@ export const CommentContainer = styled.div`
 	display: flex;
 	margin: 0 auto;
 	padding: ${rem(8)} ${rem(16)};
-	border-bottom: ${rem(1)} solid ${props => props.theme.border.secondary};
 
 	:hover {
 		background: #cacaca30;
