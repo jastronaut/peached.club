@@ -18,7 +18,7 @@ import ACTIONS, {
 	CHANGE_BIO,
 } from './constants';
 
-const api = (action: ACTIONS, jwt: string, body = {}, id = '') => {
+const api = (action: ACTIONS, jwt: string, body = {}, id = '', params = '') => {
 	const req = {
 		method: '',
 		body: JSON.stringify(body),
@@ -88,7 +88,7 @@ const api = (action: ACTIONS, jwt: string, body = {}, id = '') => {
 			req.headers.Authorization = `Bearer ${jwt}`;
 			break;
 		case ACTIONS.getActivityFeed:
-			uri = ACTIVITY_FEED;
+			uri = ACTIVITY_FEED + params;
 			req.method = 'GET';
 			req.headers.Authorization = `Bearer ${jwt}`;
 			delete req.body;
