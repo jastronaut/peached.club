@@ -128,24 +128,23 @@ export const BasicContainer = styled.div`
 export const HandleStyled = styled(Handle)`
 	width: fit-content;
 	margin-bottom: ${rem(5)};
-	display: inline;
+	font-size: ${rem(12)};
+
+	@media screen and (max-width: 700px) {
+		margin-bottom: 0.5rem;
+	}
 `;
 
 export const AuthorName = styled.p`
 	width: fit-content;
 	font-weight: bold;
 	margin: 0;
+	font-size: ${rem(15)};
 	color: ${props => props.theme.text.primary};
-	display: inline;
-	margin-right: ${rem(5)};
 
 	:hover {
 		color: ${props => props.theme.accent};
 	}
-`;
-
-export const NameContainer = styled.div`
-	font-size: ${rem(14)};
 `;
 
 export const ReplyButtonContainer = styled.div`

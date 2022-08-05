@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { rem } from 'polished';
 
-import { NavWrap } from '../Navigation/style';
-
 type ModalBackdropProps = {
 	entering: boolean;
 	isMini?: boolean;
@@ -43,12 +41,6 @@ const DisableBodyScroll = createGlobalStyle`
 			background: rgba(0, 0, 0, 0.3);
 		}
 	}
-	
-	@media screen and (max-width: 600px) {
-	${NavWrap} {
-		display: none;
-	}
-}
 
 `;
 
@@ -78,8 +70,6 @@ export const ModalContainer = styled.div<ModalContainerProps>`
 		/* height: ${props => (props.isMini ? '60%' : '80%')}; */
 		${props => (props.isMini ? '' : 'width: 90%')}
 		max-height: calc(100% - 10rem);
-		padding: ${rem(10)} ${rem(15)};
-		width: ${props => (props.isMini ? '30%' : '80%')};
 	}
 
 	display: flex;

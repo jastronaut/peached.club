@@ -23,7 +23,6 @@ import {
 	DeleteIconButton,
 	ReplyButtonContainer,
 	CommentInteractionsContainer,
-	NameContainer,
 } from './style';
 import CommentIcon from '../../../Theme/Icons/CommentIcon';
 
@@ -92,10 +91,10 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 	const authorData = allFriends.filter(f => f.id === props.author.id)[0];
 
 	const Name = (
-		<NameContainer>
+		<>
 			<AuthorName>{props.author.displayName}</AuthorName>
 			<HandleStyled>@{props.author.name}</HandleStyled>
-		</NameContainer>
+		</>
 	);
 
 	return (
