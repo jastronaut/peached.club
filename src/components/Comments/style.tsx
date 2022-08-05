@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { rem } from 'polished';
 
 import Button from '../../Theme/Button';
 import { ModalContainer, ModalBackdrop } from '../../Theme/Modal';
@@ -78,10 +79,11 @@ export const Input = styled.textarea`
 	border: 1px solid ${props => props.theme.border.primary};
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-size: 1rem;
+	font-size: ${rem(14)};
 	min-height: 2.5rem;
 	height: 2rem;
 	margin-bottom: 0.25rem;
+	margin-top: ${rem(1)};
 
 	width: 100%;
 	padding: 0.25rem;
