@@ -48,7 +48,7 @@ export const ProfilePage = () => {
 	}, [peachFeed, viewingUser]);
 
 	useEffect(() => {
-		if (!id) {
+		if (!id || !jwt) {
 			return;
 		}
 
@@ -76,7 +76,9 @@ export const ProfilePage = () => {
 					otherFriendsResponse.data &&
 					otherFriendsResponse.data.connections
 				) {
-					setOtherFriends(otherFriendsResponse.data.connections);
+					setOtherFriends(
+						otherFriendsResponse.data.connections.concat(peachFeed)
+					);
 				}
 			}
 
@@ -84,7 +86,7 @@ export const ProfilePage = () => {
 			setCurFeedId(id);
 		};
 		getUserProfile();
-	}, [id, jwt, peachFeed.length]);
+	}, [id, jwt, peachFeed]);
 
 	useEffect(() => {
 		try {

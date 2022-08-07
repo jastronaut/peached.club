@@ -5,7 +5,8 @@ import { PeachContext } from '../../PeachContext';
 import AddComment from './AddComment';
 import { AllComments, DeletePrompt } from './style';
 import { Comment } from './Comment/Comment';
-import Modal from '../../Theme/Modal';
+// import Modal from '../../Theme/Modal';
+import { MModal as Modal, DisableBodyScroll } from '../../Theme/Mantine/Modal';
 
 interface SharedCommentsProps {
 	deleteComment: (id: string) => void;
@@ -22,6 +23,7 @@ interface CommentsProps extends SharedCommentsProps {
 	onDismissComments: () => void;
 	postAuthorId: string;
 	postAuthorAvatarSrc: string;
+	isShowing: boolean;
 }
 
 export interface CommentsComponentProps extends SharedCommentsProps {
@@ -61,6 +63,7 @@ export const Comments = (props: CommentsProps) => {
 		comments,
 		setNewCommentText,
 		newCommentText,
+		isShowing,
 	} = props;
 	const { peachFeed } = useContext(PeachContext);
 	const [isDismissWarningShowing, setIsDismissWarningShowing] = useState(false);
@@ -103,7 +106,12 @@ export const Comments = (props: CommentsProps) => {
 	};
 
 	return (
-		<Modal onKeyDown={() => onTryDismissComments(newCommentText)}>
+		<Modal
+			opened={isShowing}
+			onClose={() => onTryDismissComments(newCommentText)}
+			title='Comments'
+		>
+			<DisableBodyScroll />
 			<DeletePrompt
 				isShowing={isDismissWarningShowing}
 				onDelete={dismissComments}

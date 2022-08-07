@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 
 import {
 	ActionButton,
-	MagicPostActionsContainer,
 	PictureInputStyled,
+	MagicPostActionsGroup,
 } from './style';
 import ImageIcon from '../../Theme/Icons/ImageIcon';
 import ClockIcon from '../../Theme/Icons/ClockIcon';
@@ -56,7 +56,8 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 
 	return (
 		<div>
-			<MagicPostActionsContainer>
+			{/* <MagicPostActionsContainer> */}
+			<MagicPostActionsGroup spacing={'xs'}>
 				<ActionButton>
 					<ImageIcon accented title='Add an image to your post' />
 					<PictureInputStyled
@@ -95,7 +96,8 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 						title='Add GIF to post'
 					/>
 				</ActionButton>
-			</MagicPostActionsContainer>
+				{/* </MagicPostActionsContainer> */}
+			</MagicPostActionsGroup>
 			{isGifPickerShowing && (
 				<GifPickerComponent onGifSelect={props.onGifSelect} />
 			)}

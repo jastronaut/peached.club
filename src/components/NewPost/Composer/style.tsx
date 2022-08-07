@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 import { rem, lighten } from 'polished';
+import { MModal } from '../../../Theme/Mantine/Modal';
 
-import { TextArea as OldInput } from '../../../Theme/Form';
-
-export const TextArea = styled(OldInput)`
-	margin-right: 0;
-	padding: 0.5rem;
-	background: ${props => props.theme.background.secondary};
-	color: ${props => props.theme.text.primary};
-	font-size: ${rem(16)};
-	margin-bottom: ${rem(16)};
-	min-height: ${rem(100)};
+export const Modal = styled(MModal)`
+	.mantine-Modal-inner {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.mantine-Modal-modal {
+			width: 40%;
+		}
+		@media screen and (max-width: 600px) {
+			.mantine-Modal-modal {
+				width: 95%;
+			}
+		}
+	}
 `;
 
 export const Header = styled.h2`

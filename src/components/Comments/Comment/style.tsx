@@ -7,6 +7,53 @@ import {
 } from '../../ProfileHeader/style';
 import { MiniMenu } from '../../../Friend/style';
 import { ModalContainer } from '../../../Theme/Modal';
+import { MContainer } from '../../../Theme/Mantine';
+
+export const DeleteCommentContainer = styled.div`
+	/* visibility: hidden; */
+	display: flex;
+	justify-content: flex-end;
+
+	/* :hover span {
+		cursor: pointer;
+	} */
+
+	.mantine-Paper-root .mantine-Menu-body {
+		background-color: ${props => props.theme.background.primary};
+		color: ${props => props.theme.text.primary};
+	}
+
+	svg {
+		stroke: ${props => props.theme.text.muted};
+	}
+`;
+
+export const Container = styled(MContainer)`
+	padding: ${rem(8)} ${rem(16)};
+	:hover {
+		background: #cacaca30;
+	}
+
+	@media screen and (max-width: 600px) {
+		padding: ${rem(4)} ${rem(8)};
+	}
+	/* :hover ${DeleteCommentContainer} {
+		visibility: visible;
+	} */
+`;
+
+export const CommentContent = styled.div`
+	display: flex;
+`;
+
+export const AvatarArea = styled.div`
+	height: 100%;
+	padding-top: ${rem(3)};
+
+	img {
+		border-radius: 50%;
+	}
+`;
 
 export const DeleteIconButton = styled.div`
 	cursor: pointer;
@@ -44,6 +91,11 @@ export const CommentText = styled.div`
 	flex: 9;
 	margin-left: 1rem;
 	margin-bottom: 0;
+
+	a:hover {
+		text-decoration: none;
+		color: ${props => props.theme.accent};
+	}
 
 	> a > h3 {
 		margin-bottom: 0;
@@ -125,21 +177,20 @@ export const BasicContainer = styled.div`
 	cursor: pointer;
 `;
 
-export const HandleStyled = styled(Handle)`
+export const HandleStyled = styled.span`
 	width: fit-content;
 	margin-bottom: ${rem(5)};
 	font-size: ${rem(12)};
-
+	color: ${props => props.theme.text.muted};
 	@media screen and (max-width: 700px) {
 		margin-bottom: 0.5rem;
 	}
 `;
 
-export const AuthorName = styled.p`
+export const AuthorName = styled.span`
 	width: fit-content;
 	font-weight: bold;
 	margin: 0;
-	font-size: ${rem(15)};
 	color: ${props => props.theme.text.primary};
 
 	:hover {

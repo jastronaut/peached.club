@@ -1801,13 +1801,6 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@mantine/carousel@^5.0.0":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@mantine/carousel/-/carousel-5.0.2.tgz#7d243301506975d0b272192b3a7e46a329bbbcf8"
-  integrity sha512-BQf0B23fEGT7gtHQSbCvT88KK0H5jyIl7XIWGQ941JyfiCSexiYr0bER+4P58dVusvRfL1nUF/FDDt0/5jZAyw==
-  dependencies:
-    "@mantine/utils" "5.0.2"
-
 "@mantine/core@^4.2.12":
   version "4.2.12"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.2.12.tgz#7c07a352e7f2ea13f693ddd0d1b77d8898593e6c"
@@ -1866,11 +1859,6 @@
     "@emotion/utils" "1.0.0"
     clsx "^1.1.1"
     csstype "3.0.9"
-
-"@mantine/utils@5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.0.2.tgz#311746843158a9fefd6945ad3e8c43f0df736ea0"
-  integrity sha512-WCuUL+mJ0+8n3anMYb5no93ohyuMilIG49ZJ7XNZUN3g/ZxoKnKF3dEUpXqIUxKgUIwzAsiS9AFFpZSStgAPvw==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"

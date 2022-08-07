@@ -59,14 +59,12 @@ const NewPost = () => {
 					{postStatusMessage(postSuccess, posting)}
 				</Toasty>
 			) : null}
-			{showComposer ? (
-				<>
-					<Composer
-						onSubmit={submitPost}
-						toggleComposer={() => setShowComposer(false)}
-					/>
-				</>
-			) : (
+			<Composer
+				onSubmit={submitPost}
+				toggleComposer={() => setShowComposer(false)}
+				isOpen={showComposer}
+			/>
+			{!showComposer && (
 				<NewPostButton
 					setShowComposer={() => setShowComposer(isShowing => !isShowing)}
 				/>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Input, AddCommentContainer, ButtonWrapper } from './style';
 import Dropdown, { DropdownUserItem } from '../../Theme/Dropdown';
 import Button from '../../Theme/Button';
 
 import { PeachContext } from '../../PeachContext';
 import { User } from '../../api/interfaces';
+import { TextArea, AddCommentContainer, ButtonWrapper } from './style';
 
 interface AddCommentProps {
 	onSubmit: (txt: string) => void;
@@ -78,7 +78,7 @@ const AddComment: React.FC<AddCommentProps> = ({
 					))}
 				</Dropdown>
 			) : null}
-			<Input
+			<TextArea
 				value={newCommentText}
 				onChange={e => setNewCommentText(e.target.value)}
 				placeholder='Write a comment...'

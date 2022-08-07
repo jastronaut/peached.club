@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { rem } from 'polished';
 
 import Button from '../../Theme/Button';
-import { ModalContainer, ModalBackdrop } from '../../Theme/Modal';
+import { ModalContainer } from '../../Theme/Modal';
+import { MTextArea } from '../../Theme/Mantine';
 
 export const DisableBodyScroll = createGlobalStyle`
 	body {
@@ -10,11 +12,25 @@ export const DisableBodyScroll = createGlobalStyle`
 	}
 `;
 
+export const DeletePromptWrapper = styled.div`
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 400 !important;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const DeletePromptContainer = styled(ModalContainer)`
-	width: 30%;
+	width: ${rem(200)};
 	height: auto;
 	text-align: center;
 	color: ${props => props.theme.text.primary};
+	position: fixed;
+	z-index: 400 !important;
 
 	@media screen and (max-width: 800px) {
 		width: 50%;
@@ -35,6 +51,7 @@ const DeleteOptions = styled.div`
 export const AllComments = styled.div`
 	overflow: scroll;
 	margin-top: 1.5rem;
+	max-height: ${rem(500)};
 `;
 
 interface DeletePromptProps {
@@ -50,7 +67,7 @@ export const DeletePrompt = (props: DeletePromptProps) => {
 	}
 
 	return (
-		<ModalBackdrop entering>
+		<DeletePromptWrapper>
 			<DeletePromptContainer alignTop={false} isMini={true}>
 				{props.children}
 				<DeleteOptions>
@@ -58,7 +75,7 @@ export const DeletePrompt = (props: DeletePromptProps) => {
 					<Button onClick={() => props.onCancel()}>Cancel</Button>
 				</DeleteOptions>
 			</DeletePromptContainer>
-		</ModalBackdrop>
+		</DeletePromptWrapper>
 	);
 };
 
@@ -90,6 +107,10 @@ export const Input = styled.textarea`
 			height: 3rem;
 		}
 	}
+`;
+
+export const TextArea = styled(MTextArea)`
+	margin-top: ${rem(16)};
 `;
 
 /*

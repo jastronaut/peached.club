@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Linkify from 'linkify-react';
 
 import api from '../../api';
@@ -16,6 +16,7 @@ import {
 	MutualFriend,
 	POST_TYPE,
 	Post,
+	CurUser,
 } from '../../api/interfaces';
 import ACTIONS from '../../api/constants';
 
@@ -97,8 +98,21 @@ export const ProfilePosts = (props: Props) => {
 	const [deletePromptShowing, setDeletePromptShowing] =
 		useState<boolean>(false);
 	const [likeCount, setLikeCount] = useState<number>(props.likeCount);
-	const { curUserData, jwt } = useContext(PeachContext);
+	const { curUserData, jwt, setCurUserData, curUser } =
+		useContext(PeachContext);
 	const [newCommentText, setNewCommentText] = useState('');
+
+	// useEffect(() => {
+	// 	if ((!curUserData || !curUserData.id) && curUser && curUser.id) {
+	// 		api(ACTIONS.connectionStream, jwt, {}, curUser.id).then(
+	// 			(response: { data: CurUser }) => {
+	// 				if (response.data) {
+	// 					setCurUserData(response.data);
+	// 				}
+	// 			}
+	// 		);
+	// 	}
+	// }, [curUserData, curUser]);
 
 	const msgs = props.message.map((obj, index) => (
 		<DisplayedPost obj={obj} index={index} id={props.id} />
@@ -208,6 +222,7 @@ export const ProfilePosts = (props: Props) => {
 					mutualFriends={props.otherFriends}
 					newCommentText={newCommentText}
 					setNewCommentText={setNewCommentText}
+					isShowing={showComments}
 				/>
 			) : null}
 		</PostWrapper>

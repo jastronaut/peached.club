@@ -16,9 +16,9 @@ const CommentsStory = (props: CommentsComponentProps & { variant: string }) => {
 	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			<Page>
-				<CommentsComponent {...rest} />
-			</Page>
+			{/* <Page> */}
+			<CommentsComponent {...rest} />
+			{/* </Page> */}
 		</ThemeProvider>
 	);
 };

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Linkify from 'linkify-react';
+import { Text, Avatar as MAvatar, Popover, Menu } from '@mantine/core';
 
 import {
 	Comment as PostCommentProps,
@@ -7,42 +8,37 @@ import {
 	User,
 } from '../../../api/interfaces';
 
-import { MiniMenu } from '../../../Friend/style';
 import Button from '../../../Theme/Button';
 import { ModalBackdrop } from '../../../Theme/Modal';
 import {
 	DeletePromptContainer,
 	DeleteOptions,
-	AvatarStyled,
 	AuthorName,
 	HandleStyled,
-	CommentContainer,
 	CommentText,
-	ProfileLink,
-	BasicContainer,
-	DeleteIconButton,
-	ReplyButtonContainer,
 	CommentInteractionsContainer,
+	CommentContent,
+	Container,
+	AvatarArea,
+	DeleteCommentContainer,
 } from './style';
-import CommentIcon from '../../../Theme/Icons/CommentIcon';
 
 import { PrivateProfile } from '../../PrivateProfile/PrivateProfile';
 
-import DeleteIcon from '../../../Theme/Icons/DeleteIcon';
 import { LINKIFY_OPTIONS } from '../../../constants';
 import { PeachContext } from '../../../PeachContext';
 
-const Avatar = (props: { avatarSrc: string; displayName: string }) => (
-	<AvatarStyled>
-		{props.avatarSrc ? (
-			<img src={props.avatarSrc} alt={props.displayName} loading='lazy' />
-		) : (
-			<span role='img' aria-label={props.displayName}>
-				🍑
-			</span>
-		)}
-	</AvatarStyled>
-);
+const Avatar = (props: { src: string; displayName: string }) => {
+	if (props.src) {
+		return <MAvatar size='sm' src={props.src} alt='Profile Picture' />;
+	}
+
+	return (
+		<MAvatar size='sm' alt='Profile Picture'>
+			🍑
+		</MAvatar>
+	);
+};
 
 interface DeletePromptProps {
 	onDelete: () => void;
@@ -90,83 +86,86 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 
 	const authorData = allFriends.filter(f => f.id === props.author.id)[0];
 
-	const Name = (
-		<>
-			<AuthorName>{props.author.displayName}</AuthorName>
-			<HandleStyled>@{props.author.name}</HandleStyled>
-		</>
-	);
-
 	return (
-		<CommentContainer>
-			<ProfileLink>
-				{props.author.isPublic || props.isFriend || isRequester ? (
+		<Container>
+			{deletePromptShowing ? (
+				<DeletePrompt
+					onDelete={() => props.deleteComment(props.id)}
+					onCancel={() => setDeletePromptShowing(false)}
+				>
+					Are you sure you want to delete your comment?
+				</DeletePrompt>
+			) : null}
+			{isRequester && (
+				<DeleteCommentContainer>
+					<Menu>
+						{/* <Menu.Target>
+							<span
+								role='img'
+								aria-label='Delete comment'
+								onClick={() => setDeletePromptShowing(p => !p)}
+							>
+								🗑
+							</span>
+						</Menu.Target> */}
+
+						<Menu.Item
+							color='red'
+							onClick={() => setDeletePromptShowing(p => !p)}
+						>
+							Delete comment
+						</Menu.Item>
+					</Menu>
+				</DeleteCommentContainer>
+			)}
+			<CommentContent>
+				<AvatarArea>
 					<a href={`/friend/${props.author.id}`}>
 						<Avatar
+							src={props.avatarSrc}
 							displayName={props.author.displayName}
-							avatarSrc={props.avatarSrc}
 						/>
 					</a>
-				) : (
-					<BasicContainer onClick={() => setProfilePreviewShowing(true)}>
-						<Avatar
-							displayName={props.author.displayName}
-							avatarSrc={props.avatarSrc}
-						/>
-					</BasicContainer>
-				)}
-			</ProfileLink>
-			<CommentText>
-				<ProfileLink>
-					{props.author.isPublic || props.isFriend || isRequester ? (
-						<a href={`/friend/${props.author.id}`}>{Name}</a>
-					) : (
-						<BasicContainer onClick={() => setProfilePreviewShowing(true)}>
-							{Name}
-						</BasicContainer>
-					)}
-				</ProfileLink>
-				<p>
-					<Linkify tagName='span' options={LINKIFY_OPTIONS}>
-						{props.body}
-					</Linkify>
-				</p>
-			</CommentText>
-			<CommentInteractionsContainer>
-				{isRequester ? (
-					<>
-						<MiniMenu onClick={() => setDeletePromptShowing(true)}>
-							<DeleteIconButton>
-								<DeleteIcon />
-							</DeleteIconButton>
-						</MiniMenu>
-						{deletePromptShowing ? (
-							<DeletePrompt
-								onDelete={() => props.deleteComment(props.id)}
-								onCancel={() => setDeletePromptShowing(false)}
-							>
-								Are you sure you want to delete your comment?
-							</DeletePrompt>
-						) : null}
-					</>
+				</AvatarArea>
+				<CommentText>
+					<Text size='sm'>
+						<a href={`/friend/${props.author.id}`}>
+							<AuthorName>{props.author.displayName}</AuthorName>
+							<HandleStyled> @{props.author.name}</HandleStyled>
+						</a>
+					</Text>
+
+					<p onClick={() => props.addReplyHandle(props.author.name)}>
+						<Linkify tagName='span' options={LINKIFY_OPTIONS}>
+							{props.body}
+						</Linkify>
+					</p>
+				</CommentText>
+				<CommentInteractionsContainer>
+					{/* {isRequester ? (
+						<>
+							hey
+							<MiniMenu onClick={() => setDeletePromptShowing(true)}>
+								<DeleteIconButton>
+									<DeleteIcon />
+								</DeleteIconButton>
+							</MiniMenu>
+							
+						</>
+					) : null} */}
+				</CommentInteractionsContainer>
+				{profilePreviewShowing ? (
+					<PrivateProfile
+						onDismissPrivateProfile={() => setProfilePreviewShowing(false)}
+						avatarSrc={props.avatarSrc}
+						username={authorData ? authorData.name : props.author.name}
+						displayName={
+							authorData ? authorData.displayName : props.author.displayName
+						}
+						bio={authorData ? authorData.bio : props.author.bio}
+					/>
 				) : null}
-				<ReplyButtonContainer
-					onClick={() => props.addReplyHandle(props.author.name)}
-				>
-					<CommentIcon />
-				</ReplyButtonContainer>
-			</CommentInteractionsContainer>
-			{profilePreviewShowing ? (
-				<PrivateProfile
-					onDismissPrivateProfile={() => setProfilePreviewShowing(false)}
-					avatarSrc={props.avatarSrc}
-					username={authorData ? authorData.name : props.author.name}
-					displayName={
-						authorData ? authorData.displayName : props.author.displayName
-					}
-					bio={authorData ? authorData.bio : props.author.bio}
-				/>
-			) : null}
-		</CommentContainer>
+			</CommentContent>
+		</Container>
 	);
 };

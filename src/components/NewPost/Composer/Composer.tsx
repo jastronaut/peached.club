@@ -4,16 +4,16 @@ import {
 	ImgurUploadResponse,
 	POST_TYPE,
 	GifMessage,
-	TextMessage,
 } from '../../../api/interfaces';
 import { UPLOAD_IMAGE } from '../../../api/constants';
 import { PeachContext } from '../../../PeachContext';
 
-import Modal from '../../../Theme/Modal';
+// import Modal from '../../../Theme/Modal';
 import Button from '../../../Theme/Button';
+import { MTextArea as TextArea } from '../../../Theme/Mantine';
 import { DeletePrompt } from '../../Comments/style';
 
-import { TextArea } from './style';
+import { Modal } from './style';
 import { MagicPostActions } from '../MagicPostActions';
 import { GiphyImage, UploadableMessageTypes } from '../../../api/interfaces';
 import { UploadedImages } from './UploadedImages';
@@ -29,6 +29,7 @@ function createImageUploadRequest(files: FileList) {
 export type ComposerProps = {
 	onSubmit: (messages: UploadableMessageTypes[]) => void;
 	toggleComposer: () => void;
+	isOpen: boolean;
 };
 
 export const Composer = (props: ComposerProps) => {
@@ -44,6 +45,7 @@ export const Composer = (props: ComposerProps) => {
 export const ComposerComponent = (
 	props: ComposerProps & { curUserId: string }
 ) => {
+	console.log('hi???');
 	const { curUserId, onSubmit, toggleComposer } = props;
 	const postRef = useRef<HTMLTextAreaElement>(null);
 	const [postText, setPostText] = useState<string>('');
@@ -118,7 +120,7 @@ export const ComposerComponent = (
 	};
 
 	return (
-		<Modal onKeyDown={() => onTryDismissComposer(postText, images.length)}>
+		<>
 			<DeletePrompt
 				isShowing={isDismissWarningShowing}
 				onDelete={toggleComposer}
@@ -126,26 +128,36 @@ export const ComposerComponent = (
 			>
 				Are you sure you want to abandon this post?
 			</DeletePrompt>
-			<TextArea
-				ref={postRef}
-				placeholder="What's going on?"
-				onChange={e => setPostText(e.target.value)}
-				value={postText}
-				autoFocus
-			/>
-			<MagicPostActions
-				setPostText={setPostText}
-				curUserId={curUserId}
-				uploadImage={uploadImage}
-				onGifSelect={onGifSelect}
-			/>
-			<UploadedImages images={images} setImages={setImages} />
-			<Button
-				disabled={images.length < 1 && postText.length < 1}
-				onClick={() => onSubmitPost()}
+			<Modal
+				opened={props.isOpen}
+				onClose={() => onTryDismissComposer(postText, images.length)}
+				centered
 			>
-				Post
-			</Button>
-		</Modal>
+				<TextArea
+					ref={postRef}
+					placeholder="What's going on?"
+					onChange={e => setPostText(e.target.value)}
+					value={postText}
+					autoFocus
+					required={false}
+					autosize
+					minRows={4}
+					maxRows={8}
+				/>
+				<MagicPostActions
+					setPostText={setPostText}
+					curUserId={curUserId}
+					uploadImage={uploadImage}
+					onGifSelect={onGifSelect}
+				/>
+				<UploadedImages images={images} setImages={setImages} />
+				<Button
+					disabled={images.length < 1 && postText.length < 1}
+					onClick={() => onSubmitPost()}
+				>
+					Post
+				</Button>
+			</Modal>
+		</>
 	);
 };

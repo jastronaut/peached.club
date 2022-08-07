@@ -15,7 +15,8 @@ import ActivityIcon from '../Icons/PulseIcon';
 import GearIcon from '../Icons/GearIcon';
 
 const Navigation = () => {
-	const { curUser, curUserData, peachFeed, jwt } = useContext(PeachContext);
+	const { curUser, curUserData, peachFeed, jwt, setJwt, setCurUser } =
+		useContext(PeachContext);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const Navigation = () => {
 
 			if (!storedCurUser || !storedJwt) {
 				navigate('/login', { replace: true });
+				return;
 			}
 		}
 	}, [curUser, jwt, curUserData.id]);

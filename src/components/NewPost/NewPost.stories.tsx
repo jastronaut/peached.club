@@ -1,29 +1,26 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ComposerComponent, ComposerProps } from './Composer';
-import { Page } from '../../../Theme/Layout';
+import NewPost from './NewPost';
 
-import { darkTheme, lightTheme } from '../../../Theme/theme';
+import { darkTheme, lightTheme } from '../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
-import { UploadableMessageTypes } from '../../../api/interfaces';
+// import { UploadableMessageTypes } from '../../../api/interfaces';
 
-const ComposerStory = (
-	props: ComposerProps & { curUserId: string } & { variant: string }
-) => {
+const ComposerStory = (props: { variant: string }) => {
 	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
 			{/* <Page> */}
-			<ComposerComponent {...rest} />
+			<NewPost {...rest} />
 			{/* </Page> */}
 		</ThemeProvider>
 	);
 };
 
 export default {
-	title: 'NewPost/Composer',
+	title: 'NewPost/NewPostComponent',
 	component: ComposerStory,
 	argTypes: {
 		variant: {
@@ -40,7 +37,4 @@ const Template: ComponentStory<typeof ComposerStory> = props => {
 export const Primary = Template.bind({});
 Primary.args = {
 	variant: 'dark',
-	curUserId: '4',
-	onSubmit: (messages: UploadableMessageTypes[]) => null,
-	toggleComposer: () => null,
 };

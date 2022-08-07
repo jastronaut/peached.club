@@ -1,5 +1,24 @@
 import styled from 'styled-components';
 import { rem, lighten } from 'polished';
+import { Group } from '@mantine/core';
+
+export const MagicPostActionsGroup = styled(Group)`
+	margin: ${rem(10)};
+	margin-left: 0;
+
+	svg {
+		stroke: ${props => props.theme.accent};
+	}
+
+	svg:hover {
+		transform: scale(0.9);
+	}
+
+	.mantine-Group-child {
+		margin-right: ${rem(5)};
+		margin-bottom: ${rem(5)};
+	}
+`;
 
 export const NewPostButtonContainer = styled.div`
 	position: fixed;

@@ -55,7 +55,7 @@ export interface FriendFeedProps extends Post {
 	otherFriends: MutualFriend[];
 	postAuthorAvatarSrc: string;
 }
-
+/*
 export const FriendFeedContainer = (props: FriendFeedProps) => {
 	const [comments, setComments] = useState<Comment[]>(props.comments || []);
 	const [liked, toggleLiked] = useState<boolean>(props.likedByMe);
@@ -344,3 +344,6 @@ export const FriendFeedPage = () => {
 		</>
 	);
 };
+
+
+*/
