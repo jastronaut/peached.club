@@ -10,7 +10,7 @@ type ModalBackdropProps = {
 export const ModalBackdrop = styled.div<ModalBackdropProps>`
 	top: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%;
 	position: fixed;
 	display: flex;
 	align-items: center;
