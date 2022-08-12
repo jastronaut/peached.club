@@ -8,7 +8,6 @@ import {
 import { UPLOAD_IMAGE } from '../../../api/constants';
 import { PeachContext } from '../../../PeachContext';
 
-// import Modal from '../../../Theme/Modal';
 import Button from '../../../Theme/Button';
 import { MTextArea as TextArea } from '../../../Theme/Mantine';
 import { DeletePrompt } from '../../Comments/style';
@@ -45,7 +44,6 @@ export const Composer = (props: ComposerProps) => {
 export const ComposerComponent = (
 	props: ComposerProps & { curUserId: string }
 ) => {
-	console.log('hi???');
 	const { curUserId, onSubmit, toggleComposer } = props;
 	const postRef = useRef<HTMLTextAreaElement>(null);
 	const [postText, setPostText] = useState<string>('');

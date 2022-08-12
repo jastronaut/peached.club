@@ -189,7 +189,7 @@ export const ProfilePosts = (props: Props) => {
 	};
 
 	return (
-		<PostWrapper>
+		<PostWrapper key={props.id}>
 			<>
 				<DeletePrompt
 					onDelete={() => props.deletePost(props.id)}
