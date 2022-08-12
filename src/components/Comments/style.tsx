@@ -25,6 +25,7 @@ export const DeletePromptWrapper = styled.div`
 `;
 
 const DeletePromptContainer = styled(ModalContainer)`
+	box-shadow: 2px 2px 5px 2px ${props => props.theme.background.secondary};
 	width: ${rem(200)};
 	height: auto;
 	text-align: center;
@@ -68,6 +69,7 @@ export const DeletePrompt = (props: DeletePromptProps) => {
 
 	return (
 		<DeletePromptWrapper>
+			<DisableBodyScroll />
 			<DeletePromptContainer alignTop={false} isMini={true}>
 				{props.children}
 				<DeleteOptions>
@@ -118,9 +120,7 @@ export const TextArea = styled(MTextArea)`
  */
 export const ButtonWrapper = styled.span`
 	margin: 0;
-	/* flex: 1; */
 	z-index: 9999;
-	/* width: inherit; */
 `;
 
 /*
@@ -135,8 +135,4 @@ export const DismissCommentsButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	z-index: 999;
-	/* @media screen and (max-width: 800px) {
-		width: 70%;
-		transform: translateY(-40%);
-	} */
 `;
