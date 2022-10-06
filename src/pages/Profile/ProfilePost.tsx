@@ -100,9 +100,10 @@ export interface Props extends Post {
 	author: string;
 	otherFriends: MutualFriend[];
 	postAuthorAvatarSrc: string;
+	canDelete: boolean;
 }
 
-export const ProfilePosts = (props: Props) => {
+export const ProfilePost = (props: Props) => {
 	const [comments, setComments] = useState<Comment[]>(props.comments || []);
 	const [liked, toggleLiked] = useState<boolean>(props.likedByMe);
 	const [showComments, toggleComments] = useState<boolean>(false);
@@ -113,7 +114,12 @@ export const ProfilePosts = (props: Props) => {
 	const [newCommentText, setNewCommentText] = useState('');
 
 	const msgs = props.message.map((obj, index) => (
-		<DisplayedPost obj={obj} index={index} id={props.id} />
+		<DisplayedPost
+			obj={obj}
+			index={index}
+			id={props.id}
+			key={`${props.id}-${index}`}
+		/>
 	));
 
 	const onClickLike = () => {
@@ -206,7 +212,7 @@ export const ProfilePosts = (props: Props) => {
 				likeCount={likeCount}
 				createdTime={props.createdTime}
 				onClickDelete={() => setDeletePromptShowing(true)}
-				isCurUsersPost={curUserData.id === props.author}
+				canDelete={props.canDelete}
 			/>
 			{showComments ? (
 				<Comments

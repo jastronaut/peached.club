@@ -43,7 +43,7 @@ export const Primary = Template.bind({});
 Primary.args = {
 	postsLoaded: true,
 	variant: 'dark',
-	viewingUser: {
+	user: {
 		id: '1235',
 		name: 'futuresounds',
 		displayName: 'Hatsune Miku',

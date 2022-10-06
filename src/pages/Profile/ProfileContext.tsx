@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MutualFriend, Comment } from '../../api/interfaces';
 
 interface ProfileContextTypes {
@@ -33,8 +33,5 @@ const defaults = {
 export const PeachContext = React.createContext<ProfileContextTypes>(defaults);
 
 export const PeachProvider = (props: React.PropsWithChildren) => {
-	// const;
-
-	// return <PeachContext.Provider>{props.children}</PeachContext.Provider>;
 	return null;
 };

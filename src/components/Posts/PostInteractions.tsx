@@ -15,7 +15,7 @@ import {
 } from '../../pages/Profile/style';
 
 type Props = {
-	isCurUsersPost: boolean;
+	canDelete: boolean;
 	isLiked: boolean;
 	likeCount: number;
 	commentsLength: number;
@@ -40,7 +40,7 @@ export const PostInteractions = (props: Props) => {
 				<ClockIcon title={formatPostTime(props.createdTime)} />
 				<InteractionInfo>{getPostTime(props.createdTime)}</InteractionInfo>
 			</PostTime>
-			{props.isCurUsersPost && (
+			{props.canDelete && (
 				<InteractionArea onClick={() => props.onClickDelete()}>
 					<DeleteIcon />
 				</InteractionArea>

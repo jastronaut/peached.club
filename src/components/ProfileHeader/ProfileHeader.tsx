@@ -13,14 +13,11 @@ import {
 } from './style';
 
 export type ProfileHeaderProps = {
-	viewingUser: User;
+	user: User;
 	postsLoaded: boolean;
 };
 
-export const ProfileHeader = ({
-	viewingUser,
-	postsLoaded,
-}: ProfileHeaderProps) => {
+export const ProfileHeader = ({ user, postsLoaded }: ProfileHeaderProps) => {
 	return (
 		<ProfileHeaderContainer>
 			<ProfileHeaderContent>
@@ -28,25 +25,25 @@ export const ProfileHeader = ({
 					<img
 						src={
 							postsLoaded
-								? viewingUser.avatarSrc || '/defaultavatar.jpg'
+								? user.avatarSrc || '/defaultavatar.jpg'
 								: '/defaultavatar.jpg'
 						}
 						style={{ opacity: postsLoaded ? '1' : '0.5' }}
-						alt={`${viewingUser.name}'s avatar`}
+						alt={`${user.name}'s avatar`}
 					/>
 				</Avatar>
 				<ProfileHeaderText>
-					<h2>{postsLoaded ? viewingUser.displayName : '...'}</h2>
+					<h2>{postsLoaded ? user.displayName : '......'}</h2>
 					<ProfileHeaderHandle>
-						@{postsLoaded ? viewingUser.name : '...'}
+						@{postsLoaded ? user.name : '......'}
 					</ProfileHeaderHandle>
 					<p>
 						{postsLoaded ? (
 							<Linkify tagName='span' options={LINKIFY_OPTIONS}>
-								{viewingUser.bio}
+								{user.bio}
 							</Linkify>
 						) : (
-							'...'
+							'......'
 						)}
 					</p>
 				</ProfileHeaderText>
