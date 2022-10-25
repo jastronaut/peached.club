@@ -8,6 +8,9 @@ import {
 	Popover,
 	Tabs,
 } from '@mantine/core';
+import RichTextEditor from '@mantine/rte';
+
+import { getRgba } from '../Navigation/style';
 
 export const MTextArea = styled(Textarea)`
 	.mantine-Textarea-input {

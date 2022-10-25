@@ -112,7 +112,7 @@ export const Comments = (props: CommentsProps) => {
 		<Modal
 			opened={isShowing}
 			onClose={() => onTryDismissComments(newCommentText)}
-			title='Comments'
+			title='Leave a comment'
 		>
 			<DisableBodyScroll />
 			<DeletePrompt

@@ -16,6 +16,7 @@ import ACTIONS, {
 	CHANGE_DISPLAY_NAME,
 	ADD_FRIEND,
 	CHANGE_BIO,
+	URL_PREFIX,
 } from './constants';
 
 const api = (
@@ -133,6 +134,36 @@ const api = (
 		.catch(err => {
 			console.error(err);
 			throw new Error(`cant make call for ${action}`);
+		})
+		.then(response => response.json());
+};
+
+type MakeApiCallProps = {
+	uri: string;
+	body?: object;
+	userId: string;
+	jwt: string;
+};
+
+export const makeApiCall = (props: MakeApiCallProps) => {
+	const request = {
+		method: '',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${props.jwt}`,
+		},
+	};
+
+	if (props.body) {
+		request.body = JSON.stringify(props.body);
+	}
+
+	return fetch(URL_PREFIX + uri, request)
+		.catch(err => {
+			console.error(err);
+			throw new Error(
+				`Cannot make call to ${uri}. Please contact peached.app@gmail.com`
+			);
 		})
 		.then(response => response.json());
 };

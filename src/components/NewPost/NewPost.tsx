@@ -61,7 +61,7 @@ const NewPost = () => {
 			) : null}
 			<Composer
 				onSubmit={submitPost}
-				toggleComposer={() => setShowComposer(false)}
+				toggleComposer={() => setShowComposer(showComposer => !showComposer)}
 				isOpen={showComposer}
 			/>
 			{!showComposer && (

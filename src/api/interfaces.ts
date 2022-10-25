@@ -93,7 +93,11 @@ export type PostContent =
 	| MusicMessage
 	| VideoMessage;
 
-export type UploadableMessageTypes = TextMessage | ImageMessage | GifMessage;
+export type UploadableMessageTypes =
+	| TextMessage
+	| ImageMessage
+	| GifMessage
+	| LinkMessage;
 
 /*eslint-disable */
 export function isLink(object: any): object is LinkMessage {

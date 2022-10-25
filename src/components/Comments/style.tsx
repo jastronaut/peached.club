@@ -86,6 +86,7 @@ export const AddCommentContainer = styled.div`
 	width: 100%;
 	background: ${props => props.theme.background.primary};
 	flex: 0 1 auto;
+	flex-basis: space-between;
 `;
 
 export const Input = styled.textarea`
@@ -100,7 +101,7 @@ export const Input = styled.textarea`
 	font-size: 1rem;
 	min-height: 2.5rem;
 	height: 2rem;
-	margin-bottom: 0.25rem;
+	margin-bottom: ${rem(8)};
 
 	width: 100%;
 	padding: 0.25rem;
@@ -115,11 +116,7 @@ export const TextArea = styled(MTextArea)`
 	margin-top: ${rem(16)};
 `;
 
-/*
- * aligned with ../Theme/Modal
- */
 export const ButtonWrapper = styled.span`
-	margin: 0;
 	z-index: 9999;
 `;
 

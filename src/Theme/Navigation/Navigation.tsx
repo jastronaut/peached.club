@@ -15,8 +15,7 @@ import ActivityIcon from '../Icons/PulseIcon';
 import GearIcon from '../Icons/GearIcon';
 
 const Navigation = () => {
-	const { curUser, curUserData, peachFeed, jwt, setJwt, setCurUser } =
-		useContext(PeachContext);
+	const { curUser, curUserData, peachFeed, jwt } = useContext(PeachContext);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useLocalStorage } from '@mantine/hooks';
+import { MantineProvider } from '@mantine/core';
 
 import { PeachContext } from './PeachContext';
 import {
@@ -138,7 +139,13 @@ const App: React.FC = () => {
 				}}
 			>
 				<PeachThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-					<MainPeachApp />
+					<MantineProvider
+						withGlobalStyles
+						withNormalizeCSS
+						theme={{ colorScheme: darkMode ? 'dark' : 'light' }}
+					>
+						<MainPeachApp />
+					</MantineProvider>
 				</PeachThemeProvider>
 			</PeachContext.Provider>
 		</BrowserRouter>

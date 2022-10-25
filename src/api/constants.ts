@@ -23,9 +23,10 @@ export const CHANGE_USER_NAME = PROXY + 'https://v1.peachapi.com/stream/name';
 export const ADD_FRIEND = (username: string) =>
 	`${PROXY}https://v1.peachapi.com/stream/n/${username}/connection`;
 export const CHANGE_BIO = `${PROXY}https://v1.peachapi.com/stream/bio`;
-export const UPLOAD_IMAGE = `https://api.imgur.com/3/image`;
 export const UPLOAD_TO_IMGBB = (key: string) =>
 	`https://api.imgbb.com/1/upload?key=${key}`;
+
+export const URL_PREFIX = `${PROXY}https://v1.peachapi.com/`;
 
 enum ACTIONS {
 	login,

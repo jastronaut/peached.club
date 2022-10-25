@@ -95,12 +95,15 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 			{(props.author.id === props.requesterId || isRequester) && (
 				<DeleteCommentContainer>
 					<Menu>
-						<Menu.Item
-							color='red'
-							onClick={() => setDeletePromptShowing(p => !p)}
-						>
-							Delete comment
-						</Menu.Item>
+						<Menu.Target>
+							<span onClick={() => setDeletePromptShowing(p => !p)}>...</span>
+						</Menu.Target>
+
+						<Menu.Dropdown>
+							<Menu.Item component='a' href='https://mantine.dev'>
+								Mantine website
+							</Menu.Item>
+						</Menu.Dropdown>
 					</Menu>
 				</DeleteCommentContainer>
 			)}

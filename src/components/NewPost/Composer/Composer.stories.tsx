@@ -14,6 +14,7 @@ const ComposerStory = (
 	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+			lol
 			<ComposerComponent {...rest} />
 		</ThemeProvider>
 	);
@@ -40,4 +41,5 @@ Primary.args = {
 	curUserId: '4',
 	onSubmit: (messages: UploadableMessageTypes[]) => null,
 	toggleComposer: () => null,
+	isOpen: true,
 };
