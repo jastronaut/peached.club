@@ -6,22 +6,14 @@ import React, {
 	SetStateAction,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Notification } from '@mantine/core';
+import { Notification, TextInput, Center, Button, Space } from '@mantine/core';
 
 import { PeachContext } from '../../PeachContext';
 import { LoginResponse } from '../../api/interfaces';
 import { LOGIN } from '../../api/constants';
 import { STORAGE_TOKEN_KEY, STORAGE_USER_KEY } from '../../constants';
 
-import {
-	AuthInput,
-	Page,
-	Container,
-	Heading,
-	Button,
-	ButtonCenter,
-	LoginFormContainer,
-} from './style';
+import { Heading } from './style';
 
 enum loginErrors {
 	OK,
@@ -113,18 +105,16 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<Page>
-			<LoginFormContainer>
-				<form onSubmit={onSubmit}>
-					<LoginComponent
-						setEmail={setEmail}
-						setPassword={setPassword}
-						onClickSubmit={onClickSubmit}
-					/>
-					{err !== loginErrors.OK && displayError(err)}
-				</form>
-			</LoginFormContainer>
-		</Page>
+		<Center style={{ height: '100vh' }}>
+			<form onSubmit={onSubmit}>
+				<LoginComponent
+					setEmail={setEmail}
+					setPassword={setPassword}
+					onClickSubmit={onClickSubmit}
+				/>
+				{err !== loginErrors.OK && displayError(err)}
+			</form>
+		</Center>
 	);
 };
 
@@ -140,27 +130,29 @@ export const LoginComponent = ({
 	onClickSubmit,
 }: LoginComponentProps) => {
 	return (
-		<Container>
+		<>
 			<Heading>Log in to Peached</Heading>
-			<AuthInput
+			<TextInput
 				onChange={e => setEmail(e.target.value)}
 				key='email'
 				type='text'
 				placeholder='email'
 				required
 			/>
-			<AuthInput
+			<Space h='xs' />
+			<TextInput
 				onChange={e => setPassword(e.target.value)}
 				key='password'
 				type='password'
 				placeholder='password'
 				required
 			/>
-			<ButtonCenter>
-				<Button onClick={onClickSubmit} link='#' lg>
-					Submit
+			<Space h='md' />
+			<Center>
+				<Button color='green' size='xs' onClick={onClickSubmit}>
+					Enter
 				</Button>
-			</ButtonCenter>
-		</Container>
+			</Center>
+		</>
 	);
 };
