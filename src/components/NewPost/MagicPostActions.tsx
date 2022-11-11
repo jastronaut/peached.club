@@ -13,7 +13,6 @@ import CalendarIcon from '../../Theme/Icons/CalendarIcon';
 import GiftIcon from '../../Theme/Icons/GiftIcon';
 import { GifPicker } from './GifPicker/GifPicker';
 import { GiphyImage } from '../../api/interfaces';
-import { MTextInput } from '../../Theme/Mantine';
 
 export const getCurrentTime = (currentPostLen: number) => {
 	const now = dayjs().format('h:mm A');
@@ -77,6 +76,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 	return (
 		<div>
 			<MagicPostActionsGroup spacing={'xs'}>
+				{/*
 				<ActionButton>
 					<ImageIcon accented title='Add an image to your post' />
 					<PictureInputStyled
@@ -89,6 +89,7 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 						}
 					/>
 				</ActionButton>
+					*/}
 				<ActionButton>
 					<ClockIcon
 						onClick={() =>
@@ -122,13 +123,9 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 					/>
 				</ActionButton> */}
 			</MagicPostActionsGroup>
-			{curDisplayedInteraction === 'Oracle' ? // <MTextInput
-			// 	label='🔮 Ask the oracle a question.'
-			// 	placeholder='Will I see a rainbow today?'
-			// />
-			null : curDisplayedInteraction === 'Gif' ? (
+			{curDisplayedInteraction === 'Gif' && (
 				<GifPickerComponent onGifSelect={props.onGifSelect} />
-			) : null}
+			)}
 		</div>
 	);
 };

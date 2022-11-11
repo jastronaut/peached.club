@@ -40,4 +40,5 @@ Primary.args = {
 	curUserId: '4',
 	onSubmit: (messages: UploadableMessageTypes[]) => null,
 	toggleComposer: () => null,
+	isOpen: true,
 };
