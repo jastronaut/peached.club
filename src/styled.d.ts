@@ -5,6 +5,7 @@ declare module 'styled-components' {
 		name: string;
 		link: string;
 		accent: string;
+		green: string;
 		text: {
 			primary: string;
 			muted: string;

@@ -111,9 +111,9 @@ export const InteractionArea = styled.div`
 	display: inline-flex;
 	align-items: center;
 	padding: ${rem(8)};
-	border-radius: ${rem(16)};
+	border-radius: ${rem(8)};
 	transition: 0.25s all ease;
-	height: ${rem(13)};
+	height: ${rem(24)};
 
 	:last-child {
 		margin-left: ${rem(12)};

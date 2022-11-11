@@ -25,10 +25,9 @@ export const NewPostButtonContainer = styled.div`
 	bottom: ${rem(16)};
 	right: ${rem(16)};
 	background: #ffa79b;
-	padding: ${rem(12)};
 	border-radius: 50%;
-	width: ${rem(30)};
-	height: ${rem(30)};
+	width: ${rem(48)};
+	height: ${rem(48)};
 	text-align: center;
 	box-shadow: ${rem(5)} ${rem(5)} ${rem(5)} #00000050;
 	transition: all cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
@@ -68,8 +67,7 @@ export const ActionButton = styled.div`
 	overflow: hidden;
 	align-self: start;
 	cursor: pointer;
-	margin-bottom: ${rem(16)};
-	margin-right: ${rem(16)};
+	margin: 0 ${rem(8)} ${rem(16)};
 	display: inline;
 
 	> input {

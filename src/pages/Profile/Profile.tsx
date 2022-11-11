@@ -122,11 +122,8 @@ export const ProfilePage = () => {
 							cursor: response.data.cursor,
 							posts: [...viewingUser.posts, ...postsResult],
 						});
-						// console.log('okay we do this');
 					} else {
-						// console.log(postsResult);
 						setViewingUserProfile({ ...response.data, posts: postsResult });
-						// console.log('now this');
 					}
 				}
 			} catch (error) {

@@ -34,7 +34,7 @@ export const ProfileHeader = ({
 				<Avatar>
 					<img
 						src={avatarSrc}
-						style={{ opacity: postsLoading ? '1' : '0.5' }}
+						style={{ opacity: postsLoading ? '0.5' : '1' }}
 						alt={avatarAlt}
 					/>
 				</Avatar>

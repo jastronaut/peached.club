@@ -5,6 +5,7 @@ import { MantineProvider } from '@mantine/core';
 const baseTheme = {
 	link: '#00A7FD',
 	accent: '#fe4f72',
+	green: '#1bb76e',
 };
 
 export const LightThemeAdditions = {
@@ -34,19 +35,19 @@ export const lightTheme = {
 const darkThemeAdditions = {
 	name: 'dark',
 	text: {
-		primary: '#FFFFFF',
+		primary: '#C1C2C5',
 		muted: '#cccc',
 		lightest: '#aaaaaa',
 	},
 	background: {
-		primary: '#333',
+		primary: '#25262b',
 		secondary: '#262628',
 		hover: '#cacaca50',
 		accented: '#000000',
 	},
 	border: {
-		primary: '#999',
-		secondary: '#555',
+		primary: '#1f2024',
+		secondary: '#2C2E33',
 	},
 };
 
