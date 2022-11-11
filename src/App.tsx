@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useLocalStorage } from '@mantine/hooks';
+import { MantineProvider } from '@mantine/core';
 
 import { PeachContext } from './PeachContext';
-import {
-	LoginStream,
-	User,
-	CurUser,
-	DummyCurUser,
-	Connections,
-} from './api/interfaces';
+import { LoginStream, User, DummyCurUser, Connections } from './api/interfaces';
 import ACTIONS from './api/constants';
 import {
 	STORAGE_IS_DARK_MODE,
@@ -138,7 +133,13 @@ const App: React.FC = () => {
 				}}
 			>
 				<PeachThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-					<MainPeachApp />
+					<MantineProvider
+						withGlobalStyles
+						withNormalizeCSS
+						theme={{ colorScheme: darkMode ? 'dark' : 'light' }}
+					>
+						<MainPeachApp />
+					</MantineProvider>
 				</PeachThemeProvider>
 			</PeachContext.Provider>
 		</BrowserRouter>

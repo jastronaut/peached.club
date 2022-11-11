@@ -20,7 +20,7 @@ import {
 
 import { Page } from '../../Theme/Layout';
 import { Title } from '../../Theme/Type';
-import Preview from '../Feed/Preview';
+import { Preview } from '../Feed/Preview';
 import { TabsWrapper } from './style';
 import { MTabs as Tabs } from '../../Theme/Mantine';
 
@@ -64,8 +64,15 @@ export const ActivityPage = () => {
 		<Page>
 			<Title>Activity</Title>
 			<TabsWrapper>
-				<Tabs variant='pills' color='pink'>
-					<Tabs.Tab label='Comments'>
+				<Tabs defaultValue='comments' variant='pills' color='pink'>
+					<Tabs.List>
+						<Tabs.Tab value='comments'>Comments</Tabs.Tab>
+						<Tabs.Tab value='mentions'>Mentions</Tabs.Tab>
+						<Tabs.Tab value='likes'>Likes</Tabs.Tab>
+						{/* <Tabs.Tab value='waves'>Waves</Tabs.Tab> */}
+					</Tabs.List>
+
+					<Tabs.Panel value='comments' pt='xs'>
 						{activityFeed
 							?.filter(item => {
 								if (isCommentNotification(item)) {
@@ -85,8 +92,9 @@ export const ActivityPage = () => {
 									<p>{getActivityPreviewMessage(item)}</p>
 								</Preview>
 							))}
-					</Tabs.Tab>
-					<Tabs.Tab label='Mentions'>
+					</Tabs.Panel>
+
+					<Tabs.Panel value='mentions'>
 						{activityFeed
 							?.filter(item => {
 								if (isMentionNotification(item)) {
@@ -100,15 +108,15 @@ export const ActivityPage = () => {
 									displayName={item.body.authorStream.displayName}
 									name={item.body.authorStream.name}
 									id={item.body.authorStream.id}
-									// message={getActivityPreviewMessage(item)}
 									createdTime={item.createdTime}
 									message={getTextPreview(item)}
 								>
 									<p>{getActivityPreviewMessage(item)}</p>
 								</Preview>
 							))}
-					</Tabs.Tab>
-					<Tabs.Tab label='Likes'>
+					</Tabs.Panel>
+
+					<Tabs.Panel value='likes'>
 						{activityFeed
 							?.filter(item => {
 								if (isLikeNotification(item)) {
@@ -128,8 +136,10 @@ export const ActivityPage = () => {
 									{/* <p>{getActivityPreviewMessage(item)}</p> */}
 								</Preview>
 							))}
-					</Tabs.Tab>
-					<Tabs.Tab label='Waves'>
+					</Tabs.Panel>
+
+					{/*
+					<Tabs.Panel value='waves'>
 						{activityFeed
 							?.filter(item => {
 								if (isWaveNotification(item)) {
@@ -149,7 +159,8 @@ export const ActivityPage = () => {
 									<p>{getActivityDescription(item)}</p>
 								</Preview>
 							))}
-					</Tabs.Tab>
+					</Tabs.Panel>
+							*/}
 				</Tabs>
 			</TabsWrapper>
 		</Page>
