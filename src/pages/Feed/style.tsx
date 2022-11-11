@@ -1,41 +1,11 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 import { Link } from 'react-router-dom';
-
-export const PicFrame = styled.div`
-	> span,
-	> img {
-		margin-right: ${rem(8)};
-	}
-
-	> span {
-		border-radius: 50%;
-		width: 100%;
-		width: 75px;
-		height: 75px;
-		font-size: 60px;
-
-		@media screen and (max-width: 500px) {
-			width: 50px;
-			height: 50px;
-			font-size: 40px;
-		}
-	}
-`;
-
-export const ProfilePic = styled.img<{ unread?: boolean }>`
-	border-radius: 50%;
-	width: 100%;
-	border: ${props => (props.unread ? '2px solid #1bb76e' : 'none')};
-	width: ${rem(75)};
-	height: ${rem(75)};
-	object-fit: cover;
-
-	@media screen and (max-width: 500px) {
-		width: ${rem(50)};
-		height: ${rem(50)};
-	}
-`;
+import {
+	Indicator as MIndicator,
+	Avatar as MAvatar,
+	AvatarProps,
+} from '@mantine/core';
 
 export const InfoContainer = styled.div`
 	height: 100%;
@@ -164,5 +134,18 @@ export const LinkStyled = styled(Link)`
 	:visited {
 		color: unset;
 		text-decoration: none;
+	}
+`;
+
+export const Avatar = styled(MAvatar)<FeedPostWrapperProps & AvatarProps>`
+	border: 2px solid
+		${props => (props.isUnread ? props.theme.green : 'rgba(0,0,0,0)')};
+`;
+
+export const FavoriteIndicator = styled(MIndicator)`
+	.mantine-Indicator-indicator,
+	.mantine-Indicator-common {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: ${rem(16)};
 	}
 `;

@@ -1,20 +1,20 @@
 import React from 'react';
-import { rem } from 'polished';
 
+import { DEFAULT_AVATAR_SRC } from '../../constants';
 import { createPostPreview } from '../../utils';
 import getPostTime from '../../utils/getPostTime';
+import { PostContent } from '../../api/interfaces';
+
 import {
 	FeedPostWrapper,
-	ProfilePic,
-	PicFrame,
 	InfoContainer,
 	PostPreview,
 	DisplayName,
+	Avatar,
+	FavoriteIndicator,
 } from './style';
 
-import { PostContent } from '../../api/interfaces';
-
-interface PreviewProps {
+export interface PreviewProps {
 	id: string;
 	avatarSrc: string;
 	name: string;
@@ -24,48 +24,44 @@ interface PreviewProps {
 	unread?: boolean;
 	createdTime: number | null;
 	textPreview?: string | null;
+	isFavorite?: boolean;
 }
 
-const Preview: React.FC<PreviewProps> = props => {
-	const { textPreview = null, message = null } = props;
+export const Preview: React.FC<PreviewProps> = props => {
+	const { message = null } = props;
+	const isUnread = props.unread ?? false;
+	const avatar = props.avatarSrc ?? DEFAULT_AVATAR_SRC;
+
 	return (
 		<FeedPostWrapper isUnread={false}>
-			<PicFrame>
-				{props.avatarSrc ? (
-					<ProfilePic
-						unread={props.unread}
-						src={props.avatarSrc}
-						alt={props.name}
-						width={rem(75)}
-						height={rem(75)}
-					/>
+			<>
+				{props.isFavorite ? (
+					<FavoriteIndicator label='⭐️' inline size={16}>
+						<Avatar src={avatar} size='lg' radius='xl' isUnread={isUnread} />
+					</FavoriteIndicator>
 				) : (
-					<span role='img' aria-label={props.name}>
-						🍑
-					</span>
+					<Avatar src={avatar} size='lg' radius='xl' isUnread={isUnread} />
 				)}
-			</PicFrame>
-			<InfoContainer>
-				<DisplayName>{props.displayName}</DisplayName>
-				{props.children}
-				<PostPreview>
-					<p>
-						{!message
-							? ' '
-							: typeof message === 'string'
-							? message
-							: createPostPreview(message)}
-					</p>
-					{props.createdTime && <p>{getPostTime(props.createdTime)}</p>}
-				</PostPreview>
-				{props.textPreview && (
-					<blockquote>
-						<i>{props.textPreview}</i>
-					</blockquote>
-				)}
-			</InfoContainer>
+				<InfoContainer>
+					<DisplayName>{props.displayName}</DisplayName>
+					{props.children}
+					<PostPreview>
+						<p>
+							{!message
+								? ' '
+								: typeof message === 'string'
+								? message
+								: createPostPreview(message)}
+						</p>
+						{props.createdTime && <p>{getPostTime(props.createdTime)}</p>}
+					</PostPreview>
+					{props.textPreview && (
+						<blockquote>
+							<i>{props.textPreview}</i>
+						</blockquote>
+					)}
+				</InfoContainer>
+			</>
 		</FeedPostWrapper>
 	);
 };
-
-export default Preview;
