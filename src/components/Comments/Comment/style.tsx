@@ -234,3 +234,14 @@ export const CommentInteractionsContainer = styled.div`
 	justify-content: space-between;
 	padding-left: ${rem(5)};
 `;
+
+export const DeleteCommentButton = styled.button`
+	border: none;
+	background-color: transparent;
+	transition: 0.25s background-color ease;
+	cursor: pointer;
+
+	:hover {
+		background-color: ${props => props.theme.accent};
+	}
+`;

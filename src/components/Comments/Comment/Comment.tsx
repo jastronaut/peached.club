@@ -20,6 +20,7 @@ import {
 	Container,
 	AvatarArea,
 	DeleteCommentContainer,
+	DeleteCommentButton,
 } from './style';
 
 import { LINKIFY_OPTIONS } from '../../../constants';
@@ -73,14 +74,15 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 	const { connections } = useContext(PeachContext);
 	const [deletePromptShowing, setDeletePromptShowing] =
 		useState<boolean>(false);
-	const isRequester = props.requesterId === props.author.id;
 
 	const allFriends: (User | MutualFriend)[] = [
 		...connections,
 		...props.mutualFriends,
 	];
 
-	const authorData = allFriends.filter(f => f.id === props.author.id)[0];
+	const canDeleteComment =
+		props.requesterId === props.postAuthorId ||
+		props.author.id === props.requesterId;
 
 	return (
 		<Container>
@@ -89,18 +91,20 @@ export const Comment: React.FC<CommentProps> = (props: CommentProps) => {
 					onDelete={() => props.deleteComment(props.id)}
 					onCancel={() => setDeletePromptShowing(false)}
 				>
-					Are you sure you want to delete your comment?
+					Are you sure you want to delete this comment?
 				</DeletePrompt>
 			) : null}
-			{(props.author.id === props.requesterId || isRequester) && (
+			{canDeleteComment && (
 				<DeleteCommentContainer>
 					<Menu>
-						<Menu.Item
-							color='red'
-							onClick={() => setDeletePromptShowing(p => !p)}
-						>
-							Delete comment
-						</Menu.Item>
+						<Menu.Target>
+							<DeleteCommentButton>...</DeleteCommentButton>
+						</Menu.Target>
+						<Menu.Dropdown>
+							<Menu.Item onClick={() => setDeletePromptShowing(p => !p)}>
+								Delete comment
+							</Menu.Item>
+						</Menu.Dropdown>
 					</Menu>
 				</DeleteCommentContainer>
 			)}
