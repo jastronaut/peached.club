@@ -7,4 +7,8 @@ export const TabsWrapper = styled.div`
 	padding: ${rem(16)} ${rem(24)};
 	margin: ${rem(16)};
 	border-radius: ${rem(8)};
+
+	@media screen and (max-width: 800px) {
+		padding: ${rem(16)} ${rem(16)};
+	}
 `;
