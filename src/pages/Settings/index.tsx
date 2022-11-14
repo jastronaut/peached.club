@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Notification, TextInput } from '@mantine/core';
+import { IconCheck } from '@tabler/icons';
 
 import {
 	STORAGE_IS_DARK_MODE,
@@ -14,12 +16,11 @@ import api from '../../api';
 import { Page } from '../../Theme/Layout';
 import { Title, SubTitle } from '../../Theme/Type';
 import Button from '../../Theme/Button';
-import { Input, Label, Fieldset } from '../../Theme/Form';
+import { Label, Fieldset } from '../../Theme/Form';
 import NightModeIcon from '../../Theme/Icons/NightModeIcon';
 import {
 	SettingsWrapper,
 	ErrText,
-	SuccessText,
 	SettingsSection,
 	LogoutButtonWrapper,
 } from './style';
@@ -109,11 +110,16 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 	const [isLoaderShowing, setLoaderShowing] = useState<boolean>(false);
 	const [showError, setShowError] = useState<boolean>(false);
 	const [nameChangeSuccess, setNameChangeSuccess] = useState<boolean>(false);
+	const [displayNameChangeSuccess, setDisplayNameChangeSuccess] =
+		useState<boolean>(false);
+	const [bioChangeSuccess, setBioChangeSuccess] = useState<boolean>(false);
 
 	const onSubmit = () => {
 		if (!isButtonDisabled) {
 			setShowError(false);
 			setNameChangeSuccess(false);
+			setDisplayNameChangeSuccess(false);
+			setBioChangeSuccess(false);
 			if (newUserName) {
 				setLoaderShowing(true);
 				api(ACTIONS.changeUserName, jwt, {
@@ -140,7 +146,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				}).then((response: NameChangeResponse) => {
 					setLoaderShowing(false);
 					if (response.success) {
-						setNameChangeSuccess(true);
+						setDisplayNameChangeSuccess(true);
 					} else {
 						if (response.error) {
 							setShowError(true);
@@ -156,7 +162,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				}).then((response: NameChangeResponse) => {
 					setLoaderShowing(false);
 					if (response.success) {
-						setNameChangeSuccess(true);
+						setBioChangeSuccess(true);
 					} else {
 						if (response.error) {
 							setShowError(true);
@@ -183,7 +189,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 			<SubTitle>Peach account settings</SubTitle>
 			<Fieldset>
 				<Label htmlFor='displayName'>Display name</Label>
-				<Input
+				<TextInput
 					id='displayName'
 					type='text'
 					value={newDisplayName}
@@ -196,15 +202,19 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 						Can't change display name at the moment... please try again later!
 					</ErrText>
 				) : null}
-				{!showError && newDisplayName && isLoaderShowing ? (
-					<SuccessText>
-						Successfully changed your display name! Hi, {newDisplayName}!
-					</SuccessText>
-				) : null}
+				{displayNameChangeSuccess && !showError && (
+					<Notification
+						icon={<IconCheck size={18} />}
+						color='teal'
+						onClose={() => setDisplayNameChangeSuccess(false)}
+					>
+						You'll now be known as {newDisplayName}!
+					</Notification>
+				)}
 			</Fieldset>
 			<Fieldset>
 				<Label htmlFor='userName'>Username</Label>
-				<Input
+				<TextInput
 					id='userName'
 					type='text'
 					value={newUserName}
@@ -215,15 +225,20 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				{showError && newUserName ? (
 					<ErrText>Username is already taken!</ErrText>
 				) : null}
-				{!showError && newUserName && nameChangeSuccess ? (
-					<SuccessText>
-						Successfully changed your username! Hello, {newUserName}!
-					</SuccessText>
-				) : null}
+
+				{nameChangeSuccess && !showError && (
+					<Notification
+						icon={<IconCheck size={18} />}
+						color='teal'
+						onClose={() => setNameChangeSuccess(false)}
+					>
+						The handle @{newUserName} now belongs to YOU!
+					</Notification>
+				)}
 			</Fieldset>
 			<Fieldset>
 				<Label htmlFor='bio'>Bio</Label>
-				<Input
+				<TextInput
 					id='bio'
 					type='text'
 					value={newBio}
@@ -233,9 +248,15 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 				/>
 				{isLoaderShowing && newBio ? <MiniLoader /> : null}
 				{showError && newBio ? <ErrText>Bio is too long</ErrText> : null}
-				{!showError && newBio && nameChangeSuccess ? (
-					<SuccessText>Bio updated</SuccessText>
-				) : null}
+				{bioChangeSuccess && !showError && (
+					<Notification
+						icon={<IconCheck size={18} />}
+						color='teal'
+						onClose={() => setBioChangeSuccess(false)}
+					>
+						New bio? No problem.
+					</Notification>
+				)}
 			</Fieldset>
 			<br />
 			<Button disabled={isButtonDisabled} onClick={() => onSubmit()}>
