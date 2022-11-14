@@ -9,14 +9,9 @@ import {
 	ActivityItem,
 	isCommentNotification,
 	isLikeNotification,
-	isWaveNotification,
 	isMentionNotification,
 } from '../../api/interfaces';
-import {
-	getActivityDescription,
-	getActivityPreviewMessage,
-	getTextPreview,
-} from './utils';
+import { getActivityPreviewMessage, getTextPreview } from './utils';
 
 import { Page } from '../../Theme/Layout';
 import { Title } from '../../Theme/Type';
@@ -41,8 +36,6 @@ export const ActivityPage = () => {
 				'ActivityPage'
 			).then((response: { data: ActivityResponse }) => {
 				if (response.data.streamID) {
-					// const activityItems = response.data.activityItems;
-
 					const resp = response.data.activityItems;
 					setActivityFeed(resp);
 				}
@@ -69,7 +62,6 @@ export const ActivityPage = () => {
 						<Tabs.Tab value='comments'>Comments</Tabs.Tab>
 						<Tabs.Tab value='mentions'>Mentions</Tabs.Tab>
 						<Tabs.Tab value='likes'>Likes</Tabs.Tab>
-						{/* <Tabs.Tab value='waves'>Waves</Tabs.Tab> */}
 					</Tabs.List>
 
 					<Tabs.Panel value='comments' pt='xs'>
@@ -132,35 +124,9 @@ export const ActivityPage = () => {
 									id={item.body.authorStream.id}
 									createdTime={item.createdTime}
 									message={getTextPreview(item)}
-								>
-									{/* <p>{getActivityPreviewMessage(item)}</p> */}
-								</Preview>
+								></Preview>
 							))}
 					</Tabs.Panel>
-
-					{/*
-					<Tabs.Panel value='waves'>
-						{activityFeed
-							?.filter(item => {
-								if (isWaveNotification(item)) {
-									return item;
-								}
-							})
-							.map(item => (
-								<Preview
-									key={`${item.createdTime}${item.body.authorStream.id}`}
-									avatarSrc={item.body.authorStream.avatarSrc}
-									displayName={item.body.authorStream.displayName}
-									name={item.body.authorStream.name}
-									id={item.body.authorStream.id}
-									message={getActivityPreviewMessage(item)}
-									createdTime={item.createdTime}
-								>
-									<p>{getActivityDescription(item)}</p>
-								</Preview>
-							))}
-					</Tabs.Panel>
-							*/}
 				</Tabs>
 			</TabsWrapper>
 		</Page>

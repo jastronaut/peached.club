@@ -8,4 +8,4 @@ export const LINKIFY_OPTIONS = {
 	target: '_blank',
 };
 
-export const DEFAULT_AVATAR_SRC = '/defaultavatar.jpg';
+export const DEFAULT_AVATAR_SRC = 'https://i.ibb.co/3sK1LJj/peacheddefault.png';
