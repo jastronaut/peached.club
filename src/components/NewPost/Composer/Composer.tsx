@@ -169,7 +169,6 @@ export const ComposerComponent = (
 						};
 						setUploadedImages(uploadedImages => {
 							uploadedImages[url] = newImage;
-							console.log(uploadedImages);
 							return uploadedImages;
 						});
 						return resolve(url);

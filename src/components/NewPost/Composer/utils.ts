@@ -51,7 +51,14 @@ export const parseHTMLForUpload = (
 	let p: UploadableMessageTypes[] = [];
 	// remove extra newlines
 	const regex = /(<p><br><\/p>){2,}/;
-	let curText = postText.replace(regex, `<p><br></p>`);
+	let curText = postText
+		.replace(regex, `<p><br></p>`)
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/&amp;/g, '&');
+
 	while (curText.length > 0) {
 		const startTextIndex = curText.indexOf(HTML_P_START);
 
