@@ -14,19 +14,15 @@ import {
 
 export type ProfileHeaderProps = {
 	viewingUser: User | null;
-	postsLoading: boolean;
+	loading: boolean;
 };
 
-export const ProfileHeader = ({
-	viewingUser,
-	postsLoading,
-}: ProfileHeaderProps) => {
+export const ProfileHeader = ({ viewingUser, loading }: ProfileHeaderProps) => {
 	const avatarSrc =
-		postsLoading || !viewingUser ? DEFAULT_AVATAR_SRC : viewingUser.avatarSrc;
+		loading || !viewingUser ? DEFAULT_AVATAR_SRC : viewingUser.avatarSrc;
 	const avatarAlt = `${viewingUser?.name}'s avatar`;
-	const displayName =
-		postsLoading || !viewingUser ? '...' : viewingUser.displayName;
-	const username = postsLoading || !viewingUser ? '...' : viewingUser.name;
+	const displayName = loading || !viewingUser ? '...' : viewingUser.displayName;
+	const username = loading || !viewingUser ? '...' : viewingUser.name;
 
 	return (
 		<ProfileHeaderContainer>
@@ -34,7 +30,7 @@ export const ProfileHeader = ({
 				<Avatar>
 					<img
 						src={avatarSrc}
-						style={{ opacity: postsLoading ? '0.5' : '1' }}
+						style={{ opacity: loading ? '0.5' : '1' }}
 						alt={avatarAlt}
 					/>
 				</Avatar>
@@ -42,7 +38,7 @@ export const ProfileHeader = ({
 					<h2>{displayName}</h2>
 					<ProfileHeaderHandle>@{username}</ProfileHeaderHandle>
 					<p>
-						{postsLoading || !viewingUser ? (
+						{loading || !viewingUser ? (
 							'...'
 						) : (
 							<Linkify tagName='span' options={LINKIFY_OPTIONS}>

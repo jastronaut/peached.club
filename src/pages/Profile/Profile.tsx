@@ -21,6 +21,7 @@ import NewPost from '../../components/NewPost';
 
 import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
 import { makeApiCall } from '../../api/api';
+import { PrivateProfile } from './PrivateProfile';
 
 const EmptyState = () => (
 	<EmptyStateWrapper>
@@ -125,6 +126,8 @@ export const ProfilePage = () => {
 					} else {
 						setViewingUserProfile({ ...response.data, posts: postsResult });
 					}
+				} else {
+					setViewingUserProfile(response.data);
 				}
 			} catch (error) {
 				console.error(
@@ -177,7 +180,7 @@ export const ProfilePage = () => {
 	useEffect(() => {
 		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 		setViewingUserProfile(null);
-		markFeedRead();
+		// markFeedRead();
 		setPostsLoading(true);
 		getUserProfile();
 		getViewingUserProfile();
@@ -194,18 +197,35 @@ export const ProfilePage = () => {
 		};
 	}, []);
 
+	const isPrivateProfile =
+		viewingUser &&
+		!viewingUser.isPublic &&
+		!viewingUser.youFollow &&
+		viewingUser.id !== curUser?.id;
+
+	if (isPrivateProfile) {
+		return (
+			<Page>
+				{curUserData ? (
+					<PrivateProfile viewingUser={viewingUser} />
+				) : (
+					<Loading />
+				)}
+			</Page>
+		);
+	}
+
 	return (
 		<>
 			<Page>
 				{curUserData ? (
 					<>
-						<ProfileHeader
-							viewingUser={viewingUser}
-							postsLoading={postsLoading}
-						/>
+						<ProfileHeader viewingUser={viewingUser} loading={postsLoading} />
 						{postsLoading || !viewingUser ? (
 							<Loading />
-						) : viewingUser && viewingUser.posts.length > 0 ? (
+						) : viewingUser &&
+						  viewingUser.posts &&
+						  viewingUser.posts.length > 0 ? (
 							<>
 								<div style={{ margin: '0' }}>
 									{viewingUser.posts.map(post => (
