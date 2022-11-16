@@ -63,6 +63,15 @@ export const Avatar = styled.div`
 			height: ${rem(75)};
 		}
 	}
+
+	> img {
+		transition: 0.5s transform ease;
+	}
+
+	> img:hover {
+		transition: 0.5s transform ease;
+		transform: rotateX(180deg);
+	}
 `;
 
 export const ProfileHeaderHandle = styled.p`
