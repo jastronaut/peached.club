@@ -46,6 +46,7 @@ export const FeedPostWrapper = styled.div<FeedPostWrapperProps>`
 		${props => (props.isUnread ? '#25d87a' : props.theme.background.primary)};
 	background: ${props => props.theme.background.primary};
 	color: ${props => props.theme.text.primary};
+	cursor: pointer;
 
 	display: flex;
 	padding: 2rem 2.5rem;
@@ -57,7 +58,7 @@ export const FeedPostWrapper = styled.div<FeedPostWrapperProps>`
 
 	:hover {
 		background: ${props => props.theme.background.hover};
-		cursor: pointer;
+		border-color: ${props => props.theme.background.hover};
 	}
 
 	@media screen and (max-width: 700px) {
