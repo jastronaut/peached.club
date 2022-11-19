@@ -56,10 +56,6 @@ export const MPopover = styled(Popover)`
 `;
 
 export const MTabs = styled(Tabs)`
-	.mantine-Tabs-tabLabel {
-		color: ${props => props.theme.text.muted};
-	}
-
 	.mantine-Tabs-tabControl.mantine-Tabs-pills.mantine-Group-child:hover
 		.mantine-Tabs-tabLabel {
 		color: #eee;
@@ -81,6 +77,5 @@ export const MTabs = styled(Tabs)`
 
 	.mantine-Tabs-tabActive .mantine-Tabs-tabInner .mantine-Tabs-tabLabel {
 		color: #fff;
-		background-color: ${props => props.theme.accent};
 	}
 `;
