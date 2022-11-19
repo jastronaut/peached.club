@@ -18,13 +18,16 @@ import { Title } from '../../Theme/Type';
 import { Preview } from '../Feed/Preview';
 import { TabsWrapper } from './style';
 import { MTabs as Tabs } from '../../Theme/Mantine';
+import Loading from '../../Theme/Loading';
 
 export const ActivityPage = () => {
+	const { peachFeed, jwt } = useContext(PeachContext);
 	const [activityFeed, setActivityFeed] = useState<ActivityItem[] | null>(null);
 	const [cursor, setCursor] = useState(0);
-	const { peachFeed, jwt } = useContext(PeachContext);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const getActivityFeed = useCallback(() => {
+		setIsLoading(true);
 		const cursorParams = cursor ? `?cursor=${cursor}` : '';
 		try {
 			api(
@@ -43,6 +46,8 @@ export const ActivityPage = () => {
 		} catch (err) {
 			console.error(err);
 		}
+		const loadingTimer = setTimeout(() => setIsLoading(false), 500);
+		return () => clearTimeout(loadingTimer);
 	}, [jwt, cursor]);
 
 	useEffect(() => {
@@ -65,6 +70,7 @@ export const ActivityPage = () => {
 					</Tabs.List>
 
 					<Tabs.Panel value='comments' pt='xs'>
+						{isLoading && <Loading />}
 						{activityFeed
 							?.filter(item => {
 								if (isCommentNotification(item)) {
@@ -87,6 +93,7 @@ export const ActivityPage = () => {
 					</Tabs.Panel>
 
 					<Tabs.Panel value='mentions'>
+						{isLoading && <Loading />}
 						{activityFeed
 							?.filter(item => {
 								if (isMentionNotification(item)) {
@@ -109,6 +116,7 @@ export const ActivityPage = () => {
 					</Tabs.Panel>
 
 					<Tabs.Panel value='likes'>
+						{isLoading && <Loading />}
 						{activityFeed
 							?.filter(item => {
 								if (isLikeNotification(item)) {
