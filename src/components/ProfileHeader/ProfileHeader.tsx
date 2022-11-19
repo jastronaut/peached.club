@@ -19,7 +19,9 @@ export type ProfileHeaderProps = {
 
 export const ProfileHeader = ({ viewingUser, loading }: ProfileHeaderProps) => {
 	const avatarSrc =
-		loading || !viewingUser ? DEFAULT_AVATAR_SRC : viewingUser.avatarSrc;
+		loading || !viewingUser || !viewingUser.avatarSrc
+			? DEFAULT_AVATAR_SRC
+			: viewingUser.avatarSrc;
 	const avatarAlt = `${viewingUser?.name}'s avatar`;
 	const displayName = loading || !viewingUser ? '...' : viewingUser.displayName;
 	const username = loading || !viewingUser ? '...' : viewingUser.name;
