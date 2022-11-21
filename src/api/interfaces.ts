@@ -251,6 +251,7 @@ export interface PendingFriendRequest {
 		isPublic: boolean;
 		unreadPostCount: number;
 		lastRead: number;
+		avatarSrc: string;
 	};
 
 	createdTime: number;
@@ -259,8 +260,8 @@ export interface PendingFriendRequest {
 export interface Connections {
 	connections: User[];
 	requesterStream: CurUser;
-	inboundFriendRequests: PendingFriendRequest;
-	outboundFriendRequests: PendingFriendRequest;
+	inboundFriendRequests: PendingFriendRequest[];
+	outboundFriendRequests: PendingFriendRequest[];
 }
 
 /**
@@ -386,6 +387,14 @@ export interface MutualFriend extends CurUser {
 
 export interface FriendsOfFriendsResponse {
 	connections: MutualFriend[];
+}
+
+export interface DefaultResponse {
+	success: number;
+	error?: {
+		Code: number;
+		Message: string;
+	};
 }
 
 export interface NameChangeResponse {

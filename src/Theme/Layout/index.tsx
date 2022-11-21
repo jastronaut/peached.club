@@ -45,3 +45,32 @@ export const Container = styled.div`
 		border-radius: 0.25rem;
 	}
 `;
+
+type ItemContainerProps = {
+	isHoverable?: boolean;
+	flex?: boolean;
+};
+
+export const ItemContainer = styled.div<ItemContainerProps>`
+	background: ${props => props.theme.background.primary};
+	color: ${props => props.theme.text.primary};
+	${props => (props.flex ? 'display: flex;' : '')}
+
+	padding: ${rem(16)} ${rem(20)};
+	height: 100%;
+	transition: 0.25s all ease-in;
+	word-wrap: break-word;
+	margin: ${rem(16)};
+	border-radius: ${rem(8)};
+
+	:hover {
+		cursor: ${props => (props.isHoverable ? 'pointer' : 'initial')};
+		background-color: ${props => props.theme.background.hover};
+		border-color: ${props => props.theme.background.hover};
+	}
+
+	@media screen and (max-width: 700px) {
+		padding: ${rem(8)} ${rem(16)};
+		margin: ${rem(8)};
+	}
+`;

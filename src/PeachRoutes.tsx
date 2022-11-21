@@ -7,6 +7,7 @@ import { FeedPage } from './pages/Feed';
 import { ProfilePage } from './pages/Profile/Profile';
 import { ActivityPage } from './pages/Activity';
 import { SettingsPage } from './pages/Settings';
+import { FriendRequestsPage } from './pages/Activity/FriendRequests/FriendRequests';
 
 const RedirectToDownloadGuide = () => {
 	window.location.replace(
@@ -24,6 +25,7 @@ export const PeachRoutes = () => (
 			<Route path=':id' element={<ProfilePage />} />
 		</Route>
 		<Route path='/activity' element={<ActivityPage />} />
+		<Route path='/activity/friend-requests' element={<FriendRequestsPage />} />
 		<Route path='/settings' element={<SettingsPage />} />
 		<Route path='/logout' element={<Logout />} />
 		<Route

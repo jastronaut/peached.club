@@ -13,6 +13,7 @@ import { PeachContext } from '../../PeachContext';
 import ACTIONS from '../../api/constants';
 import { NameChangeResponse } from '../../api/interfaces';
 import api from '../../api';
+
 import { Page } from '../../Theme/Layout';
 import { Title, SubTitle } from '../../Theme/Type';
 import Button from '../../Theme/Button';
@@ -26,6 +27,7 @@ import {
 } from './style';
 import { ERROR } from '../../api/error';
 import { LinkText } from '../../components/Posts/LinkPost';
+import { RiseAndFadeAnimationContainer } from '../../Theme/Animations';
 
 export const SettingsPage = () => {
 	const navigate = useNavigate();
@@ -40,22 +42,24 @@ export const SettingsPage = () => {
 
 	return (
 		<Page>
-			<Title>Settings</Title>
-			<SettingsWrapper>
-				<CustomizationSection toggleDarkMode={toggleDarkMode} />
-				<PeachAccountSection
-					logout={() => {
-						setConnections([]);
-						setJwt('');
-						setPeachFeed([]);
-						localStorage.removeItem(STORAGE_TOKEN_KEY);
-						localStorage.removeItem(STORAGE_USER_KEY);
-						localStorage.removeItem(STORAGE_IS_DARK_MODE);
-						navigate('/logout', { replace: true });
-					}}
-				/>
-				<ContactSection />
-			</SettingsWrapper>
+			<RiseAndFadeAnimationContainer>
+				<Title>Settings</Title>
+				<SettingsWrapper>
+					<CustomizationSection toggleDarkMode={toggleDarkMode} />
+					<PeachAccountSection
+						logout={() => {
+							setConnections([]);
+							setJwt('');
+							setPeachFeed([]);
+							localStorage.removeItem(STORAGE_TOKEN_KEY);
+							localStorage.removeItem(STORAGE_USER_KEY);
+							localStorage.removeItem(STORAGE_IS_DARK_MODE);
+							navigate('/logout', { replace: true });
+						}}
+					/>
+					<ContactSection />
+				</SettingsWrapper>
+			</RiseAndFadeAnimationContainer>
 		</Page>
 	);
 };

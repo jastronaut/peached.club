@@ -4,7 +4,13 @@ import { useLocalStorage } from '@mantine/hooks';
 import { MantineProvider } from '@mantine/core';
 
 import { PeachContext } from './PeachContext';
-import { LoginStream, User, DummyCurUser, Connections } from './api/interfaces';
+import {
+	LoginStream,
+	User,
+	DummyCurUser,
+	Connections,
+	PendingFriendRequest,
+} from './api/interfaces';
 import ACTIONS from './api/constants';
 import {
 	STORAGE_IS_DARK_MODE,
@@ -24,6 +30,12 @@ const App: React.FC = () => {
 	);
 
 	const [connections, setConnections] = useState<User[]>([]);
+	const [inboundFriendRequests, setInboundFriendRequests] = useState<
+		PendingFriendRequest[]
+	>([]);
+	const [outboundFriendRequests, setOutboundFriendRequests] = useState<
+		PendingFriendRequest[]
+	>([]);
 	const [peachFeed, setPeachFeed] = useState<User[]>([]);
 	const [curUser, setCurUser] = useState<LoginStream | null>(
 		getUserFromStorage()
@@ -88,6 +100,8 @@ const App: React.FC = () => {
 					const connectionsRead = response.data.connections.filter(
 						user => !user.unreadPostCount
 					);
+					setInboundFriendRequests(response.data.inboundFriendRequests);
+					setOutboundFriendRequests(response.data.outboundFriendRequests);
 					setConnections(connectionsUnread.concat(connectionsRead));
 					setPeachFeed(
 						response.data.connections.map(user => {
@@ -130,6 +144,10 @@ const App: React.FC = () => {
 					setCurUserData,
 					connections,
 					setConnections,
+					outboundFriendRequests,
+					inboundFriendRequests,
+					setInboundFriendRequests,
+					setOutboundFriendRequests,
 				}}
 			>
 				<PeachThemeProvider theme={darkMode ? darkTheme : lightTheme}>

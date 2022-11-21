@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { rem } from 'polished';
 
 export const GlobalStyle = createGlobalStyle`
     html, body, #root {
@@ -21,4 +22,17 @@ export const GlobalStyle = createGlobalStyle`
     a:hover {
         text-decoration: underline;
     }
+
+	@keyframes riseandfade {
+		from {
+			opacity: 0;
+			transform: translateY(${rem(10)});
+		}
+
+		to {
+			transform: translateY(0);
+            opacity: 1;
+		}
+	}
+
 `;

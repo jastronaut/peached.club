@@ -16,3 +16,19 @@ export const Handle = styled.p`
 	margin-bottom: 1rem;
 	color: #cacaca;
 `;
+
+type TextProps = {
+	muted?: boolean;
+};
+
+export const Text = styled.p<TextProps>`
+	font-family: 'Lato', sans-serif;
+	color: ${props =>
+		props.muted ? props.theme.text.muted : props.theme.text.primary};
+`;
+
+export const Header3 = styled.h3<TextProps>`
+	font-family: 'Montserrat', sans-serif;
+	color: ${props =>
+		props.muted ? props.theme.text.muted : props.theme.text.primary};
+`;

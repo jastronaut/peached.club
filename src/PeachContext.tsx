@@ -1,5 +1,11 @@
 import React from 'react';
-import { LoginStream, User, CurUser, DummyCurUser } from './api/interfaces';
+import {
+	LoginStream,
+	User,
+	CurUser,
+	DummyCurUser,
+	PendingFriendRequest,
+} from './api/interfaces';
 
 interface PeachContextTypes {
 	jwt: string;
@@ -17,6 +23,10 @@ interface PeachContextTypes {
 	connections: User[];
 	setConnections: (newConnections: User[]) => void;
 	isPeachLoading: boolean;
+	inboundFriendRequests: PendingFriendRequest[];
+	outboundFriendRequests: PendingFriendRequest[];
+	setInboundFriendRequests: (reqs: PendingFriendRequest[]) => void;
+	setOutboundFriendRequests: (reqs: PendingFriendRequest[]) => void;
 }
 
 const defaults = {
@@ -35,6 +45,11 @@ const defaults = {
 	connections: [],
 	setConnections: (newConnections: User[]) => {},
 	isPeachLoading: false,
+	inboundFriendRequests: [],
+	outboundFriendRequests: [],
+
+	setInboundFriendRequests: (req: PendingFriendRequest[]) => {},
+	setOutboundFriendRequests: (req: PendingFriendRequest[]) => {},
 };
 
 export const PeachContext = React.createContext<PeachContextTypes>(defaults);
