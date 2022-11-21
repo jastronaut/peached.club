@@ -18,6 +18,7 @@ import { FriendPostContent, EmptyStateWrapper, EndText } from './style';
 import { PeachContext } from '../../PeachContext';
 import { ProfilePost } from './ProfilePost';
 import NewPost from '../../components/NewPost';
+import { RiseAndFadeAnimationContainer } from '../../Theme/Animations';
 
 import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
 import { makeApiCall } from '../../api/api';
@@ -218,41 +219,43 @@ export const ProfilePage = () => {
 	return (
 		<>
 			<Page>
-				{curUserData ? (
-					<>
-						<ProfileHeader viewingUser={viewingUser} loading={postsLoading} />
-						{postsLoading || !viewingUser ? (
-							<Loading />
-						) : viewingUser &&
-						  viewingUser.posts &&
-						  viewingUser.posts.length > 0 ? (
-							<>
-								<div style={{ margin: '0' }}>
-									{viewingUser.posts.map(post => (
-										<ProfilePost
-											{...post}
-											key={post.id}
-											deletePost={deletePost}
-											author={viewingUser.id}
-											otherFriends={otherFriends}
-											postAuthorAvatarSrc={viewingUser.avatarSrc}
-										/>
-									))}
-								</div>
-								<ProfileBottom
-									morePostsLoading={morePostsLoading}
-									cursor={viewingUser.cursor || null}
-									loadMorePosts={loadMorePosts}
-								/>
-							</>
-						) : (
-							<EmptyState />
-						)}
-						{isNewPostButtonShowing && <NewPost />}
-					</>
-				) : (
-					<Loading />
-				)}
+				<RiseAndFadeAnimationContainer>
+					{curUserData ? (
+						<>
+							<ProfileHeader viewingUser={viewingUser} loading={postsLoading} />
+							{postsLoading || !viewingUser ? (
+								<Loading />
+							) : viewingUser &&
+							  viewingUser.posts &&
+							  viewingUser.posts.length > 0 ? (
+								<>
+									<div style={{ margin: '0' }}>
+										{viewingUser.posts.map(post => (
+											<ProfilePost
+												{...post}
+												key={post.id}
+												deletePost={deletePost}
+												author={viewingUser.id}
+												otherFriends={otherFriends}
+												postAuthorAvatarSrc={viewingUser.avatarSrc}
+											/>
+										))}
+									</div>
+									<ProfileBottom
+										morePostsLoading={morePostsLoading}
+										cursor={viewingUser.cursor || null}
+										loadMorePosts={loadMorePosts}
+									/>
+								</>
+							) : (
+								<EmptyState />
+							)}
+							{isNewPostButtonShowing && <NewPost />}
+						</>
+					) : (
+						<Loading />
+					)}
+				</RiseAndFadeAnimationContainer>
 			</Page>
 		</>
 	);
