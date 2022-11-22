@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useLocalStorage } from '@mantine/hooks';
 import { MantineProvider } from '@mantine/core';
+import './Theme/fonts.css';
 
 import { PeachContext } from './PeachContext';
 import {

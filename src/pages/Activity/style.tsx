@@ -9,6 +9,10 @@ export const TabsWrapper = styled.div`
 	margin: ${rem(16)};
 	border-radius: ${rem(8)};
 
+	.mantine-Tabs-tabLabel {
+		font-family: Montserrat;
+	}
+
 	@media screen and (max-width: 800px) {
 		padding: ${rem(16)} ${rem(16)};
 	}
