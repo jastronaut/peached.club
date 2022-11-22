@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 export const Story = () => {
 	return (
 		<ThemeProvider theme={darkTheme}>
-			<NewPostButton setShowComposer={() => null} />
+			<NewPostButton toggleComposer={() => null} />
 		</ThemeProvider>
 	);
 };

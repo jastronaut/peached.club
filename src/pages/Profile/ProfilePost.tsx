@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import Linkify from 'linkify-react';
 
 import api from '../../api';
@@ -24,6 +24,7 @@ import LocationPost from '../../components/Posts/LocationPost';
 import LinkPost from '../../components/Posts/LinkPost';
 import { MusicPost } from '../../components/Posts/MusicPost';
 import { VideoPost } from '../../components/Posts/VideoPost';
+import { makeApiCall } from '../../api/api';
 
 const createComment = (
 	commentId: string,
@@ -122,7 +123,7 @@ export interface Props extends Post {
 
 export const ProfilePost = (props: Props) => {
 	const [comments, setComments] = useState<Comment[]>(props.comments || []);
-	const [liked, toggleLiked] = useState<boolean>(props.likedByMe);
+	const [liked, setLiked] = useState<boolean>(props.likedByMe);
 	const [showComments, toggleComments] = useState<boolean>(false);
 	const [deletePromptShowing, setDeletePromptShowing] =
 		useState<boolean>(false);
@@ -139,33 +140,36 @@ export const ProfilePost = (props: Props) => {
 		/>
 	));
 
-	const onClickLike = () => {
-		toggleLiked(liked => !liked);
-		if (liked) {
-			setLikeCount(likeCount => likeCount - 1);
-		} else {
-			setLikeCount(likeCount => likeCount + 1);
-		}
+	const onClickLike = useCallback(
+		async (postId: string) => {
+			if (liked) {
+				setLikeCount(likeCount => likeCount - 1);
+			} else {
+				setLikeCount(likeCount => likeCount + 1);
+			}
 
-		// this is redundant and should be fixed
-		if (liked) {
-			api(ACTIONS.unlike, jwt).then((response: LikePostResponse) => {
-				if (response.success !== 1) {
-					toggleLiked(liked => !liked);
-					return;
-				}
-			});
-		} else {
-			api(ACTIONS.like, jwt, { postId: props.id }, props.id).then(
-				(response: LikePostResponse) => {
+			// this is redundant and should be fixed
+			if (liked) {
+				api(ACTIONS.unlike, jwt).then((response: LikePostResponse) => {
 					if (response.success !== 1) {
-						toggleLiked(liked => !liked);
-						return;
+						setLiked(false);
 					}
-				}
-			);
-		}
-	};
+				});
+				const resp = await makeApiCall<LikePostResponse>({
+					uri: 'like/postID/',
+				});
+			} else {
+				api(ACTIONS.like, jwt, { postId: props.id }, props.id).then(
+					(response: LikePostResponse) => {
+						if (response.success !== 1) {
+							setLiked(true);
+						}
+					}
+				);
+			}
+		},
+		[liked]
+	);
 
 	const onClickComments = () => {
 		toggleComments(showComments => !showComments);
@@ -222,7 +226,7 @@ export const ProfilePost = (props: Props) => {
 			</>
 			<PostInteractions
 				commentsLength={comments.length}
-				onClickLike={onClickLike}
+				onClickLike={() => onClickLike(props.id)}
 				onClickComments={onClickComments}
 				isLiked={liked}
 				likeCount={likeCount}

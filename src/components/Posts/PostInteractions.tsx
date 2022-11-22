@@ -29,7 +29,7 @@ export const PostInteractions = (props: Props) => {
 	return (
 		<PostInteraction>
 			<InteractionArea onClick={_e => props.onClickLike()}>
-				<LikeIcon isLiked={props.isLiked} />{' '}
+				<LikeIcon isLiked={props.isLiked} />
 				<InteractionInfo>{props.likeCount}</InteractionInfo>
 			</InteractionArea>
 			<InteractionArea onClick={_e => props.onClickComments()}>

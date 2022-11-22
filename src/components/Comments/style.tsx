@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { rem } from 'polished';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import Button from '../../Theme/Button';
 import { ModalContainer } from '../../Theme/Modal';
@@ -116,11 +117,6 @@ export const TextArea = styled(MTextArea)`
 	margin-bottom: ${rem(8)};
 `;
 
-export const ButtonWrapper = styled.span`
-	margin: 0;
-	z-index: 9999;
-`;
-
 export const DismissCommentsButtonContainer = styled.div`
 	cursor: pointer;
 	margin: 0;
@@ -130,4 +126,14 @@ export const DismissCommentsButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	z-index: 999;
+`;
+
+export const TextareaAutosizeStyled = styled(TextareaAutosize)`
+	resize: none;
+	background-color: ${props => props.theme.background.primary};
+	border: ${rem(8)} solid ${props => props.theme.background.primary};
+	border-bottom: ${rem(1)} solid ${props => props.theme.background.hover};
+	:focus-visible {
+		outline: none;
+	}
 `;

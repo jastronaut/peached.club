@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Dropdown, { DropdownUserItem } from '../../Theme/Dropdown';
-import { Button } from '@mantine/core';
+import { Button, Space } from '@mantine/core';
 
 import { PeachContext } from '../../PeachContext';
 import { User } from '../../api/interfaces';
-import { TextArea, AddCommentContainer, ButtonWrapper } from './style';
+import { AddCommentContainer, TextareaAutosizeStyled } from './style';
 
 interface AddCommentProps {
 	onSubmit: (txt: string) => void;
@@ -78,28 +78,31 @@ const AddComment: React.FC<AddCommentProps> = ({
 					))}
 				</Dropdown>
 			) : null}
-			<TextArea
+			<TextareaAutosizeStyled
 				value={newCommentText}
 				onChange={e => setNewCommentText(e.target.value)}
 				placeholder='Say something nice'
 				autoFocus
+				style={{
+					resize: 'none',
+					width: '100%',
+				}}
 			/>
-			<ButtonWrapper>
-				<Button
-					radius='xl'
-					color='green'
-					size='xs'
-					disabled={newCommentText.length < 1}
-					onClick={() => {
-						if (newCommentText.length > 0) {
-							onSubmit(newCommentText);
-							setNewCommentText('');
-						}
-					}}
-				>
-					Send
-				</Button>
-			</ButtonWrapper>
+			<Space h='md' />
+			<Button
+				radius='xl'
+				color='green'
+				size='xs'
+				disabled={newCommentText.length < 1}
+				onClick={() => {
+					if (newCommentText.length > 0) {
+						onSubmit(newCommentText);
+						setNewCommentText('');
+					}
+				}}
+			>
+				Send
+			</Button>
 		</AddCommentContainer>
 	);
 };

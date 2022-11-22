@@ -483,6 +483,6 @@ export type ImgBBUploadResponse = {
 		width: number;
 		height: number;
 	};
-	success: boolean;
+	success?: boolean;
 	status: number;
 };

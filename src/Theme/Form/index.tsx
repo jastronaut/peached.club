@@ -3,10 +3,10 @@ import { rem } from 'polished';
 
 export const TextArea = styled.textarea`
 	/* flex: 9; */
-	margin-right: 1rem;
+	/* margin-right: 1rem; */
 	resize: none;
-	border-radius: ${rem(6)};
-	border: 1px solid ${props => props.theme.background.secondary};
+	/* border-radius: ${rem(6)}; */
+	/* border: 1px solid ${props => props.theme.background.secondary}; */
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;

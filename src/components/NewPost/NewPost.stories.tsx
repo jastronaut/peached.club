@@ -1,20 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import NewPost from './NewPost';
+import NewPost, { NewPostProps } from './NewPost';
 
 import { darkTheme, lightTheme } from '../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
+import { Post } from '../../api/interfaces';
 
-// import { UploadableMessageTypes } from '../../../api/interfaces';
-
-const ComposerStory = (props: { variant: string }) => {
+const ComposerStory = (props: { variant: string } & NewPostProps) => {
 	const { variant, ...rest } = props;
 	return (
 		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			{/* <Page> */}
 			<NewPost {...rest} />
-			{/* </Page> */}
 		</ThemeProvider>
 	);
 };
@@ -37,4 +34,5 @@ const Template: ComponentStory<typeof ComposerStory> = props => {
 export const Primary = Template.bind({});
 Primary.args = {
 	variant: 'dark',
+	showNewPost: (post: Post) => null,
 };

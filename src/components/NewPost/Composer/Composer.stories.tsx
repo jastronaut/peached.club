@@ -1,12 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import { ComposerComponent, ComposerProps } from './Composer';
-
-import { darkTheme, lightTheme } from '../../../Theme/theme';
 import { ThemeProvider } from 'styled-components';
 
 import { UploadableMessageTypes } from '../../../api/interfaces';
+import { ComposerComponent, ComposerProps } from './Composer';
+import { darkTheme, lightTheme } from '../../../Theme/theme';
 
 const ComposerStory = (
 	props: ComposerProps & { curUserId: string } & { variant: string }
@@ -39,6 +37,6 @@ Primary.args = {
 	variant: 'dark',
 	curUserId: '4',
 	onSubmit: (messages: UploadableMessageTypes[]) => null,
-	toggleComposer: () => null,
+	setIsComposerShowing: (showing: boolean) => null,
 	isOpen: true,
 };

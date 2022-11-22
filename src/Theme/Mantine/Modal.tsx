@@ -17,13 +17,13 @@ export const MModal = styled(Modal)`
 	}
 
 	.mantine-Modal-inner {
-		align-items: center;
-		/* max-height: 50%; */
+		/* align-items: center; */
+		/* min-height: 80%; */
 	}
 
-	/* .mantine-Paper-root .mantine-Modal-modal {
-		max-height: 50% !important;
-	} */
+	.mantine-Paper-root .mantine-Modal-modal {
+		/* min-height: 80% !important; */
+	}
 
 	.mantine-Modal-modal {
 		background-color: ${props => props.theme.background.primary};

@@ -1,20 +1,18 @@
 import styled from 'styled-components';
 import { rem, lighten } from 'polished';
 import { MModal } from '../../../Theme/Mantine/Modal';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export const Modal = styled(MModal)`
 	.mantine-Modal-inner {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		.mantine-Modal-modal {
-			width: 40%;
-		}
-		@media screen and (max-width: 600px) {
-			.mantine-Modal-modal {
-				width: 95%;
-			}
-		}
+		/* display: flex; */
+		/* justify-content: center; */
+		/* align-items: center; */
+	}
+
+	.mantine-Paper-root {
+		/* .mantine-Modal-modal { */
+		min-height: 90%;
 	}
 `;
 
@@ -113,5 +111,46 @@ export const MagicPostActionsContainer = styled.div`
 
 	svg {
 		stroke: ${props => props.theme.accent};
+	}
+`;
+
+export const GrowWrap = styled.div`
+	/* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+	display: grid;
+	::after {
+		/* Note the weird space! Needed to preventy jumpy behavior */
+		content: attr(data-replicated-value) ' ';
+
+		/* This is how textarea text behaves */
+		white-space: pre-wrap;
+
+		/* Hidden from view, clicks, and screen readers */
+		visibility: hidden;
+	}
+	textarea {
+		/* You could leave this, but after a user resizes, then it ruins the auto sizing */
+		resize: none;
+
+		/* Firefox shows scrollbar on growth, you can hide like this. */
+		overflow: hidden;
+	}
+	textarea,
+	::after {
+		/* Identical styling required!! */
+		border: 1px solid black;
+		padding: 0.5rem;
+		font: inherit;
+
+		/* Place on top of each other */
+		grid-area: 1 / 1 / 2 / 2;
+	}
+`;
+
+export const TextareaAutosizeStyled = styled(TextareaAutosize)`
+	resize: none;
+	background-color: ${props => props.theme.background.primary};
+	border: ${rem(8)} solid ${props => props.theme.background.primary};
+	:focus-visible {
+		outline: none;
 	}
 `;

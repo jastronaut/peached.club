@@ -19,7 +19,7 @@ export const getCurrentTime = (currentPostLen: number) => {
 	return `${currentPostLen ? '\n' : ''}🕓 ${now}\n`;
 };
 
-export const getCurrentDate = (currentPostLen: number) => {
+export const getCurrentDate = (currentPostLen?: number) => {
 	const now = dayjs().format('dddd, MMMM D, YYYY');
 	return `${currentPostLen ? '\n' : ''}📰 ${now} \n`;
 };
