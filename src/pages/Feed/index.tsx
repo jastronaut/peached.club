@@ -10,6 +10,7 @@ import { LinkStyled } from './style';
 import { Preview } from './Preview';
 import { Page } from '../../Theme/Layout';
 import { Title } from '../../Theme/Type';
+import { RiseAndFadeAnimationContainer } from '../../Theme/Animations';
 
 const Feed = (props: { connections: User[] }) => {
 	return (
@@ -76,12 +77,14 @@ export const FeedPage = () => {
 	return (
 		<>
 			<Page>
-				<Title>All Feeds</Title>
-				{isPeachLoading || isCurUserDataLoading ? (
-					<Loading />
-				) : (
-					<Feed connections={connections} />
-				)}
+				<RiseAndFadeAnimationContainer>
+					<Title>All Feeds</Title>
+					{isPeachLoading || isCurUserDataLoading ? (
+						<Loading />
+					) : (
+						<Feed connections={connections} />
+					)}
+				</RiseAndFadeAnimationContainer>
 			</Page>
 		</>
 	);
