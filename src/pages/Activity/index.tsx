@@ -80,9 +80,6 @@ export const ActivityPage = () => {
 		}
 	});
 
-	const friendRequestsLength =
-		outboundFriendRequests.length + inboundFriendRequests.length;
-
 	if (!peachFeed || !jwt) {
 		return <Navigate to='/feed' />;
 	}
@@ -91,9 +88,11 @@ export const ActivityPage = () => {
 		<Page>
 			<RiseAndFadeAnimationContainer>
 				<Title>Activity</Title>
-				{friendRequestsLength > 0 && (
+				{outboundFriendRequests.length > 0 && (
 					<Link to='/activity/friend-requests'>
-						<FriendRequestsPreview numRequests={friendRequestsLength} />
+						<FriendRequestsPreview
+							numRequests={outboundFriendRequests.length}
+						/>
 					</Link>
 				)}
 				<TabsWrapper>
