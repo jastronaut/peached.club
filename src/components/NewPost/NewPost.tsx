@@ -5,6 +5,7 @@ import api from '../../api';
 import {
 	CreatePostResponse,
 	UploadableMessageTypes,
+	Post,
 } from '../../api/interfaces';
 import { PeachContext } from '../../PeachContext';
 import { Composer } from './Composer/Composer';
@@ -12,7 +13,11 @@ import { Composer } from './Composer/Composer';
 import Toasty from '../../Theme/Toasty';
 import { NewPostButton } from './NewPostButton';
 
-const NewPost = () => {
+export type NewPostProps = {
+	showNewPost: (newPost: Post) => void;
+};
+
+const NewPost = (props: NewPostProps) => {
 	const [showComposer, setShowComposer] = useState<boolean>(false);
 	const [submitted, setSubmitted] = useState<boolean>(false);
 	const [showToasty, setShowToasty] = useState<boolean>(false);
@@ -31,6 +36,20 @@ const NewPost = () => {
 		}).then((response: { data: CreatePostResponse; success: number }) => {
 			setPosting(false);
 			if (response.success === 1) {
+				const date = new Date();
+				const currentTimestamp = date.getTime();
+				const { id, message, commentCount, isUnread, likeCount, likedByMe } =
+					response.data;
+				props.showNewPost({
+					id,
+					message,
+					commentCount,
+					likeCount,
+					likedByMe,
+					isUnread,
+					createdTime: currentTimestamp,
+					updatedTime: currentTimestamp,
+				});
 				setPostSuccess(true);
 				setShowComposer(false);
 			} else {

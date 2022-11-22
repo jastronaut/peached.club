@@ -24,9 +24,16 @@ dayjs.updateLocale('en', {
 });
 
 export default (timestamp: number) => {
-	return dayjs().to(dayjs.unix(timestamp), true);
+	const timestampStr = timestamp.toString();
+	return dayjs().to(
+		timestampStr.length > 10 ? timestamp : dayjs.unix(timestamp),
+		true
+	);
 };
 
 export const formatPostTime = (timestamp: number) => {
-	return dayjs(dayjs.unix(timestamp)).format('MMM D, YYYY');
+	const timestampStr = timestamp.toString();
+	return dayjs(
+		timestampStr.length > 10 ? timestamp : dayjs.unix(timestamp)
+	).format('MMM D, YYYY');
 };

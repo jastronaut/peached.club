@@ -11,6 +11,7 @@ import {
 	FriendsOfFriendsResponse,
 	MutualFriend,
 	CurUser,
+	Post,
 } from '../../api/interfaces';
 import ACTIONS from '../../api/constants';
 
@@ -172,6 +173,19 @@ export const ProfilePage = () => {
 		);
 	};
 
+	const showNewPost = (newPost: Post) => {
+		setViewingUserProfile(user => {
+			if (!user) {
+				return null;
+			}
+
+			return {
+				...user,
+				posts: [newPost, ...user.posts],
+			};
+		});
+	};
+
 	const loadMorePosts = () => {
 		setMorePostsLoading(true);
 		getViewingUserProfile(true);
@@ -218,6 +232,7 @@ export const ProfilePage = () => {
 
 	return (
 		<>
+			{isNewPostButtonShowing && <NewPost showNewPost={showNewPost} />}
 			<Page>
 				<RiseAndFadeAnimationContainer>
 					{curUserData ? (
@@ -250,7 +265,6 @@ export const ProfilePage = () => {
 							) : (
 								<EmptyState />
 							)}
-							{isNewPostButtonShowing && <NewPost />}
 						</>
 					) : (
 						<Loading />
