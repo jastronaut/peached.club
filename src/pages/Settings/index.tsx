@@ -21,7 +21,6 @@ import { httpTize } from '../../utils/httpTize';
 import { Page } from '../../Theme/Layout';
 import { Title, SubTitle } from '../../Theme/Type';
 import { Label, Fieldset } from '../../Theme/Form';
-import NightModeIcon from '../../Theme/Icons/NightModeIcon';
 import {
 	SettingsWrapper,
 	ErrText,
@@ -78,6 +77,7 @@ const ContactSection = () => (
 			<a
 				href='https://forms.gle/uydFBf1fDCp5gSu97'
 				title='peached.club google form'
+				target='_blank'
 			>
 				Fill out this form! 🥳
 			</a>
