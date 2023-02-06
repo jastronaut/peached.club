@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { Modal, Center, Space, Button, Stack, Flex } from '@mantine/core';
 
 import api from '../../api';
@@ -27,6 +27,7 @@ export interface Props extends Post {
 }
 
 export const ProfilePost = (props: Props) => {
+	const { id } = props;
 	const [comments, setComments] = useState<Comment[]>(props.comments || []);
 	const [liked, toggleLiked] = useState<boolean>(props.likedByMe);
 	const [showComments, toggleComments] = useState<boolean>(false);
@@ -37,41 +38,30 @@ export const ProfilePost = (props: Props) => {
 	const [newCommentText, setNewCommentText] = useState('');
 
 	const msgs = props.message.map((obj, index) => (
-		<DisplayedPostMessage
-			obj={obj}
-			index={index}
-			id={props.id}
-			key={props.id + index}
-		/>
+		<DisplayedPostMessage obj={obj} index={index} id={id} key={id + index} />
 	));
 
-	const onClickLike = () => {
-		toggleLiked(liked => !liked);
+	const onClickLike = useCallback(() => {
 		if (liked) {
-			setLikeCount(likeCount => likeCount - 1);
-		} else {
-			setLikeCount(likeCount => likeCount + 1);
-		}
-
-		// this is redundant and should be fixed
-		if (liked) {
-			api(ACTIONS.unlike, jwt).then((response: LikePostResponse) => {
-				if (response.success !== 1) {
-					toggleLiked(liked => !liked);
-					return;
-				}
-			});
-		} else {
-			api(ACTIONS.like, jwt, { postId: props.id }, props.id).then(
+			api(ACTIONS.unlike, jwt, { postId: id }, id).then(
 				(response: LikePostResponse) => {
-					if (response.success !== 1) {
+					if (response.success === 1) {
 						toggleLiked(liked => !liked);
-						return;
+						setLikeCount(likeCount => likeCount - 1);
+					}
+				}
+			);
+		} else {
+			api(ACTIONS.like, jwt, { postId: id }, id).then(
+				(response: LikePostResponse) => {
+					if (response.success === 1) {
+						toggleLiked(liked => !liked);
+						setLikeCount(likeCount => likeCount + 1);
 					}
 				}
 			);
 		}
-	};
+	}, [liked, jwt, id]);
 
 	const onClickComments = () => {
 		toggleComments(showComments => !showComments);

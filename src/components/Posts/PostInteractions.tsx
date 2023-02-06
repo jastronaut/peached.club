@@ -20,7 +20,7 @@ type Props = {
 	likeCount: number;
 	commentsLength: number;
 	createdTime: number;
-	onClickLike: Function;
+	onClickLike: () => void;
 	onClickComments: Function;
 	onClickDelete: Function;
 };

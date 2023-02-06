@@ -186,10 +186,16 @@ export const ProfilePage = (props: ProfilePageProps) => {
 					uri += `?cursor=${viewingUser.cursor}`;
 				}
 
-				const response = await makeApiCall<{ data: User & DefaultResponse }>({
+				const response = await makeApiCall<{
+					data: User & DefaultResponse & { success: number };
+				}>({
 					uri,
 					jwt,
 				});
+
+				if (response.data.success === 0) {
+					return;
+				}
 
 				if (response.data.posts) {
 					const postsResult = response.data.posts.reverse();
