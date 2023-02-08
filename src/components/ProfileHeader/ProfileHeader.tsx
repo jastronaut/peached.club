@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import Linkify from 'linkify-react';
 import {
 	ActionIcon,
@@ -9,6 +9,7 @@ import {
 	Flex,
 	Space,
 	Skeleton,
+	Indicator,
 } from '@mantine/core';
 import { IconMoodSmileBeam, IconStar } from '@tabler/icons';
 
@@ -22,6 +23,7 @@ import { LINKIFY_OPTIONS, DEFAULT_AVATAR_SRC } from '../../constants';
 import { makeApiCall } from '../../api/api';
 import { httpTize } from '../../utils/httpTize';
 import { getRandomBackgroundUrl } from './utils';
+import { FRIEND_STATUS } from '../../interfaces';
 
 import { Text } from '../../Theme/Type';
 import {
@@ -31,6 +33,22 @@ import {
 	ProfileHeaderHandle,
 	ProfileHeaderContent,
 } from './style';
+
+const FriendsButton = (props: {
+	onClickFollowingButton: () => void;
+	isShowing: boolean;
+	iconVariant: 'filled' | 'outline';
+}) => {
+	return (
+		<ActionIcon
+			variant={props.iconVariant}
+			color={props.isShowing ? 'pink' : 'gray'}
+			onClick={props.isShowing ? props.onClickFollowingButton : () => null}
+		>
+			<IconMoodSmileBeam size={16} color={props.isShowing ? 'white' : 'gray'} />
+		</ActionIcon>
+	);
+};
 
 type BaseProfileHeaderProps = {
 	viewingUser: User | null;
@@ -43,6 +61,7 @@ export interface ProfileHeaderComponentProps extends BaseProfileHeaderProps {
 	onClickFollowingButton: () => void;
 	onClickFavoriteButton: () => void;
 	isLoggedInUser: boolean;
+	friendStatus: FRIEND_STATUS;
 }
 
 export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
@@ -50,8 +69,8 @@ export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
 		loading,
 		viewingUser,
 		onClickFollowingButton,
-		isLoggedInUser,
 		onClickFavoriteButton,
+		friendStatus,
 	} = props;
 	const avatarSrc =
 		loading || !viewingUser || !viewingUser.avatarSrc
@@ -71,7 +90,8 @@ export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
 			: 'outline'
 		: 'filled';
 
-	const friendInteractionsShowing = !isLoggedInUser && viewingUser && !loading;
+	const friendInteractionsShowing =
+		!(friendStatus === 'SELF') && viewingUser && !loading;
 
 	return (
 		<ProfileHeaderContainer>
@@ -117,53 +137,54 @@ export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
 				</ProfileHeaderText>
 				<>
 					<Flex>
-						{friendInteractionsShowing && (
-							<ActionIcon
-								variant={followingIconVariant}
-								color={friendInteractionsShowing ? 'pink' : 'gray'}
-								onClick={
-									friendInteractionsShowing
-										? onClickFollowingButton
-										: () => null
-								}
-							>
-								<IconMoodSmileBeam
-									size={16}
-									color={friendInteractionsShowing ? 'white' : 'gray'}
-								/>
-							</ActionIcon>
-						)}
+						<>
+							{friendInteractionsShowing &&
+								(friendStatus === 'OUTBOUND_REQUEST' ||
+								friendStatus === 'INBOUND_REQUEST' ||
+								friendStatus === 'NOT_FOLLOWING' ? (
+									<Indicator
+										inline
+										label={friendStatus === 'NOT_FOLLOWING' ? '+' : '...'}
+										size={16}
+										color='green'
+									>
+										<FriendsButton
+											onClickFollowingButton={onClickFollowingButton}
+											isShowing={friendInteractionsShowing}
+											iconVariant={followingIconVariant}
+										/>
+									</Indicator>
+								) : (
+									<FriendsButton
+										onClickFollowingButton={onClickFollowingButton}
+										isShowing={friendInteractionsShowing}
+										iconVariant={followingIconVariant}
+									/>
+								))}
 
-						{friendInteractionsShowing && viewingUser.youFollow && (
-							<>
-								<Space w='sm' />
-								<ActionIcon
-									variant={favoriteIconVariant}
-									color='yellow'
-									onClick={
-										friendInteractionsShowing
-											? onClickFavoriteButton
-											: () => null
-									}
-								>
-									<IconStar size={16} />
-								</ActionIcon>
-							</>
-						)}
+							{friendInteractionsShowing && viewingUser.youFollow && (
+								<>
+									<Space w='sm' />
+									<ActionIcon
+										variant={favoriteIconVariant}
+										color='yellow'
+										onClick={
+											friendInteractionsShowing
+												? onClickFavoriteButton
+												: () => null
+										}
+									>
+										<IconStar size={16} />
+									</ActionIcon>
+								</>
+							)}
+						</>
 					</Flex>
 				</>
 			</ProfileHeaderContent>
 		</ProfileHeaderContainer>
 	);
 };
-
-type FRIEND_STATUS =
-	| 'SELF'
-	| 'LOADING'
-	| 'FOLLOWING'
-	| 'OUTBOUND_REQUEST'
-	| 'INBOUND_REQUEST'
-	| 'NOT_FOLLOWING';
 
 function getConfirmationModalMessage(friendStatus: FRIEND_STATUS) {
 	switch (friendStatus) {
@@ -379,6 +400,7 @@ export const ProfileHeader = (props: ProfileHeaderProps) => {
 				onClickFollowingButton={onClickFollowingButton}
 				onClickFavoriteButton={onClickFavoriteButton}
 				isLoggedInUser={friendStatus === 'SELF'}
+				friendStatus={friendStatus}
 			/>
 		</>
 	);
