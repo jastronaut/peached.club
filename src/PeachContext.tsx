@@ -33,6 +33,8 @@ interface PeachContextTypes {
 	setOutboundFriendRequests: (reqs: PendingFriendRequest[]) => void;
 	blockedUsersMap: BlockedUsersMap;
 	setBlockedUsersMap: (users: BlockedUsersMap) => void;
+	betaEnabled: boolean;
+	setBetaEnabled: (b: boolean) => void;
 }
 
 const defaults = {
@@ -57,6 +59,8 @@ const defaults = {
 	setOutboundFriendRequests: (_req: PendingFriendRequest[]) => {},
 	blockedUsersMap: {},
 	setBlockedUsersMap: (_u: BlockedUsersMap) => {},
+	betaEnabled: false,
+	setBetaEnabled: (_b: boolean) => {},
 };
 
 export const PeachContext = React.createContext<PeachContextTypes>(defaults);

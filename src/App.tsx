@@ -17,6 +17,7 @@ import {
 	STORAGE_IS_DARK_MODE,
 	STORAGE_TOKEN_KEY,
 	STORAGE_CUR_USER_DATA_KEY,
+	STORAGE_IS_BETA_ENABLED,
 } from './constants';
 import { getUserFromStorage } from './utils';
 import { sortMainFeedPosts } from './utils/sortMainFeedPosts';
@@ -54,6 +55,10 @@ const App: React.FC = () => {
 	const [bigErrorMessage, setBigErrorMessage] = useState('');
 	const [blockedUsersMap, setBlockedUsersMap] = useState<BlockedUsersMap>({});
 
+	const [betaEnabled, changeBetaEnabled] = useState(
+		localStorage.getItem(STORAGE_IS_BETA_ENABLED) === 'true'
+	);
+
 	const updateCurFeedIndex = (newIndex: number) => {
 		if (!peachFeed) {
 			setCurFeedIndex(0);
@@ -68,6 +73,11 @@ const App: React.FC = () => {
 				return curFeedIndex + 1;
 			}
 		});
+	};
+
+	const setBetaEnabled = (enabled: boolean) => {
+		changeBetaEnabled(enabled);
+		localStorage.setItem(STORAGE_IS_BETA_ENABLED, enabled ? 'true' : 'false');
 	};
 
 	const toggleDarkMode = () => {
@@ -182,6 +192,8 @@ const App: React.FC = () => {
 					setOutboundFriendRequests,
 					blockedUsersMap,
 					setBlockedUsersMap,
+					betaEnabled,
+					setBetaEnabled,
 				}}
 			>
 				<PeachThemeProvider theme={darkMode ? darkTheme : lightTheme}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSpring, animated, config } from 'react-spring';
 import dayjs from 'dayjs';
 import {
@@ -15,6 +15,7 @@ import { GifPicker } from './GifPicker/GifPicker';
 import { OpenWeatherResponse, GiphyImage, Weather } from '../../api/interfaces';
 import { makeApiCall } from '../../api/api';
 import { kelvinToFahrenheit } from './utils';
+import { PeachContext } from '../../PeachContext';
 
 export const getCurrentTime = () => {
 	const now = dayjs().format('h:mm A');
@@ -97,6 +98,7 @@ type WeatherCommand = 'greeting' | 'weather';
 export const MagicPostActions = (props: MagicPostActionsProps) => {
 	const [curDisplayedInteraction, setCurDisplayedInteraction] =
 		useState<DisplayedActionInteraction | null>(null);
+	const { betaEnabled } = useContext(PeachContext);
 
 	const temperatureCommand = (command: WeatherCommand) => {
 		const hour = parseInt(dayjs().format('H'));
@@ -163,12 +165,16 @@ export const MagicPostActions = (props: MagicPostActionsProps) => {
 				<ActionButton title={`Add today's date`}>
 					<IconCalendar onClick={() => addToPost(getCurrentDate())} />
 				</ActionButton>
-				<ActionButton title='Add the current weather'>
-					<IconTemperature onClick={() => temperatureCommand('weather')} />
-				</ActionButton>
-				<ActionButton title='Add a greeting'>
-					<IconMoodSmile onClick={() => temperatureCommand('greeting')} />
-				</ActionButton>
+				{betaEnabled && (
+					<>
+						<ActionButton title='Add the current weather'>
+							<IconTemperature onClick={() => temperatureCommand('weather')} />
+						</ActionButton>
+						<ActionButton title='Add a greeting'>
+							<IconMoodSmile onClick={() => temperatureCommand('greeting')} />
+						</ActionButton>
+					</>
+				)}
 			</MagicPostActionsGroup>
 		</div>
 	);

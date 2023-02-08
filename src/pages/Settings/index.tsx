@@ -7,8 +7,11 @@ import {
 	Button,
 	Space,
 	FileButton,
+	Text,
+	Switch,
 } from '@mantine/core';
-import { IconCheck, IconMoonStars } from '@tabler/icons';
+import { IconCheck, IconMoonStars, IconSun, IconBeta } from '@tabler/icons';
+import { ThemeContext } from 'styled-components';
 
 import { STORAGE_TOKEN_KEY, STORAGE_USER_KEY } from '../../constants';
 import { MiniLoader } from '../../Theme/Loading';
@@ -38,8 +41,17 @@ const IMG_API_KEY =
 
 export const SettingsPage = () => {
 	const navigate = useNavigate();
-	const { jwt, toggleDarkMode, curUser, setJwt, setPeachFeed, setConnections } =
-		useContext(PeachContext);
+	const {
+		jwt,
+		toggleDarkMode,
+		curUser,
+		setJwt,
+		setPeachFeed,
+		setConnections,
+		darkMode,
+		setBetaEnabled,
+		betaEnabled,
+	} = useContext(PeachContext);
 
 	useEffect(() => {
 		if (!jwt || !curUser) {
@@ -52,7 +64,12 @@ export const SettingsPage = () => {
 			<RiseAndFadeAnimationContainer>
 				<Title>Settings</Title>
 				<SettingsWrapper>
-					<CustomizationSection toggleDarkMode={toggleDarkMode} />
+					<CustomizationSection
+						toggleDarkMode={toggleDarkMode}
+						setBetaEnabled={setBetaEnabled}
+						darkMode={darkMode}
+						betaEnabled={betaEnabled}
+					/>
 					<PeachAccountSection
 						logout={() => {
 							setConnections([]);
@@ -85,20 +102,51 @@ const ContactSection = () => (
 	</SettingsSection>
 );
 
-const CustomizationSection = (props: { toggleDarkMode: Function }) => (
-	<SettingsSection>
-		<SubTitle>Customize app appearance</SubTitle>
-		<Space h='sm' />
-		<Button
-			onClick={() => props.toggleDarkMode()}
-			color='pink'
-			leftIcon={<IconMoonStars size={16} />}
-			radius='md'
-		>
-			Toggle dark mode
-		</Button>
-	</SettingsSection>
-);
+const CustomizationSection = (props: {
+	toggleDarkMode: Function;
+	setBetaEnabled: Function;
+	darkMode: boolean;
+	betaEnabled: boolean;
+}) => {
+	const { accent } = useContext(ThemeContext);
+
+	return (
+		<SettingsSection>
+			<SubTitle>Customize peached.club</SubTitle>
+			<Space h='sm' />
+			<Switch
+				size='md'
+				color={accent}
+				checked={props.darkMode}
+				onChange={() => props.toggleDarkMode()}
+				offLabel={<IconSun size={16} stroke={2.5} color={accent} />}
+				onLabel={<IconMoonStars size={16} stroke={2.5} color='white' />}
+				label='Use dark mode'
+			/>
+
+			<Space h='sm' />
+
+			<Switch
+				size='md'
+				label='Use beta features'
+				color={accent}
+				checked={props.betaEnabled}
+				onChange={e => props.setBetaEnabled(e.target.checked)}
+				onLabel={<IconBeta size={16} stroke={2.5} color='yellow' />}
+				offLabel={<IconBeta size={16} stroke={2.5} color={accent} />}
+			/>
+			<Text c='dimmed' ta='right' fz='sm'>
+				<a
+					href='https://www.notion.so/peached-club-beta-features-0d96217da6d04a54a8271a12762c88ff'
+					target='_blank'
+					title='peached.club beta features'
+				>
+					Learn more about beta features
+				</a>
+			</Text>
+		</SettingsSection>
+	);
+};
 
 export type PeachAccountSectionProps = {
 	logout: () => void;
