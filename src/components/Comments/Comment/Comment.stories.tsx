@@ -1,20 +1,20 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Comment, CommentProps } from './Comment';
-import { Page } from '../../../Theme/Layout';
-
-import { darkTheme, lightTheme } from '../../../Theme/theme';
-import { ThemeProvider } from 'styled-components';
+import {
+	darkTheme,
+	lightTheme,
+	PeachThemeProvider,
+} from '../../../Theme/theme';
 
 const CommentStory = (props: CommentProps & { variant: string }) => {
 	const { variant, ...rest } = props;
 	return (
-		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			{/* <Page> */}
+		<PeachThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
 			<Comment {...rest} />
-			{/* </Page> */}
-		</ThemeProvider>
+		</PeachThemeProvider>
 	);
 };
 
@@ -30,7 +30,11 @@ export default {
 } as ComponentMeta<typeof CommentStory>;
 
 const Template: ComponentStory<typeof CommentStory> = props => {
-	return <CommentStory {...props} />;
+	return (
+		<BrowserRouter>
+			<CommentStory {...props} />
+		</BrowserRouter>
+	);
 };
 
 export const Primary = Template.bind({});
@@ -40,7 +44,8 @@ Primary.args = {
 	addReplyHandle: (txt: string) => null,
 
 	id: '5',
-	body: 'sdlkfjsldkf kdsf sdlkf djfks fld fsd faf kdfj sd',
+	body: `What’s the strongest part of Chuck Norris? His opinion. Bigfoot claims he once saw Chuck Norris. Chuck Norris makes onions cry. Chuck Norris can dribble a bowling ball. If Chuck Norris were to travel to an alternate dimension in which there was another Chuck Norris and they both fought, they would both win.
+`,
 	author: {
 		id: '5',
 		name: 'futuresounds',

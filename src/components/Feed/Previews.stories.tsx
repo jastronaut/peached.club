@@ -1,5 +1,7 @@
 import React from 'react';
 import { ComponentMeta } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
+
 import { Preview } from './Preview';
 import { DEFAULT_AVATAR_SRC } from '../../constants';
 import { POST_TYPE, TextMessage } from '../../api/interfaces';
@@ -185,11 +187,13 @@ const sortedConnections = CONNECTIONS.sort(sortMainFeedPosts);
 
 const Story = () => {
 	return (
-		<PeachThemeProvider theme={darkTheme}>
-			{sortedConnections.map(c => (
-				<Preview {...c} />
-			))}
-		</PeachThemeProvider>
+		<BrowserRouter>
+			<PeachThemeProvider theme={darkTheme}>
+				{sortedConnections.map(c => (
+					<Preview {...c} />
+				))}
+			</PeachThemeProvider>
+		</BrowserRouter>
 	);
 };
 

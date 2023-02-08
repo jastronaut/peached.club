@@ -3,8 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { CommentsComponent, CommentsComponentProps } from './Comments';
 
-import { darkTheme, lightTheme } from '../../Theme/theme';
-import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme, PeachThemeProvider } from '../../Theme/theme';
+import { BrowserRouter } from 'react-router-dom';
 
 const avatars = [
 	'https://upload.wikimedia.org/wikipedia/commons/9/99/Basset_hound_history.jpg',
@@ -14,9 +14,11 @@ const avatars = [
 const CommentsStory = (props: CommentsComponentProps & { variant: string }) => {
 	const { variant, ...rest } = props;
 	return (
-		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			<CommentsComponent {...rest} />
-		</ThemeProvider>
+		<BrowserRouter>
+			<PeachThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+				<CommentsComponent {...rest} />
+			</PeachThemeProvider>
+		</BrowserRouter>
 	);
 };
 
@@ -36,9 +38,11 @@ const Template: ComponentStory<typeof CommentsStory> = ({
 	...rest
 }) => {
 	return (
-		<ThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
-			<CommentsComponent {...rest} />
-		</ThemeProvider>
+		<BrowserRouter>
+			<PeachThemeProvider theme={variant === 'dark' ? darkTheme : lightTheme}>
+				<CommentsComponent {...rest} />
+			</PeachThemeProvider>
+		</BrowserRouter>
 	);
 };
 
