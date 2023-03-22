@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useLocalStorage } from '@mantine/hooks';
-import { MantineProvider, Notification } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import './Theme/fonts.css';
 
 import { PeachContext, BlockedUsersMap } from './PeachContext';
@@ -26,6 +26,8 @@ import { PeachRoutes } from './PeachRoutes';
 import { darkTheme, lightTheme, PeachThemeProvider } from './Theme/theme';
 import { GlobalStyle } from './Theme/GlobalStyle';
 import { makeApiCall } from './api/api';
+
+import { AppLoadError } from './components/AppLoadError';
 
 const App: React.FC = () => {
 	const [jwt, setJwt] = useState<string>(
@@ -52,8 +54,8 @@ const App: React.FC = () => {
 		defaultValue: DummyCurUser,
 	});
 	const [isPeachLoading, setIsPeachLoading] = useState(false);
-	const [bigErrorMessage, setBigErrorMessage] = useState('');
 	const [blockedUsersMap, setBlockedUsersMap] = useState<BlockedUsersMap>({});
+	const [isPeachBroken, setIsPeachBroken] = useState(false);
 
 	const [betaEnabled, changeBetaEnabled] = useState(
 		localStorage.getItem(STORAGE_IS_BETA_ENABLED) === 'true'
@@ -111,7 +113,7 @@ const App: React.FC = () => {
 		}
 
 		setIsPeachLoading(true);
-		setBigErrorMessage('');
+		setIsPeachBroken(false);
 
 		const fetchPeachInfo = async () => {
 			try {
@@ -122,11 +124,6 @@ const App: React.FC = () => {
 					uri: `connections`,
 					jwt,
 				});
-
-				if (!connectionsResp.success) {
-					setBigErrorMessage('Peach might be down right now 😵‍💫\n\n');
-					throw Error(`Couldn't fetch connections.`);
-				}
 
 				setInboundFriendRequests(connectionsResp.data.inboundFriendRequests);
 				setOutboundFriendRequests(connectionsResp.data.outboundFriendRequests);
@@ -159,6 +156,8 @@ const App: React.FC = () => {
 				}
 			} catch (e) {
 				console.error(e);
+				setIsPeachBroken(true);
+				throw Error(`Couldn't fetch connections.`);
 			} finally {
 				setIsPeachLoading(false);
 			}
@@ -202,16 +201,8 @@ const App: React.FC = () => {
 						withNormalizeCSS
 						theme={{ colorScheme: darkMode ? 'dark' : 'light' }}
 					>
+						<AppLoadError isShowing={isPeachBroken} />
 						<MainPeachApp />
-						{bigErrorMessage && (
-							<Notification color='red' onClose={() => setBigErrorMessage('')}>
-								{bigErrorMessage}
-								Contact the official peach twitter account at{' '}
-								<a href='https://twitter.com/peachdotcool/'>@peachdotcool</a> on
-								twitter, and check out the{' '}
-								<a href='https://discord.gg/qqdv3A4xQY'>unofficial discord</a>.
-							</Notification>
-						)}
 					</MantineProvider>
 				</PeachThemeProvider>
 			</PeachContext.Provider>
