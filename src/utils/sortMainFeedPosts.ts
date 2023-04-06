@@ -1,8 +1,8 @@
 import { User } from '../api/interfaces';
 
 export function sortMainFeedPosts(a: User, b: User) {
-	const aLatestPost = a.posts[a.posts.length - 1];
-	const bLatestPost = b.posts[b.posts.length - 1];
+	const aLatestPost = a.posts[0];
+	const bLatestPost = b.posts[0];
 
 	if (!aLatestPost && !bLatestPost) {
 		if (a.isFavorite && b.isFavorite) {

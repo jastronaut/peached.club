@@ -127,15 +127,15 @@ const App: React.FC = () => {
 
 				setInboundFriendRequests(connectionsResp.data.inboundFriendRequests);
 				setOutboundFriendRequests(connectionsResp.data.outboundFriendRequests);
-				setConnections(
-					connectionsResp.data.connections.sort(sortMainFeedPosts)
-				);
-				setPeachFeed(
-					connectionsResp.data.connections.map(user => {
-						user.posts = user.posts.reverse();
-						return user;
-					})
-				);
+				const connections = connectionsResp.data.connections.map(user => {
+					user.posts = user.posts.reverse();
+					return user;
+				});
+
+				const sortedConnections = connections.sort(sortMainFeedPosts);
+
+				setPeachFeed(sortedConnections);
+				setConnections(sortedConnections);
 
 				setIsPeachLoading(false);
 
