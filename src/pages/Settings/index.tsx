@@ -35,6 +35,7 @@ import { LinkText } from '../../components/Posts/LinkPost';
 import { RiseAndFadeAnimationContainer } from '../../Theme/Animations';
 import { DEFAULT_AVATAR_SRC } from '../../constants';
 import { makeApiCall } from '../../api/api';
+import { ExportPostsButton } from '../../components/ExportPostsButton';
 
 const IMG_API_KEY =
 	process.env.REACT_APP_IBB_API_KEY || process.env.IBB_API_KEY || '';
@@ -79,6 +80,7 @@ export const SettingsPage = () => {
 							localStorage.removeItem(STORAGE_USER_KEY);
 							navigate('/logout', { replace: true });
 						}}
+						betaEnabled={betaEnabled}
 					/>
 					<ContactSection />
 				</SettingsWrapper>
@@ -150,6 +152,7 @@ const CustomizationSection = (props: {
 
 export type PeachAccountSectionProps = {
 	logout: () => void;
+	betaEnabled: boolean;
 };
 
 export const PeachAccountSection = (props: PeachAccountSectionProps) => {
@@ -382,7 +385,7 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 					</Notification>
 				)}
 			</Fieldset>
-			<br />
+			<Space h='md' />
 			<Button
 				disabled={isButtonDisabled}
 				onClick={() => onSubmit()}
@@ -390,6 +393,13 @@ export const PeachAccountSection = (props: PeachAccountSectionProps) => {
 			>
 				Submit
 			</Button>
+			{props.betaEnabled && (
+				<>
+					<Space h='md' />
+					<ExportPostsButton id={curUserData.id} token={jwt} />
+				</>
+			)}
+
 			<LogoutButtonWrapper>
 				<Button onClick={() => props.logout()} color='red' radius='md'>
 					Log out
