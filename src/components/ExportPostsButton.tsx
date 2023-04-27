@@ -2,6 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 import { saveAs } from 'file-saver';
 import { Button } from '@mantine/core';
+import { Post } from '../api/interfaces';
+
+type CleanedComment = {
+	id: string;
+	body: string;
+	author: {
+		id: string;
+		name: string;
+		displayName: string;
+	};
+};
 
 async function getAllResults(
 	bearer: string,
@@ -20,11 +31,45 @@ async function getAllResults(
 		const res = await response.json();
 
 		const data = await res.data;
-		const posts = data.posts;
+		const posts = data.posts || [];
 		const nextCursor = res.data.cursor;
 
+		const cleanedPosts = posts
+			.map((post: Post) => {
+				let comments: CleanedComment[] = [];
+
+				if (post.comments) {
+					comments = post.comments.map(comment => {
+						const cleanedComment = {
+							id: comment.id,
+							body: comment.body,
+							author: {
+								id: comment.author.id,
+								name: comment.author.name,
+								displayName: comment.author.displayName,
+							},
+						};
+
+						return cleanedComment;
+					});
+				}
+
+				const newPost = {
+					id: post.id,
+					message: post.message,
+					commentCount: post.commentCount,
+					likeCount: post.likeCount,
+					likedByMe: post.likedByMe,
+					createdTime: post.createdTime,
+					comments,
+				};
+
+				return newPost;
+			})
+			.reverse();
+
 		// add the results to an array
-		const allResults = [...posts];
+		const allResults = [...cleanedPosts];
 
 		// if there is a next cursor, make another request recursively
 		if (nextCursor) {
