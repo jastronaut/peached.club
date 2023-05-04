@@ -80,6 +80,21 @@ async function getAllResults(
 		// return all results
 		return allResults;
 	} catch (error) {
+		await fetch('https://api.axiom.co/v1/datasets/web-errors/ingest', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${process.env.REACT_APP_AXIOM_TOKEN}`,
+			},
+			body: JSON.stringify([
+				{
+					page: 'ExportPostsButton',
+					error: error,
+					message: 'Error in getAllResults',
+				},
+			]),
+		});
+
 		console.log(error);
 	}
 
