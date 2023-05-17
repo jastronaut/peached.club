@@ -91,6 +91,10 @@ async function getAllResults(
 					page: 'ExportPostsButton',
 					error: error,
 					message: 'Error in getAllResults',
+					body: {
+						uri,
+						cursor,
+					},
 				},
 			]),
 		});
