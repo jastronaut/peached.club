@@ -1,6 +1,14 @@
 import React, { useState, useCallback, useContext } from 'react';
 import { RichTextEditor } from '@mantine/rte';
-import { Button, Modal, Center, Stack, Flex, Space } from '@mantine/core';
+import {
+	Button,
+	Modal,
+	Center,
+	Stack,
+	Flex,
+	Space,
+	Text as MText,
+} from '@mantine/core';
 
 import {
 	POST_TYPE,
@@ -224,6 +232,9 @@ export const ComposerComponent = (
 				>
 					Post
 				</Button>
+				<MText color='red'>
+					:( The editor is buggy right now, fixes are on the way!
+				</MText>
 			</Modal>
 		</>
 	);
