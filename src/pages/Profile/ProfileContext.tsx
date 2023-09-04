@@ -32,9 +32,9 @@ const defaults = {
 
 export const PeachContext = React.createContext<ProfileContextTypes>(defaults);
 
-export const PeachProvider = (props: React.PropsWithChildren) => {
-	// const;
+// export const PeachProvider = (props: React.PropsWithChildren) => {
+// 	// const;
 
-	// return <PeachContext.Provider>{props.children}</PeachContext.Provider>;
-	return null;
-};
+// 	// return <PeachContext.Provider>{props.children}</PeachContext.Provider>;
+// 	return null;
+// };
