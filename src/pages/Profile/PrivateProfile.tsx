@@ -1,13 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Center, Space } from '@mantine/core';
 import { IconLock } from '@tabler/icons';
-import { useTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
+import { rem } from 'polished';
 
-import { PeachContext } from '../../PeachContext';
 import { User } from '../../api/interfaces';
 
 import { Text } from '../../Theme/Type';
 import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
+
+const MessageContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 0 ${rem(32)};
+	text-align: center;
+`;
 
 type PrivateProfileProps = {
 	viewingUser: User;
@@ -23,12 +32,12 @@ const PrivateProfileComponent = (props: PrivateProfileProps) => {
 				setViewingUser={(user: User | null) => null}
 			/>
 			<Space h='md' />
-			<Center>
+			<MessageContainer>
 				<IconLock size={32} color={theme.accent} />
 				<Text>
-					You'll have to send a friend request to see this peach's posts
+					You'll have to send a friend request to see this peach's posts!
 				</Text>
-			</Center>
+			</MessageContainer>
 		</>
 	);
 };
