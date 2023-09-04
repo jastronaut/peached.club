@@ -62,6 +62,7 @@ type ProfileContentProps = {
 	morePostsLoading: boolean;
 	loadMorePosts: () => void;
 	hideProfileBottom?: boolean;
+	error: string;
 };
 
 const ProfileContent = (props: ProfileContentProps) => {
@@ -74,6 +75,7 @@ const ProfileContent = (props: ProfileContentProps) => {
 		otherFriends,
 		deletePost,
 		hideProfileBottom = false,
+		error,
 	} = props;
 	return (
 		<>
@@ -81,8 +83,13 @@ const ProfileContent = (props: ProfileContentProps) => {
 				viewingUser={viewingUser}
 				loading={postsLoading}
 				setViewingUser={setViewingUserProfile}
+				error={error}
 			/>
-			{postsLoading || !viewingUser ? (
+			{error ? (
+				<Center>
+					<p>{error} :(</p>
+				</Center>
+			) : postsLoading || !viewingUser ? (
 				<Loading />
 			) : viewingUser && viewingUser.posts && viewingUser.posts.length > 0 ? (
 				<>
@@ -134,6 +141,8 @@ export const ProfilePage = (props: ProfilePageProps) => {
 	const [otherFriends, setOtherFriends] = useState<MutualFriend[]>([]);
 	const [postsLoading, setPostsLoading] = useState<boolean>(false);
 	const [morePostsLoading, setMorePostsLoading] = useState<boolean>(false);
+
+	const [error, setError] = useState<string>('');
 
 	const isNewPostButtonShowing = curUser !== null && curUser.id === id;
 
@@ -193,7 +202,16 @@ export const ProfilePage = (props: ProfilePageProps) => {
 					jwt,
 				});
 
-				if (response.data.success === 0) {
+				if (
+					!response.data ||
+					response.data.error ||
+					response.data.success === 0
+				) {
+					console.log('here');
+					const errorText = isIndividualPostProfilePage
+						? 'Post not found'
+						: 'User not found';
+					setError(errorText);
 					return;
 				}
 
@@ -345,6 +363,7 @@ export const ProfilePage = (props: ProfilePageProps) => {
 								postsLoading={postsLoading}
 								otherFriends={otherFriends}
 								hideProfileBottom={isIndividualPostProfilePage}
+								error={error}
 							/>
 						</>
 					) : (

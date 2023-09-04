@@ -22,8 +22,8 @@ import {
 import { LINKIFY_OPTIONS, DEFAULT_AVATAR_SRC } from '../../constants';
 import { makeApiCall } from '../../api/api';
 import { httpTize } from '../../utils/httpTize';
-import { getRandomBackgroundUrl } from './utils';
 import { FRIEND_STATUS } from '../../interfaces';
+import { getConfirmationModalMessage } from './utils';
 
 import { Text } from '../../Theme/Type';
 import {
@@ -56,12 +56,14 @@ type BaseProfileHeaderProps = {
 };
 interface ProfileHeaderProps extends BaseProfileHeaderProps {
 	setViewingUser: (user: User | null) => void;
+	error?: string;
 }
 export interface ProfileHeaderComponentProps extends BaseProfileHeaderProps {
 	onClickFollowingButton: () => void;
 	onClickFavoriteButton: () => void;
 	isLoggedInUser: boolean;
 	friendStatus: FRIEND_STATUS;
+	error?: string;
 }
 
 export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
@@ -92,6 +94,10 @@ export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
 
 	const friendInteractionsShowing =
 		!(friendStatus === 'SELF') && viewingUser && !loading;
+
+	if (props.error) {
+		return null;
+	}
 
 	return (
 		<ProfileHeaderContainer>
@@ -185,21 +191,6 @@ export const ProfileHeaderComponent = (props: ProfileHeaderComponentProps) => {
 		</ProfileHeaderContainer>
 	);
 };
-
-function getConfirmationModalMessage(friendStatus: FRIEND_STATUS) {
-	switch (friendStatus) {
-		case 'FOLLOWING':
-			return `Unfriend this peach?`;
-		case 'OUTBOUND_REQUEST':
-			return `Cancel friend request to this peach?`;
-		case 'INBOUND_REQUEST':
-			return `Accept friend request from this peach?`;
-		case 'NOT_FOLLOWING':
-			return `Send friend request to this peach?`;
-		default:
-			return `You shouldn't be seeing this message 🫣 Contact peached.app@gmail.com!`;
-	}
-}
 
 export const ProfileHeader = (props: ProfileHeaderProps) => {
 	const {
@@ -401,6 +392,7 @@ export const ProfileHeader = (props: ProfileHeaderProps) => {
 				onClickFavoriteButton={onClickFavoriteButton}
 				isLoggedInUser={friendStatus === 'SELF'}
 				friendStatus={friendStatus}
+				error={props.error}
 			/>
 		</>
 	);
