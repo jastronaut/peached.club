@@ -1,9 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { DEFAULT_AVATAR_SRC } from '../../constants';
 import { createPostPreview } from '../../utils';
 import getPostTime from '../../utils/getPostTime';
 import { PostContent } from '../../api/interfaces';
+
+const PreviewText = styled.p`
+	word-break: break-word;
+`;
 
 import {
 	FeedPostWrapper,
@@ -53,13 +58,13 @@ export const Preview: React.FC<PreviewProps> = props => {
 					</DisplayName>
 					{props.children}
 					<PostPreview>
-						<p>
+						<PreviewText>
 							{!message
 								? ' '
 								: typeof message === 'string'
 								? message
 								: createPostPreview(message)}
-						</p>
+						</PreviewText>
 						{props.createdTime && <p>{getPostTime(props.createdTime)}</p>}
 					</PostPreview>
 					{props.textPreview && (
